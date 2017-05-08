@@ -1,0 +1,23 @@
+
+.table {
+    display: inline-block;
+}
+table {
+    border-collapse: collapse;
+    display: inline-block;
+}
+td {
+
+    width: 40px;
+    height: 42px;
+    background-size: cover;
+    border: 2px solid transparent;
+    background-repeat: no-repeat;
+    background-image: url("starts.png");
+}
+#1 {
+    background-color: red;
+}
+.result {
+    display: inline-block;
+}
