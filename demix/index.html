@@ -201,6 +201,7 @@
             $("form").bind("submit", function () {
                 if (parseInt($("#total_price").text())>0) alert("Your order is accepted")
                 else alert("Please, place an order");
+                return false;
             })
 
         })
