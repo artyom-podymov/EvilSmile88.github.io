@@ -50,7 +50,7 @@
             margin-left: 10px;
             color: #747a7a;
         }
-        input[type='button'] {
+        input[type='submit'] {
             background-color: #34a845;
             text-transform: uppercase;
             border: none;
@@ -198,7 +198,7 @@
                 price = price*$("input[type='text']").val();
                 $("#total_price").text(price);
             })
-            $("input[type='button']").bind("click", function () {
+            $("form").bind("submit", function () {
                 if (parseInt($("#total_price").text())>0) alert("Your order is accepted")
                 else alert("Please, place an order");
             })
@@ -223,7 +223,7 @@
     </div>
     <div class="result">
         <p class="total_p"><span class="total">Total: </span><span class="totalprice">$<span id="total_price">0</span><sup>us</sup></span></p>
-        <input type="button" value="Buy now">
+        <input type="submit" value="Buy now">
         <p class="selected_p">Selected plan: #<span class="number_p">1</span></p>
     </div>
 </form>
