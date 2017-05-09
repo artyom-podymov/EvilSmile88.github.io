@@ -27,6 +27,14 @@ window.onload = function () {
               $("td:nth-of-type("+el+")").css("background-position","bottom")
 
   })
+    $("table").mouseout(function (event) {
+        $('td').css("background-position", "0px 0px");
+
+        $("#voices").text(mass.length);
+        var voices = srArefm(mass);
+        var el = "-n+" + voices;
+        $("td:nth-of-type("+el+")").css("background-position","bottom")
+    })
     function srArefm(mas) {
             var result=0;
             var a;
