@@ -1,0 +1,1226 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <style>
+        * {
+            font-family: "Arial";
+            margin: 0px;
+            padding: 0px;
+            border-width: 0px;
+            box-sizing: border-box;
+        }
+        body, html {
+
+            background-color: #f7f7f7;
+            border-width: 0px;
+            height: 100%;
+            width: 100%;
+            min-width: 1000px;
+            min-height: 1000px;
+            display: table;
+            border-collapse: collapse;
+        }
+
+        .wrapper {
+            display: block;
+            margin: 0px;
+            background-color: red;
+            height: auto;
+        }
+        .phone, .city, .menu {
+            position: relative;
+            /*top: -40px;*/
+            max-height: 700px;
+            margin: 0px;
+            padding: 0px;
+            overflow: scroll;
+            overflow-x: hidden;
+            display: inline-block;
+            height: 1000px;
+        }
+        body::-webkit-scrollbar, .phone::-webkit-scrollbar,
+        .city::-webkit-scrollbar, .field::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .menu {
+            background-color: #f7f7f7;
+            overflow: auto;
+
+            width: 7%;
+        }
+
+        .phone {
+            overflow: hidden;
+            min-width: 400px;
+            min-height: 200px;
+            width: 35%;
+        }
+        .city {
+            background-color: #f7f7f7;
+            width: 55%;
+        }
+        #city {
+            background-image: -webkit-linear-gradient(right, #f7f7f7 20%, white 20%);
+            background-image: linear-gradient(to right, #f7f7f7 20%, white 20%);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            display: table-row;
+            height: 1px;
+            background-color: #f7f7f7;
+        }
+        div[class^='bottom'] {
+            background-color: #f7f7f7;
+            overflow: auto;
+            margin-top: -1%;
+            height: 200px;
+        }
+
+        .bottom-phone {
+            background-image: url("picture/phone_bottom3.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .cities {
+            width: 100%;
+
+            box-sizing: border-box;
+            height: 100%;
+        }
+        .odessa_message {
+            height: 108%;
+            background-color: white;
+            border-width: 0px;
+        }
+        .kiyev_message {
+            background-color: white;
+            height: 108%;
+            border-width: 0px;
+
+        }
+        .ny_message {
+            background-color: white;
+            height: 108%;
+            border-width: 0px
+        }
+        .odessa_artic {
+            padding: 20px;
+            padding-top: 30px;
+        }
+        .kiyev_artic {
+            padding: 20px;
+            padding-top: 30px;
+        }
+        .ny_artic {
+            padding: 20px;
+            padding-top: 30px;
+        }
+        #phone {
+
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 0px;
+            padding-right: 0px;
+
+            background-image: -webkit-linear-gradient(right, #f7f7f7 0.2%, white 0.2%, white 99.8%, #f7f7f7 99.8%);
+            padding-top: 0px;
+            padding-bottom: 0px;
+            background-color: transparent;
+            border: 35px solid #40c4c8;
+            border-top-width: 0px;
+
+            -moz-border-image: url(picture/phone12.png) 37 ;
+            -webkit-border-image: url(picture/phone12.png) 37 ;
+            -o-border-image: url(picture/phone12.png) 37;
+            border-image: url(picture/phone12.png) 37 ;
+
+            /*background-image: url("picture/bump.png");*/
+
+            background-repeat: repeat-y;
+
+        }
+
+        #city {
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 30px;
+            padding-top: 0px;
+            overflow: hidden;
+        }
+
+        footer h2{
+            font-family: "Arial";
+            font-size: 60px;
+            font-width: bold;
+            margin-bottom: 20px;
+        }
+        choose {
+
+            font-size: 20px;
+
+        }
+        @font-face {
+            font-family: 'SFUIDisplay-Regular';
+            src: local('SFUIDisplay-Regular'), url('fonts/SFUIDisplay-Regular.otf') format('otf');
+            font-weight: 400;
+            font-style: normal;
+        }
+        .stickers {
+            padding: 0px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 120px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .sticker {
+            box-sizing: border-box;
+            text-align: center;
+            display: inline-block;
+            height: 100%;
+            margin-right: 20px;
+            width: 10%;
+                   }
+        .kiyev_sticker {
+
+            background-image: url("picture/kyev.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-top: -20px;
+            width: 100%;
+            height: 80%;
+
+        }
+
+        .ny_sticker {
+
+            background-image: url("picture/ny.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            width: 100%;
+            height: 80%;
+
+        }
+        .odessa_sticker {
+
+            background-image: url("picture/odessa.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+
+            width: 100%;
+            height: 80%;
+
+        }
+        form {
+            text-align: center;
+        }
+        input {
+            width: 25%;
+            height: 35px;
+            font-size: 15px;
+            border: 1px solid gray;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+        input[type='button'] {
+            width: 7%;
+            position: relative;
+            left: -9%;
+            padding-left: 0px;
+        }
+        .subscribes {
+            box-sizing: border-box;
+            width: 15%;
+            overflow: hidden;
+            height: 30px;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+        .sub {
+            box-sizing: border-box;
+            display: inline-block;
+            margin-right: 5px;
+            height: 100%;
+            width: 42px;
+
+        }
+        .sub:nth-last-child() {
+            margin-right: 0px;
+        }
+        .google {
+            background-image: url("picture/spite.png");
+            background-size: cover;
+            background-position: 77%;
+            background-repeat: no-repeat;
+        }
+        .twitter {
+            background-image: url("picture/spite.png");
+            background-size: cover;
+            background-position: 87%;
+            background-repeat: no-repeat;
+        }
+        .facebook {
+            background-image: url("picture/spite.png");
+            background-size: cover;
+            background-position: 98%;
+            background-repeat: no-repeat;
+        }
+        .copyright {
+            margin: auto;
+        }
+
+        .field {
+            margin-right: -100px;
+            height: 93%;
+            /*margin-left: 9px;*/
+
+            overflow: hidden;
+            width: 100%;
+            padding: 10px;
+
+
+        }
+        .imes_bottom {
+            padding-bottom: 20px;
+
+            width: 100%;
+            height: 7%;
+            opacity: 0;
+            transition: all 2s ease;
+            padding: 0px;
+            padding-right: 10px;
+            margin: 0px;
+            overflow: hidden;
+            margin-left: 20px;
+
+        }
+        .icons {
+            display: inline-block;
+
+            height: 100%;
+            width: 45%;
+        }
+        .photo, .like, .text {
+            width: 30%;
+            margin: 0px;
+            box-sizing: border-box;
+            display: inline-block;
+            height: 80%;
+            margin-bottom: 5px;
+
+
+        }
+        .photo {
+            background-image: url("picture/photo.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .like {
+            background-image: url("picture/like.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .text {
+            width: 34%;
+            background-image: url("picture/text.png");
+            background-size: contain;
+
+            background-repeat: no-repeat;
+        }
+        .imessagee {
+            box-sizing: border-box;
+            display: inline-block;
+            height: 100%;
+            width: 49%;
+
+        }
+        #iMessage {
+            margin-top: -10px;
+            color: grey;
+            height: 100%;
+            width: 100%;
+        }
+        .imessagee {
+            background-color: #f7f7f7;
+            height: 100%;
+            border-radius: 30px;
+            width: 49%;
+            display: inline-block;
+            border: 2px solid grey;
+            border-color: rgba(128, 128, 128, 0.4);
+        }
+        #iMessage {
+            height: 100%;
+            display: inline-block;
+            width: 72%;
+            padding-left: 10px;
+            position: relative;
+            opacity: 0.5;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+        .audio {
+            height: 100%;
+            display: inline-block;
+            width: 25%;
+             background-image: url("picture/audio.png");
+            background-size: contain;
+            position: relative;
+            right: 1px;
+            background-repeat: no-repeat;
+        }
+        .message1 {
+            position: relative;
+            background-color: #e5e5ea;
+            width: 70%;
+            height: 80px;
+            border-radius: 20px;
+            padding: 3%;
+
+            vertical-align: middle;
+            font-size: 20px;
+            transform-origin: bottom left;
+            transform: scale(0);
+            transition: all 0.5s ease;
+        }
+        .message2 {
+            transition: all 0.5s ease;
+            position: relative;
+            background-color: #007aff;
+            color: white;
+            right: -40%;
+            top: 30%;
+            width: 60%;
+            height: 80px;
+            border-radius: 20px;
+            padding: 3%;
+            vertical-align: middle;
+            font-size: 20px;
+            transform: scale(0);
+            transform-origin: bottom right;
+            /*transform: scale(0);*/
+            transition: all 0.5s ease;
+        }
+         div[class^="mem"] {
+
+            min-width: 100px;
+            min-height: 80px;
+            transition: all 0.5s ease;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            transform-origin: bottom;
+
+        }
+        .odessa_message div[class^="mem"] {
+            transform: scale(0);
+            background-image: url("picture/odessa_spite.png");
+        }
+        .odessa_message .mem1 {
+            width: 180px;
+            height: 120px;
+            left: 15%;
+            top: -110px;
+            background-position-x: 63%;
+        }
+        .odessa_message .mem2 {
+            width: 160px;
+            height: 110px;
+            left: 55%;
+            top: -105px;
+            background-position-x: 100%;
+        }
+        .odessa_message .mem4 {
+            width: 180px;
+
+            height: 160px;
+            left: 0%;
+            top: -50%;
+            background-position-x: 0%;
+        }
+        .odessa_message .mem3 {
+            width: 230px;
+            height: 190px;
+            left: 0%;
+            top: 0%;
+            background-position: 29%;
+
+        }
+        .logo {
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            left: 80%;
+            width: 15%;
+        }
+        .photo_art {
+            transform-origin: 50% 50%;
+            transform: scale(0);
+            transition: all 0.5s ease;
+        }
+        .art_stick {
+            transform: scale(0.8);
+            position: relative;
+            top: -50px;
+            left: 350px;
+        }
+        .discription {
+            box-shadow: 5px 5px 10px 0 rgba(10, 10, 10, 0.3);
+            width: 400px;
+            height: 60%;
+            min-width: 200px;
+            min-height: 320px;
+            margin-top: -200px;
+            z-index: 1;
+            position: relative;
+            margin-left: -5%;
+            transform-origin: top left;
+            transform: scale(0);
+            transition: all 0.7s ease;
+            -webkit-transition: all 0.7s ease;
+        }
+        .tex_discription {
+            text-align: center;
+            padding: 20px;
+
+            width: 100%;
+            height: 75%;
+            background-color: lightgoldenrodyellow;
+        }
+        .link {
+            text-decoration: none;
+            vertical-align: middle;
+            width: 100%;
+            height: 25%;
+            padding: 15px;
+            padding-left: 40px;
+            padding-right: 40px;
+            background-color: lightgoldenrodyellow;
+
+        }
+        h3 {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        p {
+            text-align: justify;
+            font-size: 17px;
+            line-height: 25px;
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+        .store, .telegram {
+            width: 45%;
+            height: 100%;
+            display: inline-block;
+
+            padding: 5px;
+        }
+        .store {
+           margin-right: 20px;
+            border: 1px solid black;
+        }
+        .telegram {
+            border: 1px solid black;
+        }
+        .store .image, .telegram .image {
+            display: inline-block;
+            height: 80%;
+            margin-top: 5px;
+            width: 25%;
+
+        }
+        .store .image {
+            background-image: url("picture/store.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+
+        }
+        .telegram .image {
+            background-image: url("picture/telegram.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .open {
+            display: inline-block;
+            padding-top: 5px;
+            font-size: 12px;
+
+            vertical-align: top;
+            color: black;
+            text-align: left;
+            text-decoration: none;
+        }
+        #store {
+            font-size: 20px;
+        }
+        br {
+            opacity: 0;
+        }
+
+        .kiyev_artic .discription {
+
+            min-height: 200px;
+            padding: 0px;
+            margin: 0px;
+            margin-top: 0px;
+            height: 30%;
+            width: 400px;
+            position: relative;
+
+            margin-left: 100px;
+
+        }
+        .kiyev_artic .tex_discription {
+            padding: 0px;
+            height: 60%;
+        }
+        .kiyev_artic .link {
+            height: 40%;
+
+        }
+        .kiyev_artic .art_stick{
+            position: relative;
+            top: -250px;
+            left: -70px;
+        }
+        .kiyev_artic .open {
+            margin-top: -5px;
+        }
+        .kyev_head {
+            position: absolute;
+            top: 20px;
+            font-size: 100px;
+            color: rgba(248, 236, 222, 0.5);
+            left: 20px;
+            z-index: 10;
+        }
+
+        .ny_artic .discription {
+            height: 30%;
+            position: absolute;
+            margin-top: -150px;
+            margin-left: 150px;
+
+        }
+
+        .ny_artic .art_stick{
+            position: absolute;
+            top: 370px;
+            z-index: 1000;
+            left: 0px;
+        }
+        .kiyev_message .message1 {
+            position: relative;
+            right: -40%;
+            top: 5%;
+            width: 60%;
+            height: 80px;
+            border-radius: 20px;
+            padding: 3%;
+            color: white;
+            background-color: #007aff;
+            vertical-align: middle;
+            font-size: 20px;
+            transform-origin: bottom left;
+            transform: scale(1);
+            transition: all 0.5s ease;
+            transform: scale(0);
+        }
+        .kiyev_message .message2 {
+            transition: all 0.5s ease;
+            position: relative;
+            width: 70%;
+            height: 80px;
+            background-color: #e5e5ea;
+            right: 0%;
+            top: 25%;
+            color: black;
+            border-radius: 20px;
+            padding: 3%;
+            vertical-align: middle;
+            font-size: 20px;
+            transform: scale(1);
+            transform-origin: bottom right;
+            transition: all 0.5s ease;
+            transform: scale(0);
+        }
+        .kiyev_message div[class^="mem"] {
+            transform: scale(0);
+            width: 190px;
+            height: 170px;
+           background-image: url("picture/kiyev_spite.png");
+       }
+       .kiyev_message .mem1 {
+            left: 40%;
+            top: -80px;
+           background-position: 2%;
+
+        }
+        .kiyev_message .mem2 {
+            left: 40%;
+            top: -50px;
+            background-position: 32%;
+
+        }
+        .kiyev_message .mem3 {
+            left: -5%;
+            top: -130px;
+            background-position: 65%;
+
+        }
+        .kiyev_message .mem4 {
+            width: 190px;
+            height: 170px;
+            left: 20%;
+            top: -40%;
+            background-position: 100%;
+
+        }
+        .ny_message .message1 {
+            position: relative;
+            right: -40%;
+            top: 5%;
+            width: 60%;
+            height: 80px;
+            border-radius: 20px;
+            padding: 3%;
+            color: white;
+            background-color: #007aff;
+            vertical-align: middle;
+            font-size: 20px;
+            transform-origin: bottom left;
+
+            transition: all 0.5s ease;
+            transform: scale(0);
+        }
+        .ny_message .message2 {
+            transition: all 0.5s ease;
+            position: relative;
+            width: 70%;
+            height: 80px;
+            background-color: #e5e5ea;
+            right: 0%;
+            transform: scale(0);
+            top: 30%;
+            color: black;
+            border-radius: 20px;
+            padding: 3%;
+            vertical-align: middle;
+            font-size: 20px;
+
+            transform-origin: bottom right;
+            transition: all 0.5s ease;
+        }
+        .ny_message div[class^="mem"] {
+
+            min-width: 100px;
+            min-height: 80px;
+
+            transition: all 0.5s ease;
+            transform: scale(0);
+            background-image: url("picture/ny_spite.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            transform-origin: bottom;
+
+        }
+        .ny_message .mem1 {
+            transform: scale(0);
+            width: 250px;
+            height: 200px   ;
+            left: 25%;
+            top: -20%;
+            background-position: 95%;
+
+        }
+        .ny_message .mem2 {
+
+            width: 300px;
+            height: 250px   ;
+            left: -5%;
+            top: -7%;
+            background-position: 0%;
+
+        }
+        .burger {
+            cursor: pointer;
+            width: 50px;
+            height: 30px;
+            margin: auto;
+            text-align: center;
+        }
+        .menu {
+            padding: 10px;
+
+        }
+        .burger_elem {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            height: 20%;
+            background-color: black;
+            transition: all 0.3s ease;
+        }
+        .burger_elem:nth-of-type(2) {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .burger:hover .burger_elem {
+            background-color: #5193ff;
+
+        }
+        .navigation {
+            position: fixed;
+            width: 5%;
+            z-index: 10;
+            height: 20%;
+            border-radius: 30px;
+            top: 40%;
+            left: 2.7%;
+        }
+        .nav {
+            display: block;
+            width: 100%;
+            height: 25%;
+
+        }
+        .dot {
+           width: 23.5%;
+            height: 50%;
+            transition: all 0.3s ease;
+            background-color: black;
+            margin: auto;
+            margin-top: 15%;
+            border-radius: 50%;
+        }
+        .nav:hover .dot {
+            background-color: #5193ff;
+            border: 2px solid #315ba1;
+            transform: scale(1.3);
+
+        }
+    </style>
+</head>
+<body>
+<img class="logo" src="picture/logo.png">
+<div class="navigation"><a href="#odessa" id="a" class="nav odessa"><div class="dot"></div></a><a id="b" href="#kyev" class="nav odessa"><div class="dot"></div></a><a href="#ny" id="c" class="nav ny"><div class="dot"></div></a><a href="#footer" class="nav footer_nav"><div class="dot"></div></a></div>
+    <div class="menu" id="menu">
+        <div class="burger">
+            <span class="burger_elem"></span>
+            <span class="burger_elem"></span>
+            <span class="burger_elem"></span>
+        </div>
+    </div>
+    <div class="phone" id="phone">
+        <div class="field" id="field">
+            <div class="cities odessa_message" id="odessa">
+                <div class="message1">Lorem ipsum dolor sit amet, consect adipicsing elit</div>
+                <div class="message2">Poin viverra est at est condimentum</div>
+                <div class="mem1"></div>
+                <div class="mem2"></div>
+                <div class="mem3"></div>
+                <div class="mem4"></div>
+            </div>
+            <div class="cities kiyev_message" id="kyev">
+                <div class="message1">Sed non elit aucggyut, consectetur purus</div>
+                <div class="message2">Lorem ipsum dolor sit amet, consect adipicsing</div>
+                <div class="mem1"></div>
+                <div class="mem2"></div>
+                <div class="mem3"></div>
+                <div class="mem4"></div>
+            </div>
+            <div class="cities ny_message" id="ny">
+                <div class="message1">Sed non elit aucggyut, consectetur purus</div>
+                <div class="message2">Lorem ipsum dolor sit amet, consect adipicsing</div>
+                <div class="mem1" id="mem1"></div>
+                <div class="mem2"></div>
+
+            </div>
+
+        </div>
+
+        <div class="imes_bottom">
+            <div class="icons">
+                <div class="photo"></div>
+                <div class="like"></div>
+                <div class="text"></div>
+            </div>
+            <div class="imessagee">
+            <div id="iMessage">iMessage</div>
+            <div class="audio"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="city" id="city">
+        <div class="cities odessa_artic" id="odessa">
+           <div class="photo_art">
+               <img class="odessa_photo" src="picture/odessa%20pick.jpg"> <br>
+               <img class="art_stick" src="picture/odessa.png">
+
+           </div>
+            <div class="discription">
+                <div class="tex_discription">
+                    <h3>Odessa</h3>
+                    <h4>Odessa stickers</h4>
+                    <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Sed non elit aucggyut, consectetur purus, eleifend mauris.</p>
+                </div>
+                <div class="link">
+                    <a href="#" class="store">
+                        <div class="image"></div>
+                        <span class="open">Download on the</br><span id="store">App Store</span></span>
+                    </a>
+                    <a href="#" class="telegram">
+                        <div class="image"></div>
+                        <span class="open">Open on<br><span id="store">Telegram</span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="cities kiyev_artic">
+            <div class="photo_art">
+                <img class="kyev_photo" src="picture/kiyev%20pick.jpg"> <br>
+                <h2 class="kyev_head">Kyev</h2>
+
+            </div>
+            <div class="discription">
+                <div class="tex_discription">
+
+                    <h4>Kyev stickers</h4>
+                    <p>Lorem ipsum dolor sit amet, conse adipiscing elit. Sed non elit auctor, consectetur purus et, eleifend.</p>
+                </div>
+                <div class="link">
+                    <a href="#" class="store">
+                        <div class="image"></div>
+                        <span class="open">Download on the</br><span id="store">App Store</span></span>
+                    </a>
+                    <a href="#" class="telegram">
+                        <div class="image"></div>
+                        <span class="open">Open on<br><span id="store">Telegram</span></span>
+                    </a>
+                </div>
+                <img class="art_stick" src="picture/kyev.png">
+
+            </div>
+        </div><div class="cities ny_artic">
+        <div class="photo_art">
+            <img class="ny_photo" src="picture/ny%20pick.jpg"><br>
+            <img class="art_stick" src="picture/ny.png">
+
+        </div>
+        <div class="discription">
+            <div class="tex_discription">
+                <h3>New York</h3>
+                <h4>Explore New York</h4>
+                <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Sed non elit aucggyut, consectetur purus, eleifend mauris.</p>
+            </div>
+            <div class="link">
+                <a href="#" class="store">
+                    <div class="image"></div>
+                    <span class="open">Download on the</br><span id="store">App Store</span></span>
+                </a>
+                <a href="#" class="telegram">
+                    <div class="image"></div>
+                    <span class="open">Open on<br><span id="store">Telegram</span></span>
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+<br>
+    <div class="bottom-menu menu"></div>
+    <div class="bottom-phone phone"></div>
+    <div class="bottom-city city"></div>
+
+    <div class="wrapper"></div>
+    <footer id="footer">
+        <h2>Suggest a sticker</h2>
+        <span class="choose">Choose an existing sticker pack:</span>
+        <div class="stickers">
+            <div class="sticker"><div class="kiyev_sticker"></div><div>Kyev</div></div>
+            <div class="sticker"><div class="ny_sticker"></div><div>New York</div></div>
+            <div class="sticker"><div class="odessa_sticker"></div><div>Odessa</div></div>
+            <div class="sticker"><div class="kiyev_sticker"></div><div>Kyev</div></div>
+            <div class="sticker"><div class="ny_sticker"></div><div>New York</div></div>
+            <div class="sticker"><div class="odessa_sticker"></div><div>Odessa</div></div>
+            <div class="sticker"> <div class="kiyev_sticker"></div><div>Kyev</div></div>
+        </div>
+        <form method="post" action="#">
+            <input type="text" name="new_stickers" placeholder="Suggest new stickers"> <br>
+            <input type="button" name="new_suggest" value="Suggest"> <br>
+            <input type="text" name="offer_pack" placeholder="Offer a new sticker pack"> <br>
+            <input type="text" name="new_offer" placeholder="Suggest new stickers"> <br>
+            <input type="button" name="offer" value="Suggest">
+        </form>
+        <div class="subscribes">
+            <a href="#" class="google sub"></a>
+            <a href="#" class="twitter sub"></a>
+            <a href="#" class="facebook sub"></a>
+        </div>
+        <span class="copyright">&#169; 20017 Radacode. All rights reserved.</span>
+    </footer>
+    <script>
+        var x = 0;
+        var y = 0;
+        var sizeWidth, sizeHeight;
+
+           function sizeH() {
+               sizeWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+               sizeHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+               if (screen.height > screen.width) { // мобильник вертикально
+//                    alert("b");
+//                   $(".footer_nav").css("display","none");
+                   $(".navigation").css("height", screen.height*0.15 + "px");
+                   $(".navigation").css("top", "20%");
+                   $(".navigation").css("left", "1.5%");
+                   $("div[class^='city'], div[class^='phone'], div[class^='menu']").css("height", screen.height + "px");
+                   $("div[class^='bottom'], div[class^='bottom'], div[class^='bottom']").css("height", screen.height*0.3  + "px");
+                   $(".city").css("width", screen.width*1.4 + "px");
+                       $(".phone").css("width", screen.width*0,9  + "px");
+                       $(".menu").css("width", screen.width * 0.2 + "px");
+                   $("div[class^='city']").css("padding-left", "5px");
+                   $(".ny_artic,.odessa_artic,.kiyev_artic").css("transform","scale(0.8)")
+               }
+               else {
+                   if (screen.height < 500) { // мобильник горизонтально
+//                       alert('a');
+                       $(".burger").css("transform","scale(0.7)")
+                       $(".ny_artic,.odessa_artic,.kiyev_artic").css("transform","scale(0.8)")
+                       $(".city").css("width", screen.width*0.8 + "px");
+                       $(".phone").css("width", screen.width*0.5 + "px");
+                       $(".menu").css("width", screen.width * 0.1 + "px");
+                       $("div[class^='city']").css("padding-left", "5px");
+                   }
+                    else { // компьютер
+
+
+                       $(" div[class^='city'], div[class^='phone'], div[class^='menu']").css("height", sizeHeight*1.2 + "px");
+                       $("div[class^='bottom'], div[class^='bottom'], div[class^='bottom']").css("height", sizeHeight*0.2 + "px");
+                       $(".city").css("width", sizeWidth * 0.50 + "px");
+
+
+                       $(".phone").css("width", sizeWidth * 0.34 + "px");
+                       $("#phone").css("border-right-width", sizeWidth * 0.34*0.083 + "px");
+                       $("#phone").css("border-left-width", sizeWidth * 0.34*0.083 + "px");
+                       $(".menu").css("width", sizeWidth * 0.1 + "px");
+
+                   }
+                    }
+
+
+           }
+        sizeH();
+        $(window).resize(sizeH)
+        $("#city").hover(function(){
+            var elmem = $("div[class^='mem']");
+            for (var i= 4; i < elmem.length; i++) {
+                setTimeout(function () {
+                    showElement(elmem[i]);
+                });
+            }
+            var elmess = $("div[class^='message']");
+            for (var i= 2; i < elmess.length; i++) {
+                setTimeout(function () {
+                    showElement(elmess[i]);
+                })
+
+            }
+//            var a = document.getElementsByName("#field");
+//             var b = a.getAttribute()
+            $('#field').unbind("scroll")
+            $( "#city" ).scroll(function() {
+
+                var scrolled = $("#city").scrollTop();
+                $("#field").scrollTop(scrolled);
+                opac();
+            })
+        })
+        $("#field").hover(function(){
+
+            $('#city').unbind("scroll");
+            var elmem = $("div[class^='mem']");
+            for (var i= 4; i < elmem.length; i++) {
+                showElement(elmem[i]);
+            }
+            var elmess = $("div[class^='message']");
+            for (var i= 2; i < elmess.length; i++) {
+                showElement(elmess[i]);
+            }
+            $( "#field" ).scroll(function() {
+
+                var scrolled = $("#field").scrollTop();
+                $("#city").scrollTop(scrolled);
+                opac()
+            })
+
+        })
+        $("#city").on({
+            'touchmove': function(){
+                $('#field').unbind("scroll")
+                $( "#city" ).scroll(function() {
+                    var scrolled = $("#city").scrollTop();
+                    $("#field").scrollTop(scrolled);
+                    opac()
+                })
+            }
+        });
+        $("#field").on({
+            'touchmove': function(){
+                $('#city').unbind("scroll")
+                $( "#field" ).scroll(function() {
+                    var scrolled = $("#field").scrollTop();
+                    $("#city").scrollTop(scrolled);
+                    opac()
+                })
+            }
+        });
+
+
+        window.onload = function () {
+                        $(".photo_art").css("transform","scale(1)");
+            $(".discription").css("transform","scale(1)")
+            $(".imes_bottom").css("opacity","1");
+            $(".odessa_message .message1").css("transform","scale(1)");
+            setTimeout(function () {
+                $(".odessa_message .mem1").css("transform","scale(1)");
+            },200)
+            setTimeout(function () {
+                $(".odessa_message .message2").css("transform","scale(1)");
+            },600)
+            setTimeout(function () {
+                $(".odessa_message .mem2").css("transform","scale(1)");
+            },800)
+            setTimeout(function () {
+                $(".odessa_message .mem3,.odessa_message .mem4").css("transform","scale(1)");
+            },1200)
+        }
+        function opac() {
+            $("#phone, #city").scroll(function () {
+                $(".imes_bottom").css("opacity","0.3");
+                $(".imes_bottom").css("transition-duration","0.3s")
+                setTimeout(function () {
+                    $(".imes_bottom").css("opacity","1");
+                    $(".imes_bottom").css("transition-duration","0.5")
+                }, 500)
+            })
+        }
+
+
+
+
+        var elmem = $("div[class^='mem']");
+        for (var i= 4; i < elmem.length; i++) {
+            showElement(elmem[i]);
+            showElementMob(elmem[i]);
+        }
+        var elmess = $("div[class^='message']");
+        for (var i= 2; i < elmess.length; i++) {
+            showElement(elmess[i]);
+            showElementMob(elmess[i]);
+        }
+
+
+            function showElement(elem) {
+                var target = $(elem);
+                var targetPos = target.offset().top;
+                var winHeight = $(".field").height();
+                var scrollToElem = targetPos - winHeight;
+                $(".city").scroll(function(){
+                    var winScrollTop = $(this).scrollTop();
+                    if(winScrollTop > scrollToElem){
+                        target.css("transform","scale(1)")
+//                    destination = $("footer").offset().top;
+//                $("body").animate( { scrollTop: destination}, 1100 )
+
+
+                        //сработает когда пользователь доскроллит к элементу с классом .elem
+                    }
+                });
+
+            }
+        function showElementMob(elem) {
+            var target = $(elem);
+            var targetPos = target.offset().top;
+            var winHeight = $(".field").height();
+            var scrollToElem = targetPos - winHeight;
+            $("#field,#city").on({
+                'touchmove': function(){
+                    var winScrollTop = $(this).scrollTop();
+                    if(winScrollTop > scrollToElem){
+                        target.css("transform","scale(1)")
+//                    destination = $("footer").offset().top;
+//                $("body").animate( { scrollTop: destination}, 1100 )
+
+
+                        //сработает когда пользователь доскроллит к элементу с классом .elem
+                    }
+                }
+            });
+        }
+
+
+        $("#a").click(flow);
+        $("#b").click(flow);
+        $("#c").click(flow);
+        $(".footer_nav").click(function () {
+            var el = $(this).attr('href');
+            $(document.documentElement).animate({
+                scrollTop: $("footer").offset().top}, 2000);
+            $('body').animate({
+                scrollTop: $("footer").offset().top}, 2000);
+            return false;
+        })
+        function flow(){
+            var el = $(this).attr('href');
+            var a = $(el).offset().top;
+
+            x = x +a;
+
+            $('.field,.city').animate({
+                scrollTop: x}, 2000);
+            $('body').animate({
+                scrollTop: $(".field").offset().top}, 2000);
+            $(document.documentElement).animate({
+                scrollTop: $(".field").offset().top}, 2000);
+            return false;
+
+        }
+//        var target = $('.ny_message .mem1');
+//        var targetPos = target.offset().top;
+//        var winHeight = $(".field").height();
+//        var scrollToElem = targetPos - winHeight;
+//        $(".field").scroll(function(){
+//            var winScrollTop = $(this).scrollTop();
+//            if(winScrollTop > scrollToElem){
+//                target.css("transform","scale(1)")
+////                    destination = $("footer").offset().top;
+////                $("body").animate( { scrollTop: destination}, 1100 )
+//
+//
+//                //сработает когда пользователь доскроллит к элементу с классом .elem
+//            }
+//        });
+    </script>
+</body>
+</html>
