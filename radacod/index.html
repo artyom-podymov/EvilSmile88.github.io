@@ -991,6 +991,9 @@
                if (screen.height > screen.width) { // мобильник вертикально
 //                    alert("b");
 //                   $(".footer_nav").css("display","none");
+                    $(".navigation").css("display",("none"));
+                   $("#field").css("overflow-y","scroll");
+                   $("#city").css("overflow-y","scroll");
                    $(".navigation").css("height", screen.height*0.15 + "px");
                    $(".navigation").css("top", "20%");
                    $(".navigation").css("left", "1.5%");
@@ -1005,6 +1008,9 @@
                else {
                    if (screen.height < 500) { // мобильник горизонтально
 //                       alert('a');
+                        $(".navigation").css("display",("none"));
+                   $("#field").css("overflow-y","scroll");
+                   $("#city").css("overflow-y","scroll");
                        $(".burger").css("transform","scale(0.7)")
                        $(".ny_artic,.odessa_artic,.kiyev_artic").css("transform","scale(0.8)")
                        $(".city").css("width", screen.width*0.8 + "px");
