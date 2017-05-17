@@ -1186,13 +1186,11 @@
         }
 
         var block = 0;
-        var block2 = 0;
         $("#a").click(flow);
         $("#b").click(flow);
         $("#c").click(flow);
         $(".footer_nav").click(function () {
-            if (block==0 && block2!=4) {
-                block2 =4;
+            if (block==0) {
                 block =1;
                 var el = $(this).attr('href');
                 $(document.documentElement).animate({
@@ -1209,7 +1207,6 @@
         function flow(ev){
             if (block==0) {
                 block =1;
-                block2=2;
                 var el = $(this).attr('data-href');
                 var a = $(el).offset().top;
 
