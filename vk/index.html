@@ -3,27 +3,36 @@
 <head>
     <meta charset="utf-8">
     <title>Доступ к ВК</title>
-
+    <script src="https://vk.com/js/api/openapi.js?146" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!--<link rel="stylesheet" href="style.css" />-->
 
 </head>
 <body>
-<script src="https://vk.com/js/api/openapi.js" type="text/javascript"></script>
-<div id="login_button" onclick="VK.Auth.login(authInfo, 7);"></div>
+<button id="mu" onclick="vk.init()">Нажми</button>
+<section id="serverApi">Серверный API</section>
+<section id="clientApi">Клиентский API</section>
 <script>
     VK.init({
-        apiId: 6085608
+        apiId: 6085581
     });
-    function authInfo(response) {
-        if (response.session) {
-            alert('user: '+response.session.mid);
-        } else {
-            alert('not auth');
+    var vk = {
+        data: {},
+        appID: 6085608,
+        appPermissions: 7,
+        init: function(){
+            VK.Auth.login(authInfo, vk.appPermissions);
+
+            function authInfo(response){
+                if(response.session){ // Авторизация успешна
+                    vk.data.user = response.session.user;
+                    alert("Авторизоваться удалось!")
+                }else alert("Авторизоваться не удалось!");
+            }
         }
+
     }
-    VK.Auth.getLoginStatus(authInfo);
-    VK.UI.button('login_button');
+
 
 </script>
 </body>
