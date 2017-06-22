@@ -26,7 +26,8 @@
             function authInfo(response){
                 if(response.session){ // Авторизация успешна
                     vk.data.user = response.session.user;
-                    alert("Авторизоваться удалось!")
+                    alert("Авторизоваться удалось!");
+                    console.log(vk.data)
                 }else alert("Авторизоваться не удалось!");
             }
         }
