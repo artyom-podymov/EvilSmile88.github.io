@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <title>Доступ к ВК</title>
+    <script src="https://vk.com/js/api/openapi.js?146" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="css.css" />
+
+</head>
+<body ng-controller="AppCtrl">
+<script>
+    VK.init({
+        apiId: 6085581
+    });
+</script>
+<button id="mu" ng-click="vk.init()">Нажми</button>
+<!--<script>-->
+    <!--VK.init({-->
+        <!--apiId: 6085581-->
+    <!--});-->
+    <!--var vk = {-->
+        <!--data: {},-->
+        <!--appID: 6085608,-->
+        <!--appPermissions: 7,-->
+        <!--init: function(){-->
+            <!--VK.Auth.login(authInfo, vk.appPermissions);-->
+
+            <!--function authInfo(response){-->
+                <!--if(response.session){ // Авторизация успешна-->
+                    <!--vk.data.user = response.session.user;-->
+                    <!--alert("Авторизоваться удалось!")-->
+                <!--}else alert("Авторизоваться не удалось!");-->
+            <!--}-->
+        <!--}-->
+
+    <!--}-->
+
+
+<!--</script>-->
+</body>
+</html>
