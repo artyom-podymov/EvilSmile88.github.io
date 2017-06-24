@@ -16,11 +16,16 @@ app.controller("AppCtrl", function ($scope) {
         };
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
+            show();
+            show();
+            function show() {
                 $scope.vk.data.user = response.session.user;
                 $(".current_user").text($scope.vk.data.user.first_name);
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
                 })     
+            }
+                
             
         }else alert("Авторизоваться не удалось!");
     }
