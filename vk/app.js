@@ -21,7 +21,7 @@ app.controller("AppCtrl", function ($scope) {
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
                 })     
-            },1000)
+            },10000)
         }else alert("Авторизоваться не удалось!");
     }
     $scope.currentNav = function (event) {
