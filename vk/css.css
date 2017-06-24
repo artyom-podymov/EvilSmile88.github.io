@@ -23,7 +23,7 @@ body {
     background-color: #373737;
 }
 .current_file {
-    display: flex;
+    display: none;
 }
 .nav, .current_file {
     justify-content: flex-start;
