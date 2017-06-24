@@ -3,7 +3,9 @@ app.controller("AppCtrl", function ($scope) {
     $scope.a = function () {
         alert("ass")
     };
-
+    $scope.nav = [
+        {class: "current_nav", url: "img/gallery.png", title: "gallery", alt: "gallery"}
+    ]
     $scope.vk = {
             data: {},
             appID: 6085608,
@@ -15,8 +17,13 @@ app.controller("AppCtrl", function ($scope) {
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
             $scope.vk.data.user = response.session.user;
-            alert("Авторизоваться уда!")
-            console.log($scope.vk.data.user)
+            $(".current_file").slideDown("slow", function () {
+                $(".current_file").css("display","flex")
+            })
         }else alert("Авторизоваться не удалось!");
+    }
+    $scope.currentNav = function (event) {
+        $(".nav div").removeClass("current_nav").addClass("not_current_nav")
+        event.currentTarget.setAttribute("class", "current_nav")
     }
 })
