@@ -19,7 +19,7 @@ app.controller("AppCtrl", function ($scope) {
         if(response.session){ // Авторизация успешна
             $scope.vk.data.user = response.session.user;
             $scope.name = $scope.vk.data.user.first_name;
-            console.log($scope.vk.data.user.first_name);
+            alert("FFFF");
             $(".current_file").slideDown("slow", function () {
                 $(".current_file").css("display","flex")
             })
