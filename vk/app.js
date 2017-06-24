@@ -15,7 +15,7 @@ app.controller("AppCtrl", function ($scope) {
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
             $scope.vk.data.user = response.session.user;
-            alert("Авторизоваться удалось!")
+            alert("Авторизоваться уда!")
             console.log($scope.vk.data.user)
         }else alert("Авторизоваться не удалось!");
     }
