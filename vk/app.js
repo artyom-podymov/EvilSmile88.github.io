@@ -3,7 +3,6 @@ app.controller("AppCtrl", function ($scope) {
     $scope.a = function () {
         alert("ass")
     };
-    $scope.name;
     $scope.nav = [
         {class: "current_nav", url: "img/gallery.png", title: "gallery", alt: "gallery"}
     ]
