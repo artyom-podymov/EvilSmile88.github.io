@@ -3,6 +3,7 @@ app.controller("AppCtrl", function ($scope) {
     $scope.a = function () {
         alert("ass")
     };
+    $scope.name;
     $scope.nav = [
         {class: "current_nav", url: "img/gallery.png", title: "gallery", alt: "gallery"}
     ]
@@ -17,7 +18,7 @@ app.controller("AppCtrl", function ($scope) {
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
             $scope.vk.data.user = response.session.user;
-            alert($scope.vk.data.user.first_name);
+            $scope.name = $scope.vk.data.user.first_name;
             console.log($scope.vk.data.user.first_name);
             $(".current_file").slideDown("slow", function () {
                 $(".current_file").css("display","flex")
