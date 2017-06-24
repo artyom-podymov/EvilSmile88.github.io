@@ -3,7 +3,6 @@ app.controller("AppCtrl", function ($scope) {
     $scope.a = function () {
         alert("ass")
     };
-    $scope.name = "ffff"
     $scope.nav = [
         {class: "current_nav", url: "img/gallery.png", title: "gallery", alt: "gallery"}
     ]
@@ -17,12 +16,12 @@ app.controller("AppCtrl", function ($scope) {
         };
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
-            $scope.vk.data.user = response.session.user;
-            $scope.name = $scope.vk.data.user.first_name;
-            alert($scope.name);
-            $(".current_file").slideDown("slow", function () {
-                $(".current_file").css("display","flex")
-            })
+            setTimeout( function () {
+                $scope.vk.data.user = response.session.user;
+                $(".current_file").slideDown("slow", function () {
+                    $(".current_file").css("display","flex")
+                })     
+            },1000)
         }else alert("Авторизоваться не удалось!");
     }
     $scope.currentNav = function (event) {
