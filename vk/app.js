@@ -44,15 +44,15 @@ app.controller("AppCtrl", function ($scope) {
                     VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
                         if (r.response) {
                             var obj = {album_content: r.response};
-                            (function (id) {
-                                return function() {
-                                    obj.album_id = id;
-                                    alert(id)
-                                }
-                            })(id)
                                 $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
                         }
                     })
+                    (function (id) {
+                                return function() {
+                                    $scope.vk.albums_content.album_id = id;
+                                    alert(id)
+                                }
+                            })(id)
                 }
 //                 for (var i=0; i<$scope.vk.albums; i++) {
 //                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
