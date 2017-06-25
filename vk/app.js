@@ -46,11 +46,11 @@ app.controller("AppCtrl", function ($scope) {
                             var obj = {album_content: r.response};
                             (function (id) {
                                 return function() {
-                                    obj.albim_id = id;
-                                    $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
+                                    obj.album_id = id;
+                                    alert(id)
                                 }
                             })(id)
-                                
+                                $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
                         }
                     })
                 }
