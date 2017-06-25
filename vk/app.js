@@ -32,7 +32,7 @@ app.controller("AppCtrl", function ($scope) {
           if (r.response) {
               alert("get")
               for (var i=0; i<r.response.length; i++) {
-                  $scope.vk.albums_id[$scope.vk.albums_id.length] = r.response[i].id
+                  $scope.vk.albums_id[$scope.vk.albums_id.length] = r.response[i].aid
               }
               console.log($scope.vk.albums_id);
               console.log(r.response)
