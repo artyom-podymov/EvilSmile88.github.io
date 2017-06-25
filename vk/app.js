@@ -49,7 +49,8 @@ app.controller("AppCtrl", function ($scope) {
                     })
                     setTimeout((function (idd, count) {
                                return function () {
-                                   $scope.vk.albums_content[count].album_id = idd;
+                                   if ($scope.vk.albums_content[count].album_content[0].aid)
+                                   $scope.vk.albums_content[count].album_id = $scope.vk.albums_content[count].album_content[0].aid;
 //                                     alert(idd)
                                }
                             })($scope.vk.albums[i].id, i),1000)
