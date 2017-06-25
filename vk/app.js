@@ -36,7 +36,6 @@ app.controller("AppCtrl", function ($scope) {
                     albums[albums.length] = obj;
                         
                     }
-                    albums.lenght = 10;
                 }
                 $scope.vk.albums = albums;
                 console.log($scope.vk.albums);
