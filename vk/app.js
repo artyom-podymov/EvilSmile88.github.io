@@ -34,13 +34,13 @@ app.controller("AppCtrl", function ($scope) {
                     var obj = {id: r.response[i].aid, title: r.response[i].title};
                     $scope.vk.albums[$scope.vk.albums.length] = obj;
                 }
-                console.log($scope.vk.albums[0].id);
+                console.log($scope.vk.albums);
             }
         })
         for (var i = 0; i<$scope.vk.albums.length; i++) {
             VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
                 if (r.response) {
-                    var obj = {album_id: $scope.vk.albums[i].id, album_title: $scope.vk.albums[i].title, album_content: r.response};
+                    var obj = {album_id: $scope.vk.albums[0].id, album_title: $scope.vk.albums[0].title, album_content: r.response};
                     $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
                 }
             })
