@@ -47,12 +47,12 @@ app.controller("AppCtrl", function ($scope) {
                                 $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
                         }
                     })
-                    setTimeout((function (idd) {
+                    setTimeout((function (idd, count) {
                                return function () {
-                                   $scope.vk.albums_content[1].album_id = idd;
+                                   $scope.vk.albums_content[count].album_id = idd;
 //                                     alert(idd)
                                }
-                            })($scope.vk.albums[i].id),1000)
+                            })($scope.vk.albums[i].id, i),1000)
                 }
 //                 for (var i=0; i<$scope.vk.albums; i++) {
 //                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
