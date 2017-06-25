@@ -49,10 +49,10 @@ app.controller("AppCtrl", function ($scope) {
                     })
                     setTimeout((function (idd) {
                                return function () {
-//                                     $scope.vk.albums_content.album_id = id;
-                                    alert(idd)
+                                    $scope.vk.albums_content[i].album_id = idd;
+//                                     alert(idd)
                                }
-                            })($scope.vk.albums[i].id),5000)
+                            })($scope.vk.albums[i].id),10)
                 }
 //                 for (var i=0; i<$scope.vk.albums; i++) {
 //                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
