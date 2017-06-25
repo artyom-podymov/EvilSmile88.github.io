@@ -26,7 +26,7 @@ app.controller("AppCtrl", function ($scope) {
                 })
             }
         }else alert("Авторизоваться не удалось!");
-        Vk.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: "wall", count: 10}, function (r) {
+        VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: "wall", count: 10}, function (r) {
             if (r.response) {
                 $scope.vk.data.wall_photos = r.response;
                 console.log($scope.vk.data.wall_photos)
