@@ -50,7 +50,7 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 })
             }
-                for (var i=0; i<$scope.vk.albums.lenght; i++) {
+                for (var i=0; i<2; i++) {
                     alert($scope.vk.albums[i].id)
 //                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
 //                     if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
