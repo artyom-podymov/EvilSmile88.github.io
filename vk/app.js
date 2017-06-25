@@ -42,7 +42,7 @@ app.controller("AppCtrl", function ($scope) {
                 for (var i = 0; i<$scope.vk.albums.length; i++) {
                     VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
                         if (r.response) {
-                            var obj = {album_id: r.response[0].aid, album_content: r.response};
+                            var obj = {album_content: r.response};
                                 $scope.vk.albums_content[$scope.vk.albums_content.length] = obj
                         }
                     })
