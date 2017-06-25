@@ -34,6 +34,7 @@ app.controller("AppCtrl", function ($scope) {
                     if (r.response[i].size > 0) {
                     var obj = {id: r.response[i].aid, title: r.response[i].title};
                     albums[albums.length] = obj;
+                        albums.lenght = i+2;
                     }
                 }
                 $scope.vk.albums = albums;
@@ -50,7 +51,7 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 })
             }
-                for (var i=0; i<2; i++) {
+                for (var i=0; i<$scope.vk.albums.lenght; i++) {
                     alert($scope.vk.albums[i].id)
 //                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
 //                     if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
