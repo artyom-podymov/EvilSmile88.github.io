@@ -43,7 +43,7 @@ app.controller("AppCtrl", function ($scope) {
                     var id = $scope.vk.albums[i].id;
                     VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
                         if (r.response) {
-                            var obj = {album_content: r.response};
+                            var obj = {album_id: null, album_content: r.response};
                                 $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
                         }
                     })
@@ -52,7 +52,7 @@ app.controller("AppCtrl", function ($scope) {
                                     $scope.vk.albums_content[i].album_id = idd;
 //                                     alert(idd)
                                }
-                            })($scope.vk.albums[i].id),2000)
+                            })($scope.vk.albums[i].id),1000)
                 }
 //                 for (var i=0; i<$scope.vk.albums; i++) {
 //                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
