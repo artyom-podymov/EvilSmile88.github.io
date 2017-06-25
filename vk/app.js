@@ -52,7 +52,7 @@ app.controller("AppCtrl", function ($scope) {
                                    if ($scope.vk.albums_content[count].album_content.lenght !=0) {
                                    $scope.vk.albums_content[count].album_id = $scope.vk.albums_content[count].album_content[0].aid;
 //                                     alert(idd)
-                                   alert($scope.vk.albums_content[count].album_content.lenght)
+                                   alert($scope.vk.albums_content[count].album_content[0].aid)
                                    }
                                    else delete $scope.vk.albums_content[count]
                                }
