@@ -17,17 +17,12 @@ app.controller("AppCtrl", function ($scope) {
     };
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
-            show();
-            setTimeout(show(),100)
-            function show() {
                  $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
                 console.log($scope.vk.data.user)
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
                 })
-            }
-            
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
