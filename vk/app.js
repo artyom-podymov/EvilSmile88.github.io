@@ -48,10 +48,10 @@ app.controller("AppCtrl", function ($scope) {
                         }
                     })
                     (function (idd) {
-                                return function() {
+                               
 //                                     $scope.vk.albums_content.album_id = id;
                                     alert(idd)
-                                }
+                             
                             })($scope.vk.albums[i].id)
                 }
 //                 for (var i=0; i<$scope.vk.albums; i++) {
