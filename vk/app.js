@@ -49,7 +49,7 @@ app.controller("AppCtrl", function ($scope) {
                     })
                     setTimeout((function (idd) {
                                return function () {
-                                    $scope.vk.albums_content[i].album_id = idd;
+                                    $scope.vk.albums_content[1].album_id = idd;
 //                                     alert(idd)
                                }
                             })($scope.vk.albums[i].id),1000)
