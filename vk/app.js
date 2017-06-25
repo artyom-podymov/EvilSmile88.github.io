@@ -49,22 +49,14 @@ app.controller("AppCtrl", function ($scope) {
                         $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
                     }
                 })
-//                 setTimeout((function (idd, count) {
-//                     return function () {
-//                             $scope.vk.albums_content[count].album_id = $scope.vk.albums_content[count].album_content[0].aid;
-// //                                     alert(idd)
-                        
-//                         else delete $scope.vk.albums_content[count]
-//                     }
-//                 })($scope.vk.albums[i].id, i),10)
             }
-//                 for (var i=0; i<$scope.vk.albums; i++) {
-//                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
-//                     if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
-//                         $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
-//                         }
-//                     }
-//                 }
+                for (var i=0; i<$scope.vk.albums; i++) {
+                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
+                    if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
+                        $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
+                        }
+                    }
+                }
             console.log($scope.vk.albums_content)
         }, 1000);
 
