@@ -18,6 +18,7 @@ app.controller("AppCtrl", function ($scope) {
     };
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
+            $scope.place = "Albums";
                  $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
                 console.log($scope.vk.data.user)
