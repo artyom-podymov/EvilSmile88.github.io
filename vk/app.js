@@ -30,6 +30,7 @@ app.controller("AppCtrl", function ($scope) {
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
           if (r.response) {
+              alert("get")
               for (var i=0; i<r.response.length-1; i++) {
                   $scope.vk.albums_id[$scope.vk.albums_id.length] = r.response[i].id
               }
