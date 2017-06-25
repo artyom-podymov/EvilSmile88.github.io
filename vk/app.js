@@ -54,7 +54,7 @@ app.controller("AppCtrl", function ($scope) {
 //                                     alert(idd)
                         
                     }
-                })($scope.vk.albums[i].id, i),1000)
+                })($scope.vk.albums[i].id, i),0)
             }
                 for (var i=0; i<$scope.vk.albums; i++) {
                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
