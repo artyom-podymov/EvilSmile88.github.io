@@ -52,7 +52,7 @@ app.controller("AppCtrl", function ($scope) {
             })
         }
         console.log($scope.vk.albums_content)
-            clearInterval(intervalGandler);
+            clearInterval(intervalHandler);
             }
         }, 100);
         
