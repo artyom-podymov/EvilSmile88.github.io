@@ -61,7 +61,7 @@ app.controller("AppCtrl", function ($scope) {
                 }
                 })()
                 
-            console.log($scope.vk.albums_content)
+             setTimeout(function(){console.log($scope.vk.albums_content)},1000)
         }, 1000);
 
     }
