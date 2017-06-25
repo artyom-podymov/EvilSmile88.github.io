@@ -77,6 +77,15 @@ body {
     min-height: 300px;
     box-sizing: border-box;
 }
+.logIn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 400px;
+    min-height: 300px;
+    box-sizing: border-box;
+}
 input[type="search"] {
     padding-left: 30px;
     padding-right: 10px;
