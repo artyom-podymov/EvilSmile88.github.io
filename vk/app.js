@@ -57,13 +57,13 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 })($scope.vk.albums[i].id, i),0)
             }
-                for (var i=0; i<$scope.vk.albums; i++) {
-                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
-                    if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
-                        $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
-                        }
-                    }
-                }
+//                 for (var i=0; i<$scope.vk.albums; i++) {
+//                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
+//                     if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
+//                         $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
+//                         }
+//                     }
+//                 }
             console.log($scope.vk.albums_content)
         }, 1000);
 
