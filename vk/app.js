@@ -9,7 +9,7 @@ app.controller("AppCtrl", function ($scope) {
     $scope.vk = {
         data: {},
         appID: 6085608,
-        appPermissions: 7,
+        appPermissions: 5,
         albums_content: [],
         init: function(){
             VK.Auth.login($scope.authInfo, $scope.vk.appPermissions);
@@ -17,14 +17,15 @@ app.controller("AppCtrl", function ($scope) {
     };
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
-            setTimeout(function() {
+            show();
+            function show() {
                  $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
                 console.log($scope.vk.data.user)
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
                 })
-            },1000)
+            }
             
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
