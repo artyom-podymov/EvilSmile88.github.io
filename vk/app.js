@@ -34,7 +34,7 @@ app.controller("AppCtrl", function ($scope) {
                     var obj = {id: r.response[i].aid, title: r.response[i].title};
                     $scope.vk.albums[$scope.vk.albums.length] = obj;
                 }
-                console.log($scope.vk.albums);
+                console.log($scope.vk.albums[0].id);
             }
         })
         for (var i = 0; i<$scope.vk.albums.length; i++) {
