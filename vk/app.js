@@ -53,12 +53,11 @@ app.controller("AppCtrl", function ($scope) {
                 })
             }
                 for (var i=0; i<$scope.vk.albums.length; i++) {
-                    alert($scope.vk.albums[i].id)
-//                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
-//                     if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
-//                         $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
-//                         }
-//                     }
+                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
+                    if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
+                        $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
+                        }
+                    }
                 }
             console.log($scope.vk.albums_content)
         }, 1000);
