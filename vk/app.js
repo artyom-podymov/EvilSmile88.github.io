@@ -34,7 +34,7 @@ app.controller("AppCtrl", function ($scope) {
                     if (r.response[i].size > 0) {
                     var obj = {id: r.response[i].aid, title: r.response[i].title};
                     albums[albums.length] = obj;
-                        albums.lenght = i+2;
+                        albums.lenght = 10;
                     }
                 }
                 $scope.vk.albums = albums;
