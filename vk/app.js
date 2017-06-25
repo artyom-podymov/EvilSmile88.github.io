@@ -31,8 +31,10 @@ app.controller("AppCtrl", function ($scope) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
             if (r.response) {
                 for (var i=0; i<r.response.length; i++) {
+                    if (r.response[i].size > 0) {
                     var obj = {id: r.response[i].aid, title: r.response[i].title};
                     albums[albums.length] = obj;
+                    }
                 }
                 $scope.vk.albums = albums;
                 console.log($scope.vk.albums);
