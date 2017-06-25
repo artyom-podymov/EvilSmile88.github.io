@@ -21,7 +21,7 @@
 </div>
 <div class="nav">
     <div ng-repeat="elem in nav" ng-class="elem.class" ng-click="currentNav($event)">
-        <img ng-src="{{elem.url}}" title="elem.title" alt="elem.alt" width="25px">
+        <img ng-cloak ng-src="{{elem.url}}" title="elem.title" alt="elem.alt" width="25px">
     </div>
 </div>
 <div class="current_file">
