@@ -10,8 +10,8 @@ app.controller("AppCtrl", function ($scope) {
         data: {},
         appID: 6085608,
         appPermissions: 7,
-        albums: [],
-        albums_id: [-6, -7],
+        albums_content: [],
+        albums: [{id: -6, title: "Profile"}, {id:-7, title: "Wall"}],
         init: function(){
             VK.Auth.login($scope.authInfo, $scope.vk.appPermissions);
         }
@@ -29,21 +29,21 @@ app.controller("AppCtrl", function ($scope) {
             }
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
-          if (r.response) {
-              alert("get")
-              for (var i=0; i<r.response.length; i++) {
-                  $scope.vk.albums_id[$scope.vk.albums_id.length] = r.response[i].aid
-              }
-              console.log($scope.vk.albums_id);
-              console.log(r.response)
-          }
+            if (r.response) {
+                alert("get")
+                for (var i=0; i<r.response.length; i++) {
+                    var obj = {id: r.response[i].aid, title: r.response[i].title};
+                    $scope.vk.albums[$scope.vk.albums.length] = obj;
+                }
+                console.log($scope.vk.albums);
+            }
         })
         VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: "wall", rev: 1, extended: 1, count: 1000}, function (r) {
             if (r.response) {
                 $scope.vk.data.wall_photos = r.response;
                 console.log($scope.vk.data.wall_photos)
             }
-            
+
         })
     }
     $scope.currentNav = function (event) {
