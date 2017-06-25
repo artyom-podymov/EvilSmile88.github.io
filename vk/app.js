@@ -38,25 +38,22 @@ app.controller("AppCtrl", function ($scope) {
                 console.log($scope.vk.albums);
             }
         })
-        var intervalHandler = setInterval(function () {
-            if ($scope.vk.albums) {
-                var j = 0;
-        for (var i = 0; i<$scope.vk.albums.length; i++) {
-            VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
-                if (r.response) {
-                    var obj = {album_id: $scope.vk.albums[j].id, album_title: $scope.vk.albums[j].title, album_content: r.response};
-                    if (r.response.lenght > 0) {
-                    $scope.vk.albums_content[$scope.vk.albums_content.length] = obj
-                    }
-                    j++;
+       setTimeout(function () {
+           var j = 0;
+                for (var i = 0; i<$scope.vk.albums.length; i++) {
+                    VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
+                        if (r.response) {
+                            var obj = {album_id: $scope.vk.albums[j].id, album_title: $scope.vk.albums[j].title, album_content: r.response};
+                            if (r.response.lenght > 0) {
+                                $scope.vk.albums_content[$scope.vk.albums_content.length] = obj
+                            }
+                            j++;
+                        }
+                    })
                 }
-            })
-        }
-        console.log($scope.vk.albums_content)
-            clearInterval(intervalHandler);
-            }
-        }, 100);
-        
+                console.log($scope.vk.albums_content)
+        }, 1000);
+
     }
     $scope.currentNav = function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
