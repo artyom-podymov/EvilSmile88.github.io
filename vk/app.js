@@ -30,7 +30,6 @@ app.controller("AppCtrl", function ($scope) {
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             if (r.response) {
-                alert("get")
                 for (var i=0; i<r.response.length; i++) {
                     var obj = {id: r.response[i].aid, title: r.response[i].title};
                     $scope.vk.albums[$scope.vk.albums.length] = obj;
@@ -38,13 +37,17 @@ app.controller("AppCtrl", function ($scope) {
                 console.log($scope.vk.albums);
             }
         })
-        VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: "wall", rev: 1, extended: 1, count: 1000}, function (r) {
-            if (r.response) {
-                $scope.vk.data.wall_photos = r.response;
-                console.log($scope.vk.data.wall_photos)
-            }
-
-        })
+        for (var i = 0; i<$scope.vk.albums.length; i++) {
+            VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
+                if (r.response) {
+                    var obj = r.response;
+                    obj.album_title = $scope.vk.albums[i].title;
+                    obj.album_id = $scope.vk.albums[i].id;
+                    $scope.vk.albums_content[$scope.vk.albums_content.length] = obj;
+                }
+            })
+        }
+        console.log($scope.vk.albums_content)
     }
     $scope.currentNav = function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
