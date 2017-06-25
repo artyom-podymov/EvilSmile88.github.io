@@ -49,7 +49,7 @@ app.controller("AppCtrl", function ($scope) {
                 })
                 setTimeout((function (idd, count) {
                     return function () {
-                        if (Object.keys($scope.vk.albums_content[count].album_content).length != 0)
+                        if (Object.keys($scope.vk.albums_content[count].album_content[0]).length != 0)
                             $scope.vk.albums_content[count].album_id = $scope.vk.albums_content[count].album_content[0].aid;
 //                                     alert(idd)
                         
