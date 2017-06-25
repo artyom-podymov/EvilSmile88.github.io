@@ -20,7 +20,7 @@ app.controller("AppCtrl", function ($scope) {
             
             (function() {
                 $scope.vk.data.user = response.session.user;
-                $(".current_user").text($scope.vk.data.user.first_name);
+//                 $(".current_user").text($scope.vk.data.user.first_name);
                 console.log($scope.vk.data.user)
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
