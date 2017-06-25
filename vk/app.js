@@ -20,13 +20,19 @@ app.controller("AppCtrl", function ($scope) {
             function show() {
                 $scope.vk.data.user = response.session.user;
                 $(".current_user").text($scope.vk.data.user.first_name);
+                console.log($scope.vk.data.user)
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
-                })     
+                })
             }
-                
-            
         }else alert("Авторизоваться не удалось!");
+        Vk.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: "wall", count: 10}, function (r) {
+            if (r.response) {
+                $scope.vk.data.wall_photos = r.response;
+                console.log($scope.vk.data.wall_photos)
+            }
+            
+        })
     }
     $scope.currentNav = function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
