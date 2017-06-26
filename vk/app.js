@@ -24,9 +24,17 @@ app.controller("AppCtrl", function ($scope) {
                 console.log($scope.vk.data.user)
             $('body').css("cursor","wait")
             setTimeout(function () {
+                for (var i=0; i<$scope.vk.albums.length; i++) {
+                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
+                    if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
+                        $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
+                        }
+                    }
+                }
+               console.log($scope.vk.albums_content) 
                 $('body').css("cursor","pointer")
             $(".nav div:first-of-type").click();
-            },2010)
+            },6010)
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
@@ -52,16 +60,6 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 })
             }
-               setTimeout(function () {
-                for (var i=0; i<$scope.vk.albums.length; i++) {
-                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
-                    if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
-                        $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
-                        }
-                    }
-                }
-               console.log($scope.vk.albums_content) 
-               },3000)
         },3000)
        }
     $scope.currentNav = function (event) {
