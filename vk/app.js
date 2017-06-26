@@ -59,7 +59,8 @@ app.controller("AppCtrl", function ($scope) {
                         }
                     }
                 }
-                },1000)
+               console.log($scope.vk.albums_content) 
+               },1000)
         },1000)
         
                 
