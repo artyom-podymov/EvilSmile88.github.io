@@ -22,9 +22,11 @@ app.controller("AppCtrl", function ($scope) {
                  $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
                 console.log($scope.vk.data.user)
+            $('body').css("cursor","wait")
             setTimeout(function () {
+                $('body').css("cursor","pointer")
             $(".nav div:first-of-type").click();
-            },2010);
+            },2010)
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
