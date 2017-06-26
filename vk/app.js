@@ -25,7 +25,9 @@ app.controller("AppCtrl", function ($scope) {
                 $(".current_file").slideDown("slow", function () {
                     $(".current_file").css("display","flex")
                 })
+            setTimeout(function () {
             $(".nav div:first-of-type").click();
+            },2000);
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
@@ -64,10 +66,8 @@ app.controller("AppCtrl", function ($scope) {
         },1000)
        }
     $scope.currentNav = function (event) {
-        setTimeout( function() {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
-        },2000)
     }
 })
 
