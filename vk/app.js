@@ -18,12 +18,13 @@ app.controller("AppCtrl", function ($scope) {
     };
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
-            $scope.place = "Albums";
+            $scope.place = "Loading";
             $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
             console.log($scope.vk.data.user)
             $('body').css("cursor","wait")
             setTimeout(function () {
+                $scope.place = "Albums";
                 $('body').css("cursor","pointer")
                 $(".nav div:first-of-type").click();
             },5010)
