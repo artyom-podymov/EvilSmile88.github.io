@@ -41,7 +41,6 @@ app.controller("AppCtrl", function ($scope) {
                 console.log($scope.vk.albums);
             }
         })
-        setTimeout(function () {
             for (var i = 0; i<$scope.vk.albums.length; i++) {
                 var id = $scope.vk.albums[i].id;
                 VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
@@ -60,9 +59,8 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 }
                 })()
-                
-             setTimeout(function(){console.log($scope.vk.albums_content)},5000)
-        }, 1000);
+                console.log($scope.vk.albums_content)
+   
 
     }
     $scope.currentNav = function (event) {
