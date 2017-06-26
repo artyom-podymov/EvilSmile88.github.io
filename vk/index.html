@@ -33,7 +33,10 @@
     <div class="loading" ng-switch-when="Loading"><h3>Загрузка...</h3></div>
     <div class="albums" ng-switch-when="Albums">
         <div class="album" ng-cloak ng-repeat="elem in vk.albums_content">
-            <img ng-src="{{elem.album_content[0].src}}" ng-attr-title="{{$index}}" width="120px">
+            <div class="album_photo">
+                <img ng-src="{{elem.album_content[0].src}}" ng-attr-id="{{$index}}" ng-attr-title="{{elem.album_title}}" height="70px">
+            </div>
+            <div class="album_discription"></div>
         </div>
     </div>
 </div>
