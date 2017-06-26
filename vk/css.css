@@ -142,3 +142,9 @@ input[type="search"]:active, input[type="search"]:focus {
     outline: 0;
     outline-offset: 0;
 }
+.album {
+    width: 100%;
+    min-height: 100px;
+    background-color: red;
+    margin-bottom: 10px;
+}
