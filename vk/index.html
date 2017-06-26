@@ -34,7 +34,7 @@
     <div class="albums" ng-switch-when="Albums">
         <div class="album" ng-cloak ng-repeat="elem in vk.albums_content">
             <div class="album_photo">
-                <img ng-src="{{elem.album_cover}}" ng-attr-id="{{$index}}" ng-attr-title="{{elem.album_title}}" height="150px">
+                <img ng-src="{{elem.album_cover}}" ng-attr-id="{{$index}}" ng-attr-title="{{elem.album_title}}">
             </div>
             <div class="album_discription">
                 <h2>{{elem.album_title}}</h2>
