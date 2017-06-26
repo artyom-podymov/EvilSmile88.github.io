@@ -30,8 +30,8 @@ app.controller("AppCtrl", function ($scope) {
         })
                  $scope.place = "Albums";
                 $(".nav div:first-of-type").click();
-                $('body').css("cursor","pointer")
-            },6010)
+                $('body').css("cursor","default")
+            },5500)
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
