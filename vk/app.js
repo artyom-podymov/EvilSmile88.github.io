@@ -19,14 +19,17 @@ app.controller("AppCtrl", function ($scope) {
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
             $scope.place = "Loading";
+            $(".nav div:first-of-type").click();
             $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
             console.log($scope.vk.data.user)
             $('body').css("cursor","wait")
             setTimeout(function () {
+                $(".current_file").slideDown("slow", function () {
+            $(".current_file").css("display","flex")
+        })
                 $scope.place = "Albums";
                 $('body').css("cursor","pointer")
-                $(".nav div:first-of-type").click();
             },5010)
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
@@ -66,9 +69,6 @@ app.controller("AppCtrl", function ($scope) {
         },4000)
     }
     $scope.currentNav = function (event) {
-        $(".current_file").slideDown("slow", function () {
-            $(".current_file").css("display","flex")
-        })
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
     }
