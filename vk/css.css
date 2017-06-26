@@ -74,6 +74,7 @@ body {
     align-items: center;
     width: 70%;
     min-width: 400px;
+    min-height: 300px;
     box-sizing: border-box;
 }
 .logIn, .loading {
@@ -142,6 +143,7 @@ input[type="search"]:active, input[type="search"]:focus {
     outline-offset: 0;
 }
 .albums {
+    cursor: pointer;
     width: 100%;
     background-color: #0068d6;
     display: flex;
@@ -153,14 +155,17 @@ input[type="search"]:active, input[type="search"]:focus {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    transition: 0.3s all ease;
     width: 100%;
-    min-height: 130px;
+    min-height: 110px;
     background-color: #e8e8e8;
     border-bottom: 2px solid #cfcfcf;
 }
+.albums>div:hover {
+    background-color: rgb(211, 227, 245);
+}
 .album_photo {
-    margin-left: 50px;
-    margin-right: 10px;
+    margin-left: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -169,14 +174,19 @@ input[type="search"]:active, input[type="search"]:focus {
     height: 90px;
 }
 .album_discription {
-    margin-left: 30px;
+    display: flex;
+    align-content: space-between;
+    margin-left: 10px;
     margin-right: 10px;
     width: 50%;
-    background-color: red;
     height: 90px;
 }
+.album_discription h2 {
+    color: #0068d6;
+}
 .next {
-    width: 100px;
+    width: 20%;
+    margin-right: 25px;
     height: 100%;
     display: flex;
     justify-content: flex-end;
@@ -190,4 +200,7 @@ input[type="search"]:active, input[type="search"]:focus {
     border: 3px solid #0068d6;
     border-bottom-width: 0px;
     border-left-width: 0px;
+}
+.arrow:last-of-type {
+    margin-left: -20px;
 }
