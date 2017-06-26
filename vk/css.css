@@ -175,7 +175,8 @@ input[type="search"]:active, input[type="search"]:focus {
 }
 .album_discription {
     display: flex;
-    align-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
     margin-left: 10px;
     margin-right: 10px;
     width: 50%;
@@ -184,8 +185,11 @@ input[type="search"]:active, input[type="search"]:focus {
 .album_discription h2 {
     color: #0068d6;
 }
+.album_discription p {
+    color: #a2a2a2;
+}
 .next {
-    width: 20%;
+    width: 30%;
     margin-right: 25px;
     height: 100%;
     display: flex;
