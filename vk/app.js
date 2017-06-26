@@ -1,8 +1,5 @@
 var app = angular.module("App", []);
 app.controller("AppCtrl", function ($scope) {
-    $scope.a = function () {
-        alert("ass")
-    };
     $scope.place = "Log";
     $scope.nav = [
         {class: "current_nav", url: "img/gallery.png", title: "gallery", alt: "gallery"}
@@ -29,7 +26,7 @@ app.controller("AppCtrl", function ($scope) {
             $(".current_file").css("display","flex")
         })
                  $scope.place = "Albums";
-                $(".nav div:first-of-type").click();
+                alert($scope.place);
                 $('body').css("cursor","default")
             },5500)
         }else alert("Авторизоваться не удалось!");
