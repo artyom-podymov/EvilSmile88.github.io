@@ -61,8 +61,8 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 }
                console.log($scope.vk.albums_content) 
-               },1000)
-        },1000)
+               },3000)
+        },3000)
        }
     $scope.currentNav = function (event) {
         $(".current_file").slideDown("slow", function () {
