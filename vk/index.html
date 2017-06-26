@@ -32,7 +32,8 @@
     <div class="logIn" ng-switch-when="Log"><button id="logIn" ng-click="vk.init()">Авторизироваться через VK</button></div>
     <div class="loading" ng-switch-when="Loading"><h3>Загрузка...</h3></div>
     <div class="albums" ng-switch-when="Albums">
-        <div class="album" ng-cloak ng-repeat="elem in vk.albums"></div>
+        <div class="album" ng-cloak></div>
+        <div class="album" ng-cloak></div>
     </div>
 </div>
 
