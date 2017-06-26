@@ -63,9 +63,9 @@ app.controller("AppCtrl", function ($scope) {
                },1000)
         },1000)
        }
-    $scope.currentNav = function (event) {
+    $scope.currentNav = setTimeout(function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
-    }
+    },2000)
 })
 
