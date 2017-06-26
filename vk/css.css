@@ -142,9 +142,17 @@ input[type="search"]:active, input[type="search"]:focus {
     outline: 0;
     outline-offset: 0;
 }
-.album {
-    width: 300px;
-    min-height: 100px;
-    background-color: red;
-    margin-bottom: 10px;
+.albums {
+    width: 100%;
+    background-color: #0068d6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+.albums>div {
+    width: 100%;
+    min-height: 200px;
+    background-color: #e8e8e8;
+    border-bottom: 2px solid #cfcfcf;
 }
