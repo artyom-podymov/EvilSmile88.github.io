@@ -61,7 +61,7 @@ app.controller("AppCtrl", function ($scope) {
                 }
                console.log($scope.vk.albums_content) 
                },1000)
-        },1)
+        },1000)
        }
     $scope.currentNav = function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
