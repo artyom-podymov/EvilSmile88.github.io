@@ -36,7 +36,10 @@
             <div class="album_photo">
                 <img ng-src="{{elem.album_content[0].src_big}}" ng-attr-id="{{$index}}" ng-attr-title="{{elem.album_title}}" height="150px">
             </div>
-            <div class="album_discription"></div>
+            <div class="album_discription">
+                <h2>{{elem.album_title}}</h2>
+                <p><span>{{elem.length}}</span> файлов</p>
+            </div>
             <div class="next">
             <div class="arrow"></div><div class="arrow"></div>
             </div>
