@@ -25,8 +25,8 @@ app.controller("AppCtrl", function ($scope) {
                 $(".current_file").slideDown("slow", function () {
             $(".current_file").css("display","flex")
         })
-                 $scope.place = "Albums";
-                alert($scope.place);
+                $scope.place = "Albums";
+                $(".nav div:first-of-type").click();
                 $('body').css("cursor","default")
             },5500)
         }else alert("Авторизоваться не удалось!");
