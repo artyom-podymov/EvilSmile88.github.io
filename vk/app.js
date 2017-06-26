@@ -30,12 +30,12 @@ app.controller("AppCtrl", function ($scope) {
                 $('body').css("cursor","default")
             },5500)
         }else alert("Авторизоваться не удалось!");
-        VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id, need_system: 1}, function (r) {
+        VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id, need_system: 1, need_covers: 1}, function (r) {
             var albums =[];
             if (r.response) {
                 for (var i=0; i<r.response.length; i++) {
                     if (r.response[i].size > 0) {
-                        var obj = {id: r.response[i].aid, title: r.response[i].title};
+                        var obj = {id: r.response[i].aid, title: r.response[i].title, cover: r.response[i].thumb_src,};
                         albums[albums.length] = obj;
 
                     }
@@ -59,6 +59,7 @@ app.controller("AppCtrl", function ($scope) {
                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
                         if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
                             $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
+                            $scope.vk.albums_content[j].album_cover = $scope.vk.albums[i].cover;
                         }
                     }
                 }
