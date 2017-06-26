@@ -60,8 +60,8 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 }
                console.log($scope.vk.albums_content) 
-               },1)
-        },1000)
+               },1000)
+        },1)
        }
     $scope.currentNav = function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
