@@ -22,9 +22,6 @@ app.controller("AppCtrl", function ($scope) {
                  $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
                 console.log($scope.vk.data.user)
-                $(".current_file").slideDown("slow", function () {
-                    $(".current_file").css("display","flex")
-                })
             setTimeout(function () {
             $(".nav div:first-of-type").click();
             },2000);
@@ -66,6 +63,9 @@ app.controller("AppCtrl", function ($scope) {
         },1000)
        }
     $scope.currentNav = function (event) {
+        $(".current_file").slideDown("slow", function () {
+                    $(".current_file").css("display","flex")
+                })
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
     }
