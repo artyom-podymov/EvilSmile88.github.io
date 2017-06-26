@@ -151,8 +151,27 @@ input[type="search"]:active, input[type="search"]:focus {
 
 }
 .albums>div {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    min-height: 200px;
+    min-height: 150px;
     background-color: #e8e8e8;
     border-bottom: 2px solid #cfcfcf;
+}
+.album_photo {
+    margin-left: 30px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 70px;
+    height: 70px;
+}
+.album_discription {
+    margin-left: 30px;
+    margin-right: 10px;
+    width: 50%;
+    background-color: red;
+    height: 70px;
 }
