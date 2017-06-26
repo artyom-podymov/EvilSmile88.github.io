@@ -19,39 +19,31 @@ app.controller("AppCtrl", function ($scope) {
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
             $scope.place = "Albums";
-                 $scope.vk.data.user = response.session.user;
+            $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
-                console.log($scope.vk.data.user)
+            console.log($scope.vk.data.user)
             $('body').css("cursor","wait")
             setTimeout(function () {
-                for (var i=0; i<$scope.vk.albums.length; i++) {
-                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
-                    if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
-                        $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
-                        }
-                    }
-                }
-               console.log($scope.vk.albums_content) 
                 $('body').css("cursor","pointer")
-            $(".nav div:first-of-type").click();
-            },3500)
+                $(".nav div:first-of-type").click();
+            },6010)
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
             if (r.response) {
                 for (var i=0; i<r.response.length; i++) {
                     if (r.response[i].size > 0) {
-                    var obj = {id: r.response[i].aid, title: r.response[i].title};
-                    albums[albums.length] = obj;
-                        
+                        var obj = {id: r.response[i].aid, title: r.response[i].title};
+                        albums[albums.length] = obj;
+
                     }
                 }
                 $scope.vk.albums = albums;
                 console.log($scope.vk.albums);
             }
         })
-            
-           setTimeout( function () {
+
+        setTimeout( function () {
             for (var i = 0; i<$scope.vk.albums.length; i++) {
                 VK.Api.call('photos.get', {owner_id: $scope.vk.data.user.id, album_id: $scope.vk.albums[i].id, rev: 1, extended: 1, count: 1000}, function (r) {
                     if (r.response) {
@@ -60,12 +52,22 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 })
             }
+            setTimeout(function () {
+                for (var i=0; i<$scope.vk.albums.length; i++) {
+                    for (var j = 0; j < $scope.vk.albums_content.length; j++) {
+                        if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
+                            $scope.vk.albums_content[j].album_title = $scope.vk.albums[i].title;
+                        }
+                    }
+                }
+                console.log($scope.vk.albums_content)
+            },3000)
         },3000)
-       }
+    }
     $scope.currentNav = function (event) {
         $(".current_file").slideDown("slow", function () {
-                    $(".current_file").css("display","flex")
-                })
+            $(".current_file").css("display","flex")
+        })
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
     }
