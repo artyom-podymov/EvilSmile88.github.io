@@ -74,7 +74,6 @@ body {
     align-items: center;
     width: 70%;
     min-width: 400px;
-    min-height: 300px;
     box-sizing: border-box;
 }
 .logIn, .loading {
@@ -175,4 +174,20 @@ input[type="search"]:active, input[type="search"]:focus {
     width: 50%;
     background-color: red;
     height: 90px;
+}
+.next {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.arrow {
+    display: inline-block;
+    transform: rotate(45deg);
+    width: 10px;
+    height: 10px;
+    border: 3px solid #0068d6;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
 }
