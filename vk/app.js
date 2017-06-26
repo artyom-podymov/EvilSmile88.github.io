@@ -24,7 +24,7 @@ app.controller("AppCtrl", function ($scope) {
                 console.log($scope.vk.data.user)
             setTimeout(function () {
             $(".nav div:first-of-type").click();
-            },2000);
+            },2010);
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
             var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
