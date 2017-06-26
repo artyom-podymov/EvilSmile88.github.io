@@ -25,13 +25,15 @@
     </div>
 </div>
 <div class="current_file">
-    <span>Добро пожаловать, <span class="current_user">{{vk.albums_content[0].album_title}}</span>.</span>
-<!--     vk.data.user.first_name -->
+    <span>Добро пожаловать, <span class="current_user">{{vk.data.user.first_name}}</span>.</span>
+
 </div>
 <div class="main" ng-cloak ng-switch on="place">
     <div class="logIn" ng-switch-when="Log"><button id="logIn" ng-click="vk.init()">Авторизироваться через VK</button></div>
     <div class="loading" ng-switch-when="Loading"><h3>Загрузка...</h3></div>
-    <div class="alboms" ng-switch-when="Albums">asas</div>
+    <div class="albums" ng-switch-when="Albums">
+        <div class="album" ng-cloak ng-repeat="elem in vk.albums"></div>
+    </div>
 </div>
 
 </body>
