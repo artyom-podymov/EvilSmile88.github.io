@@ -30,8 +30,8 @@ app.controller("AppCtrl", function ($scope) {
                 $('body').css("cursor","default")
             },5500)
         }else alert("Авторизоваться не удалось!");
-        VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id}, function (r) {
-            var albums =[{id: -6, title: "Profile"}, {id:-7, title: "Wall"}];
+        VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id, need_system: 1}, function (r) {
+            var albums =[];
             if (r.response) {
                 for (var i=0; i<r.response.length; i++) {
                     if (r.response[i].size > 0) {
