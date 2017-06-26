@@ -51,7 +51,7 @@ app.controller("AppCtrl", function ($scope) {
                     }
                 })
             }
-               (function () {
+               setTimeout(function () {
                 for (var i=0; i<$scope.vk.albums.length; i++) {
                     for (var j = 0; j < $scope.vk.albums_content.length; j++) {
                     if ($scope.vk.albums[i].id == $scope.vk.albums_content[j].album_id) {
@@ -59,7 +59,7 @@ app.controller("AppCtrl", function ($scope) {
                         }
                     }
                 }
-                })()
+                },1000)
         },1000)
         
                 
