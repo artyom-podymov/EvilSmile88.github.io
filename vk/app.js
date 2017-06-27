@@ -74,6 +74,7 @@ app.controller("AppCtrl", function ($scope) {
     }
     $scope.currentAlbum = function (event) {
         $scope.place = "Photos";
+        alert(this.id)
     }
 })
 
