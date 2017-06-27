@@ -24,8 +24,8 @@
         <img ng-src="{{elem.url}}" title="elem.title" alt="elem.alt" width="25px">
     </div>
 </div>
-<div class="current_file">
-    <span>Добро пожаловать, <span class="current_user">{{vk.data.user.first_name}}</span>.</span>
+<div class="current_file" ng-switch on="place">
+    <span ng-switch-when="Albums">Добро пожаловать, <span class="current_user">{{vk.data.user.first_name}}</span>.</span>
 
 </div>
 <div class="main" ng-cloak ng-switch on="place">
