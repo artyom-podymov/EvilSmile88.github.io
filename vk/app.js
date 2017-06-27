@@ -82,7 +82,7 @@ app.controller("AppCtrl", function ($scope) {
     }
     $scope.currentPhoto = function (event) {
         $scope.place = "BigPhoto";
-        alert(event.currentTarget.getAttribute("data-id"))
+        $scope.currentIdPhoto = event.currentTarget.getAttribute("data-id");
     }
 })
     
