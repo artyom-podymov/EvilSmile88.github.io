@@ -219,8 +219,10 @@ input[type="search"]:active, input[type="search"]:focus {
     flex-wrap: wrap;
 }
 .photo_container {
-    border: 1px solid black;
+    border: 1px solid #6e6e6e;
     width: 100px;
+    margin: 10px;
     height: 100px;
-    background-color: red;
+    border-radius: 10px;
+    background-color: #e8e8e8;
 }
