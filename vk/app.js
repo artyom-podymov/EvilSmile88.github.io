@@ -73,7 +73,7 @@ app.controller("AppCtrl", function ($scope) {
         event.currentTarget.setAttribute("class", "current_nav")
     }
     $scope.currentAlbum = function (event) {
-        alert("aaaa)
+        alert("aaaa")
     }
 })
 
