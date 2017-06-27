@@ -47,7 +47,7 @@
     </div>
     <div class="photos" ng-switch-when="Photos">
         <div class="photo_container" ng-repeat="elem in vk.albums_content[currentIdAlbum].album_content" ng-click="currentPhoto($event)">
-            <img ng-src="{{elem.src}}" ng-attr-id="{{$index}}>
+            <img ng-src="{{elem.src}}">
         </div>
     </div>
     <div class="big_photo" ng-switch-when="BigPhoto">
