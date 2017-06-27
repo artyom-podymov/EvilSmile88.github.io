@@ -214,7 +214,7 @@ input[type="search"]:active, input[type="search"]:focus {
 /*     max-height: 80vh; */
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-content: space-around;
     flex-wrap: wrap;
 }
