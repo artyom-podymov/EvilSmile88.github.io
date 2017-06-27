@@ -230,3 +230,12 @@ input[type="search"]:active, input[type="search"]:focus {
     border-radius: 10px;
     background-color: #e8e8e8;
 }
+.to_albums {
+    width: 10px;
+    border: 4px solid grey;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    height: 10px;
+    transform: rotate(45deg);
+    display: inline-block;
+}
