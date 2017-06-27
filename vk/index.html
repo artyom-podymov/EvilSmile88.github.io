@@ -50,7 +50,7 @@
             <img ng-src="{{elem.src}}">
         </div>
     </div>
-    <div class="big_photo" ng-switch-when="BigPhoto">
+    <div class="big_photo" ng-switch-when="BigPhoto" ng-attr-data-id="{{$index}}">
 <!--         <img ng-src="{{vk.albums_content[currentIdAlbum].album_content[currentIdPhoto].src_big}}"> -->
     </div>
 </div>
