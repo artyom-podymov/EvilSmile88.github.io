@@ -143,8 +143,8 @@ input[type="search"]:active, input[type="search"]:focus {
     outline-offset: 0;
 }
 .albums {
-    max-height: 75vh;
-    overflow-y: scroll;
+/*     max-height: 75vh;
+    overflow-y: scroll; */
     cursor: pointer;
     width: 100%;
     background-color: #0068d6;
