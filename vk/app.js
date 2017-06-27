@@ -77,5 +77,8 @@ app.controller("AppCtrl", function ($scope) {
         $scope.currentIdAlbum = event.currentTarget.getAttribute("id");
         $scope.current_album = event.currentTarget.getAttribute("data-title")
     }
+    $scope.toAlbums = function () {
+        $scope.place = "Albums";
+    }
 })
-
+    
