@@ -46,11 +46,11 @@
         </div>
     </div>
     <div class="photos" ng-switch-when="Photos">
-        <div class="photo_container" ng-repeat="elem in vk.albums_content[currentIdAlbum].album_content" ng-click="currentPhoto($event)">
+        <div class="photo_container" ng-attr-data-id="{{$index}}" ng-repeat="elem in vk.albums_content[currentIdAlbum].album_content" ng-click="currentPhoto($event)">
             <img ng-src="{{elem.src}}">
         </div>
     </div>
-    <div class="big_photo" ng-switch-when="BigPhoto" ng-attr-data-id="{{$index}}">
+    <div class="big_photo" ng-switch-when="BigPhoto">
 <!--         <img ng-src="{{vk.albums_content[currentIdAlbum].album_content[currentIdPhoto].src_big}}"> -->
     </div>
 </div>
