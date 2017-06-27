@@ -217,6 +217,7 @@ input[type="search"]:active, input[type="search"]:focus {
     justify-content: space-around;
     align-content: space-around;
     flex-wrap: wrap;
+    background-color: blue;
 }
 .photo_container {
     border: 1px solid black;
