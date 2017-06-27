@@ -24,8 +24,8 @@ app.controller("AppCtrl", function ($scope) {
             $('html').css("cursor","wait")
             setTimeout(function () {
                 $(".current_file").slideDown("slow", function () {
-            $(".current_file").css("display","flex")
-        })
+                    $(".current_file").css("display","flex")
+                })
                 $scope.place = "Albums";
                 $(".nav div:first-of-type").click();
                 $('html').css("cursor","default")
@@ -71,6 +71,9 @@ app.controller("AppCtrl", function ($scope) {
     $scope.currentNav = function (event) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
+    }
+    $scope.currentAlbum = function (event) {
+        $scope.place = "Photos";
     }
 })
 
