@@ -16,6 +16,7 @@ app.controller("AppCtrl", function ($scope) {
     $scope.authInfo = function(response){
         if(response.session){ // Авторизация успешна
             $scope.place = "Loading";
+            console.log(response.session)
             $(".nav div:first-of-type").click();
             $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
