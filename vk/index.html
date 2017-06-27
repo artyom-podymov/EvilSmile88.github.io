@@ -41,9 +41,12 @@
                 <p><span>{{elem.album_content.length}}</span> файлов</p>
             </div>
             <div class="next">
-            <div class="arrow"></div><div class="arrow"></div>
+                <div class="arrow"></div><div class="arrow"></div>
             </div>
         </div>
+    </div>
+    <div class="photos">
+        <div class="photo_container" nk-click="currentAlbum($event)" ng-repeat="elem in vk.albums_content[0].album_content" ng-switch-when="Photos"></div>
     </div>
 </div>
 
