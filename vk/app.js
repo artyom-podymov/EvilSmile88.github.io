@@ -80,5 +80,8 @@ app.controller("AppCtrl", function ($scope) {
     $scope.toAlbums = function () {
         $scope.place = "Albums";
     }
+    $scope.currentPhoto = function (event) {
+        $scope.place = "BigPhoto";
+    }
 })
     
