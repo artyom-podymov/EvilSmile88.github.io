@@ -21,14 +21,14 @@ app.controller("AppCtrl", function ($scope) {
             $scope.vk.data.user = response.session.user;
 //                 $(".current_user").text($scope.vk.data.user.first_name);
             console.log($scope.vk.data.user)
-            $('body').css("cursor","wait")
+            $('html').css("cursor","wait")
             setTimeout(function () {
                 $(".current_file").slideDown("slow", function () {
             $(".current_file").css("display","flex")
         })
                 $scope.place = "Albums";
                 $(".nav div:first-of-type").click();
-                $('body').css("cursor","default")
+                $('html').css("cursor","default")
             },5500)
         }else alert("Авторизоваться не удалось!");
         VK.Api.call('photos.getAlbums', {owner_id: $scope.vk.data.user.id, need_system: 1, need_covers: 1}, function (r) {
