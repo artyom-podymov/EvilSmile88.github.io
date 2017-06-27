@@ -219,6 +219,10 @@ input[type="search"]:active, input[type="search"]:focus {
     flex-wrap: wrap;
 }
 .photo_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     border: 1px solid #6e6e6e;
     width: 100px;
     margin: 10px;
