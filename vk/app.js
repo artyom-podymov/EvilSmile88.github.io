@@ -80,6 +80,9 @@ app.controller("AppCtrl", function ($scope) {
     $scope.toAlbums = function () {
         $scope.place = "Albums";
     }
+     $scope.toAlbum = function () {
+        $scope.place = "Photos";
+    }
     $scope.currentPhoto = function (event) {
         $scope.place = "BigPhoto";
         $scope.currentIdPhoto = event.currentTarget.getAttribute("data-id");
