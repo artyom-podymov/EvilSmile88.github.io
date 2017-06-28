@@ -81,8 +81,16 @@ app.controller("AppCtrl", function ($scope) {
         if ($scope.place == "BigPhoto") $scope.place = "Photos";
         else if ($scope.place == "Photos") $scope.place = "Albums";
     }
-     $scope.toAlbum = function () {
-        
+     $scope.Next = function () {
+        if ($scope.place == "Albums") {
+             $scope.place = "Photos";
+             $scope.currentIdAlbum = event.currentTarget.getAttribute("id");
+             $scope.current_album = event.currentTarget.getAttribute("data-title")
+        }
+        else if ($scope.place == "Photos") {
+            $scope.place = "BigPhoto";
+            $scope.currentIdPhoto = event.currentTarget.getAttribute("data-id");
+        }
     }
     $scope.currentPhoto = function (event) {
         $scope.place = "BigPhoto";
