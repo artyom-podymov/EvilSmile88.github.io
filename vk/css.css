@@ -236,6 +236,11 @@ input[type="search"]:active, input[type="search"]:focus {
     border-radius: 10px;
     background-color: #e8e8e8;
 }
+
+.current_file>span img{
+    margin-right: 7px;
+    height: 20px;
+}
 .to_albums {
     transition: 0.3s transform ease;
     cursor: pointer;
