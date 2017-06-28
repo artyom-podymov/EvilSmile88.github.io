@@ -26,7 +26,7 @@
 </div>
 <div class="current_file" ng-switch on="place">
     <span ng-switch-when="Albums">Добро пожаловать, <span class="current_user">{{vk.data.user.first_name}}</span>.</span>
-    <span ng-switch-when="Photos" ng-cloak><div ng-click="Back()"class="to_albums"></div><span class="current_album">{{current_album}}</span></span>
+    <span ng-switch-when="Photos" ng-cloak><div ng-click="Back()"class="to_albums"></div> <img src="img/file.png" alt="file" height="25px"><span class="current_album">{{current_album}}</span></span>
     <span ng-switch-when="BigPhoto" ng-cloak><div ng-click="Back()"class="to_albums"></div></span>
 </div>
 <div class="main" ng-cloak ng-switch on="place">
