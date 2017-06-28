@@ -77,11 +77,12 @@ app.controller("AppCtrl", function ($scope) {
         $scope.currentIdAlbum = event.currentTarget.getAttribute("id");
         $scope.current_album = event.currentTarget.getAttribute("data-title")
     }
-    $scope.toAlbums = function () {
-        $scope.place = "Albums";
+    $scope.Back = function () {
+        if ($scope.place = "BigPhoto") $scope.place = "Photos";
+        if ($scope.place = "Photos") $scope.place = "Albums";
     }
      $scope.toAlbum = function () {
-        $scope.place = "Photos";
+        
     }
     $scope.currentPhoto = function (event) {
         $scope.place = "BigPhoto";
