@@ -79,7 +79,7 @@ app.controller("AppCtrl", function ($scope) {
     }
     $scope.Back = function () {
         if ($scope.place == "BigPhoto") $scope.place = "Photos";
-        if ($scope.place == "Photos") $scope.place = "Albums";
+        else if ($scope.place == "Photos") $scope.place = "Albums";
     }
      $scope.toAlbum = function () {
         
