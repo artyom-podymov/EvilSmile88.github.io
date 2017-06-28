@@ -72,11 +72,6 @@ app.controller("AppCtrl", function ($scope) {
         $(".nav div").removeClass("current_nav").addClass("not_current_nav")
         event.currentTarget.setAttribute("class", "current_nav")
     }
-    $scope.currentAlbum = function (event) {
-        $scope.place = "Photos";
-        $scope.currentIdAlbum = event.currentTarget.getAttribute("id");
-        $scope.current_album = event.currentTarget.getAttribute("data-title")
-    }
     $scope.Back = function () {
         if ($scope.place == "BigPhoto") $scope.place = "Photos";
         else if ($scope.place == "Photos") $scope.place = "Albums";
@@ -92,9 +87,6 @@ app.controller("AppCtrl", function ($scope) {
             $scope.currentIdPhoto = event.currentTarget.getAttribute("data-id");
         }
     }
-    $scope.currentPhoto = function (event) {
-        $scope.place = "BigPhoto";
-        $scope.currentIdPhoto = event.currentTarget.getAttribute("data-id");
-    }
+  
 })
     
