@@ -53,6 +53,11 @@
     </div>
     <div class="big_photo" ng-switch-when="BigPhoto">
         <img ng-src="{{vk.albums_content[currentIdAlbum].album_content[currentIdPhoto].src_big}}">
+        <p>
+            Альбом: <span>{{vk.albums_content[currentIdAlbum].album_title}}</span><br>
+            Отметок "Понравилось": <span>{{vk.albums_content[currentIdAlbum].album_content[currentIdPhoto].likes.count}}</span><br>
+            Описание: <span>{{vk.albums_content[currentIdAlbum].album_content[currentIdPhoto].text}}</span><br>
+        </p>
     </div>
 </div>
 
