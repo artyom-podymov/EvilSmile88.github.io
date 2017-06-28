@@ -253,8 +253,11 @@ input[type="search"]:active, input[type="search"]:focus {
     display: inline-block;
 }
 .big_photo {
+    width: 100%;
+    line-height: 30px;
     padding: 20px;
-    display: flex;
-    justify-content:center;
-    align-items:center;
+    font-weight: bold;  
+}
+.big_photo span {
+    font-weight:normal;
 }
