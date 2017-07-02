@@ -1,0 +1,66 @@
+<!doctype html>
+<html ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <title>Posts</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="css.css" />
+
+</head>
+<body ng-controller="AppCtrl">
+
+<div class="header">
+    <div class="header-left">
+        <img src="img/logo.png" height="45px" title="logo">
+        <p>You have <span ng-cloak>{{Notes_name.length}}</span> notes.</p>
+        <div class="add_note" ng-click="add = true;" title="Add">
+            Add
+            <table>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="search"><input type="search" class="search"></div>
+</div>
+<div class="main" ng-cloak>
+    <div class="note" ng-repeat="elem in Notes" ng-attr-title="{{elem.tags}}">
+        <img src="img/pen.png" height="15px" title="edit">
+        <div class="close" ng-click="delite($event)" ng-attr-data-id="{{$index}}" ng-attr-data-name="elem.name" title="delite">
+            <table>
+                <tr><td></td><td></td></tr>
+                <tr><td></td><td></td></tr>
+            </table>
+        </div>
+        <p>{{elem.text}}</p>
+        <p class="tags">Tags: <span class="tag" ng-repeat="element in elem.tags">{{element}}</span></p>
+        <div class="date"><p>{{elem.date}}</p></div>
+    </div>
+</div>
+<div class="add_container" ng-cloak ng-if="add">
+    <div class="new_note">
+        <div class="new_note_header"><h2>Create new Note</h2>
+            <div class="close" ng-click="close()" title="close">
+                <table>
+                    <tr><td></td><td></td></tr>
+                    <tr><td></td><td></td></tr>
+                </table>
+            </div>
+        </div>
+        <form class="add_content">
+            <span id="textarea" contenteditable="true" ng-keyup="create_tag()" ng-paste="create_tag()"></span>
+            <p class="tags">Tags: <span class="tag" ng-repeat="elem in tags">{{elem}}</span></p>
+            <div class="buttons">
+                <input type="button" value="Post" ng-click="post()">
+                <input type="reset" value="Reset" ng-click="reset()">
+            </div>
+        </form>
+    </div>
+    <div class="add_fon"></div>
+</div>
+
+</body>
+</html>
