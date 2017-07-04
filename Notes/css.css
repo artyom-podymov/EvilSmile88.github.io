@@ -112,12 +112,12 @@ input[type="search"] {
 }
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    cursor: pointer;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("img/close.png");
+    /*width: 10px;*/
+    /*height: 10px;*/
+    /*cursor: pointer;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*background-image: url("img/close.png");*/
 }
 
 input[type="search"]:active, input[type="search"]:focus {
@@ -231,6 +231,7 @@ input[type="search"]:active, input[type="search"]:focus {
     color: blue;
 }
 .note {
+    display: block;
     min-width: 400px;
     position: relative;
     padding: 10px;
