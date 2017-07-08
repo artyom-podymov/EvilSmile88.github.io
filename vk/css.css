@@ -215,12 +215,15 @@ input[type="search"]:active, input[type="search"]:focus {
     margin-left: -20px;
 }
 .photos {
-/*     max-height: 80vh; */
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-content: space-around;
     flex-wrap: wrap;
+}
+.photos::after {
+    content: "";
+    flex: auto;
 }
 .photo_container {
     transition: 0.3s transform ease;
