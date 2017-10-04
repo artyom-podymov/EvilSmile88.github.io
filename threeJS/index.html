@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/OBJLoader.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/script.js"></script>
+    <style>
+        @font-face {
+            font-family: Metro; /* Имя шрифта */
+            src: url(Metro.otf); /* Путь к файлу со шрифтом */
+        }
+        .count {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            color: #1374b0;
+            top: 1vh;
+            left: 1vw;
+        }
+        .score {
+            padding: 10px;
+            min-width: 250px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .count span {
+            display: inline-block;
+            font-weight: bolder;
+            font-family: Metro;
+            font-size: 30px;
+        }
+        .batary {
+            border-radius: 10px;
+            padding: 0px;
+            border: 5px solid #1374b0;
+            overflow: hidden;
+            display: flex;
+            width: 160px;
+            height: 50px;
+        }
+        .batary li {
+            list-style: none;
+            background-color: #ee9930;
+            width: 50px;
+            height: 100%;
+            transform: skew(-35deg);
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="count">
+        <span class="score">Score: <span id="score">0</span></span>
+        <span>
+            <ul class="batary" id="batary">
+            </ul>
+        </span>
+    </div>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
