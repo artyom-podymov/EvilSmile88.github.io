@@ -247,7 +247,7 @@ window.onload = function () {
             speed = 0.2;
             aim.scale.set(1,1,1);
             aim.position.y = 1;
-            if (200 < orientMob && orientMob < 360) {
+            if (-200 < orientMob && orientMob < -360) {
              if (event.beta > (orientMob+2.5)) leftMob();
             else if (event.beta < (orientMob-2.5)) rightMob();
             else { stopMove=true; setTimeout(function () {
