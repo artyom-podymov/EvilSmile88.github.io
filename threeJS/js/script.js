@@ -242,7 +242,7 @@ window.onload = function () {
     window.addEventListener("keydown", check);
 
     window.addEventListener('deviceorientation', function(event) {
-        if (!orientMob) { orientMob = event.beta; alert(orientMob) };
+        if (!orientMob) { orientMob = event.beta; alert(orientMob); alert(event.alpha);alert(event.gamma) };
         if (event.beta != null) {
             speed = 0.15;
             aim.scale.set(1,1,1);
