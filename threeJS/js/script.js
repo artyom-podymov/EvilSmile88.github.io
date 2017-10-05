@@ -460,7 +460,7 @@ window.onload = function () {
 
 
         renderer.render(scene,camera);
-        controls.update();
+//         controls.update();
         requestAnimationFrame(function (number) { loop() })
     }
 
