@@ -10,6 +10,10 @@ window.onload = function () {
     var acceleration;
     var ship, gate, fon, charge, aim, roadLine, shipShadow, portal, billboard, billboardShadow, news, bridge, reds, nitro;
     var cloud1, cloud2, cloud3, cloud4, cloud5, derij;
+    var laser, laser1, laser2, laser3;
+    var bullets = [];
+    var armo;
+
     var cloudArray;
     var new1, new2;
     var speed = 0.15;
@@ -19,11 +23,15 @@ window.onload = function () {
     var gateSound = document.getElementById("gate-audio");
     gateSound.volume = 1;
     var missSound = document.getElementById("gate-miss");
-    missSound.volume = 1;
+    missSound.volume = 0.7;
     var song = document.getElementById("song");
     song.volume = 0.2;
     var pauseSound = document.getElementById("pause-sound");
     pauseSound.volume = 1;
+    var blasterSound = document.getElementById("blaster");
+    blasterSound.volume = 1;
+    var achivment = document.getElementById("achivment");
+    achivment.volume = 0.3;
 
     var donotHit = false;
     var boost = 1;
@@ -384,6 +392,26 @@ window.onload = function () {
         nitro.scale.set(2,2,2)
         // scene.add(nitro);
     }
+    function createArmo() {
+        laser1 = laser.clone();
+        laser2 = laser.clone();
+        laser3 = laser.clone();
+
+        laser3.position.z = laser2.position.z = laser1.position.z = 990;
+        laser3.position.y = laser2.position.y = laser1.position.y = 2;
+
+        armo = [laser1, laser2, laser3]
+    }
+
+    function shutLaser() {
+        blasterSound.play()
+        var bullet = armo.pop();
+        bullet.position.x = ship.position.x;
+        bullets.unshift(bullet);
+        scene.add(bullet);
+
+    }
+
 
 
     // for (var i =0; i< geometry.faces.length; i++) {
@@ -472,6 +500,20 @@ window.onload = function () {
 
     }, onProgress, onError)
 
+    objectLoader.load('obj/laser.obj', function (object) {
+        var meshes = [];
+        object.traverse( function ( child )
+        {
+            if ( child instanceof THREE.Mesh )
+            {
+                meshes.push(child);
+            }
+        });
+        laser = meshes[0];
+        laser.material = new THREE.MeshLambertMaterial( { color: 0xff5555 })
+
+    }, onProgress, onError)
+
     objectLoader.load('obj/bridge.obj', function (object) {
         var meshes = [];
         object.traverse( function ( child )
@@ -532,7 +574,7 @@ window.onload = function () {
         aim.material = new THREE.MeshLambertMaterial( { color: 0xffffff, opacity: 0.5, transparent: true } )
         aim.position.z = 900;
         aim.scale.set(3,3,3);
-        aim.position.y = -1.5;
+        aim.position.y = -2;
         aim.rotation.order = 'YXZ';
         aim.rotation.y = 3.17;
         scene.add(aim)
@@ -551,7 +593,7 @@ window.onload = function () {
         var  material = new THREE.MeshLambertMaterial( { color: 0x000000, opacity: 0.3,  transparent: true  } ),
             geometry = new THREE.CircleGeometry( 3, 20 );
         shipShadow = new THREE.Mesh(geometry,material);
-        shipShadow.position.z = 985;
+        shipShadow.position.z =  985;
         // shipShadow.position.y = 1.5;
         shipShadow.rotation.x = -1.57;
         shipShadow.position.y = -5;
@@ -566,6 +608,7 @@ window.onload = function () {
         // ship.castShadow = true;
         // plane.receiveShadow = true;
         createRoad();
+        createArmo();
         createBridge();
         createOcean();
         createFon();
@@ -618,6 +661,13 @@ window.onload = function () {
         }, false);
     }
 
+    document.querySelector(".laser").addEventListener('touchstart', function () {
+        this.style.opacity = '1'
+        shutLaser();
+    })
+    document.querySelector(".laser").addEventListener('touchend', function () {
+        this.style.opacity = '0.5'
+    })
     window.addEventListener("keydown", check);
 
     window.addEventListener('deviceorientation', function(event) {
@@ -703,6 +753,7 @@ window.onload = function () {
         return rand;
     }
     function check(e) {
+        if (e.keyCode == 32 && armo.length > 0) { console.log(armo); shutLaser(); console.log(bullets);} ;
         if (e.keyCode == 27) pauseGame();
         if (e.keyCode == 65) left()
         if (e.keyCode == 68) right()
@@ -857,6 +908,7 @@ window.onload = function () {
     }
 
     function restartGame() {
+        createArmo();
         song.currentTime = 0;
         checkOrientation = true;
         ship.rotation.x = 0;
@@ -877,6 +929,7 @@ window.onload = function () {
             if (leftHitBox < target.position.x && target.position.x < rightHitBox && energy <= 3 && a) {
                 // alert("a=" + leftHitBox + " b=" + rightHitBox + " mesh=" + object.position.x + ' pos=' + target.position.x)
                 energy++;
+                achivment.play();
                 a = 0;
                 scene.remove(target);
                 target.position.z = -1000;
@@ -928,13 +981,17 @@ window.onload = function () {
     }
 
     function emitationGForce() {
-        if (ship.position.y < 2.001 && x == 0 && speed < 0.1)
-            ship.position.y += Math.PI/50;
-        else x = 1;
-        if (ship.position.y > 2.000 && x == 1 && speed < 0.1)
-            ship.position.y -= Math.PI/50;
-        else x =0;
-        // if (-1< ship.position.x < 1 && speed < 0.1) {
+        if (ship.position.z > 985) {
+            ship.position.z -= Math.PI/20
+            shipShadow.position.z = ship.position.z -5;
+        }
+            if (ship.position.y < 2.001 && x == 0)
+                ship.position.y += Math.PI/50;
+            else x = 1;
+            if (ship.position.y > 2.000 && x == 1)
+                ship.position.y -= Math.PI/50;
+            else x =0;
+         // if (-1< ship.position.x < 1 && speed < 0.1) {
         //     ship.rotation.x = 0
         // }
     }
@@ -944,13 +1001,28 @@ window.onload = function () {
 
     function loop() {
         fon.position.z += Math.PI/30;
+        if (bullets.length > 0) {
+            for (var i = 0; i < bullets.length; i++) {
+                console.log(i)
+                if (bullets[i].position.z > 700) {
+                    bullets[i].position.z -= Math.PI;
+                }
+                else {scene.remove(bullets[i]); bullets.splice(i,1)}
+            }
+        }
+
         var leftHitbox, rightHitBox;
         shake();
         moveClouds()
         moveRoad();
         showCharge();
         _hit();
-        emitationGForce()
+        if (speed < 0.1) emitationGForce()
+
+        if (ship.position.z < 986 && speed > 0.1) {
+            ship.position.z += Math.PI/10
+            shipShadow.position.z = ship.position.z -5;
+        }
         // directionalLight.position.z += Math.PI;
         // console.log(directionalLight.position.z)
 

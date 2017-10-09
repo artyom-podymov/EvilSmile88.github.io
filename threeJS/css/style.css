@@ -147,6 +147,7 @@ html, body {
     border: 5px solid;
     border-color: rgba(190, 10, 50, 1);
 }
+
 .arrow {
     margin-top: 27%;
     width: 40%;
@@ -166,7 +167,31 @@ html, body {
     margin-right: 20%;
 }
 
+.laser {
+    display: none;
+    opacity: 0.5;
+    position: fixed;
+    bottom: 5vh;
+    right: 3vw;
+    width: 8vw;
+    background-color: white;
+    height: 8vw;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: rgba(190, 10, 50, 1);
+    background-image: url("../pic/laser.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.laser--active {
+    opacity: 1;
+}
+
 @media (max-width: 980px) {
+    .laser {
+        display: block;
+    }
     .controls {
         display: flex;
     }
