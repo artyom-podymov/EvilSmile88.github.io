@@ -8,55 +8,19 @@
     <script src="js/lib/OBJLoader.js"></script>
     <script src="js/lib/TrackballControls.js"></script>
     <script src="js/script.js"></script>
-    <style>
-        @font-face {
-            font-family: Metro; /* Имя шрифта */
-            src: url(Metro.otf); /* Путь к файлу со шрифтом */
-        }
-        .count {
-            display: flex;
-            align-items: center;
-            position: fixed;
-            color: #eb1c3d;
-            top: 1vh;
-            left: 1vw;
-        }
-        .score {
-            padding: 10px;
-            min-width: 150px;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .count span {
-            color: #b00932;
-            display: inline-block;
-            font-weight: bolder;
-            font-family: Metro;
-            font-size: 25px;
-        }
-        .batary {
-            border-radius: 10px;
-            padding: 0px;
-            border: 5px solid #b00932;
-            overflow: hidden;
-            display: flex;
-            width: 15vw;
-            height: 25px;
-        }
-        .batary li {
-            list-style: none;
-            background-color: #eb1c3d;
-            width: 30%;
-            height: 100%;
-            transform: skew(-35deg);
-            margin-right: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="pause-button">
+        <div class="pause-button__pause-figure">
+            <div></div>
+            <div></div>
+        </div>
+
+        <div class="pause-button__play-figure">
+            <div></div>
+        </div>
+    </div>
     <div class="count">
         <span class="score">Score: <span id="score">0</span></span>
         <span>
@@ -64,6 +28,25 @@
             </ul>
         </span>
     </div>
+    <div class="controls">
+        <div id="as" class="controls__left">
+            <div class="arrow"></div>
+        </div>
+        <div class="controls__right">
+            <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="screen">
+        <div class="pause">PAUSE</div>
+    </div>
+    <audio src="sounds/gate.mp3" id="gate-audio" preload="auto">
+    </audio>
+    <audio src="sounds/error-01.wav" id="gate-miss" preload="auto">
+    </audio>
+    <audio src="sounds/confirm.wav" id="pause-sound" preload="auto">
+    </audio>
+    <audio src="sounds/Trap.mp3" id="song" autoplay loop preload="auto">
+    </audio>
     <canvas id="canvas"></canvas>
 </body>
 </html>

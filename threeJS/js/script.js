@@ -1,4 +1,6 @@
 window.onload = function () {
+    var pause = false;
+    var screen = document.querySelector('.screen')
     var height = window.innerHeight;
     var width = window.innerWidth;
     var canvas = document.getElementById('canvas');
@@ -7,8 +9,22 @@ window.onload = function () {
     var scoreCheck = 5;
     var acceleration;
     var ship, gate, fon, charge, aim, roadLine, shipShadow, portal, billboard, billboardShadow, news, bridge, reds, nitro;
+    var cloud1, cloud2, cloud3, cloud4, cloud5, derij;
+    var cloudArray;
     var new1, new2;
     var speed = 0.15;
+    var useGiroSensor = false;
+
+
+    var gateSound = document.getElementById("gate-audio");
+    gateSound.volume = 1;
+    var missSound = document.getElementById("gate-miss");
+    missSound.volume = 1;
+    var song = document.getElementById("song");
+    song.volume = 0.2;
+    var pauseSound = document.getElementById("pause-sound");
+    pauseSound.volume = 1;
+
     var donotHit = false;
     var boost = 1;
     var energy = 3;
@@ -44,6 +60,24 @@ window.onload = function () {
             batary.appendChild(cell)
         }
     }
+    document.querySelector('.pause-button').addEventListener("click", pauseGame)
+    function pauseGame() {
+        if(this == document.querySelector('.pause-button') ) this.classList.toggle("pause-button--active")
+        if (pause) {
+            pauseSound.play()
+            screen.style.display = 'none';
+            pause  = !pause;
+            song.play();
+            loop();
+        }
+        else {
+            pauseSound.play()
+            screen.style.display = 'flex';
+            pause = !pause;
+            song.pause()
+        }
+    }
+
     function createLigth() {
         //     // scene.add( new THREE.AmbientLight( 0x555555 ) );
         var spotLight = new THREE.SpotLight( 0x555555, 5, 3000);
@@ -72,13 +106,80 @@ window.onload = function () {
         //     // scene.add(light);
     }
     function createFon() {
-        var texture = texturLoader.load('road2.jpg')
+        var texture = texturLoader.load('pic/road2.jpg')
         var planeGeometry = new THREE.PlaneGeometry(2000,2000,1,1);
         var materialPlane = new THREE.MeshBasicMaterial( { color: 0xffffff, map: texture } );
         fon = new THREE.Mesh(planeGeometry,materialPlane);
         fon.position.z = -2000;
         fon.position.y = 60;
         scene.add(fon);
+
+        var texture = texturLoader.load('pic/cloud1.png')
+        var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true } );
+        cloud1 = new THREE.Mesh(planeGeometry,materialPlane);
+        cloud1.position.z = -500;
+        cloud1.position.y = 400;
+        cloud1.position.x = -700;
+        scene.add(cloud1);
+
+        var texture = texturLoader.load('pic/cloud2.png')
+        var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.9 } );
+        cloud2 = new THREE.Mesh(planeGeometry,materialPlane);
+        cloud2.position.z = 0;
+        cloud2.position.y = 400;
+        cloud2.position.x = -200;
+        scene.add(cloud2);
+
+        var texture = texturLoader.load('pic/cloud3.png')
+        var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.5 } );
+        cloud3 = new THREE.Mesh(planeGeometry,materialPlane);
+        cloud3.position.z = -200;
+        cloud3.position.y = 300;
+        cloud3.position.x = 200;
+        scene.add(cloud3);
+
+        var texture = texturLoader.load('pic/cloud6.png')
+        var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.7 } );
+        cloud4 = new THREE.Mesh(planeGeometry,materialPlane);
+        cloud4.position.z = -300;
+        cloud4.position.y = 200;
+        cloud4.position.x = -1200;
+        scene.add(cloud4);
+
+        var texture = texturLoader.load('pic/cloud5.png')
+        var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.9 } );
+        cloud5 = new THREE.Mesh(planeGeometry,materialPlane);
+        cloud5.position.z = 200;
+        cloud5.position.y = 250;
+        cloud5.position.x = 500;
+        scene.add(cloud5);
+
+        var texture = texturLoader.load('pic/cloud4.png')
+        var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.9 } );
+        cloud6 = new THREE.Mesh(planeGeometry,materialPlane);
+        cloud6.position.z = 300;
+        cloud6.position.y = 300;
+        cloud6.position.x = -1400;
+        scene.add(cloud6);
+
+        var texture = texturLoader.load('pic/derijab2.png')
+        var planeGeometry = new THREE.PlaneGeometry(1000,400,1,1);
+        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true } );
+        derij = new THREE.Mesh(planeGeometry,materialPlane);
+        derij.scale.set(0.2, 0.2, 0.2)
+        derij.position.z = -1000;
+        derij.position.y = 600;
+        derij.position.x = 1500;
+        scene.add(derij);
+
+        cloudArray = [cloud1, cloud2, cloud3, cloud4, cloud5, cloud6]
+
     }
 
     function createOcean() {
@@ -104,7 +205,7 @@ window.onload = function () {
         // scene.add(plane);
     }
     function createRoad() {
-        var texture = texturLoader.load('asphalt.jpg')
+        var texture = texturLoader.load('pic/asphalt.jpg')
         var planeGeometry = new THREE.PlaneGeometry(80,2000,1,1);
         var materialPlane = new THREE.MeshLambertMaterial( { color: 0x555555, transparent: true,  opacity: 0.4, map: texture} );
         var plane = new THREE.Mesh(planeGeometry,materialPlane);
@@ -259,11 +360,11 @@ window.onload = function () {
         // var geometry = new THREE.TorusGeometry(7, 0.5, 30, 30);
         // var material = new THREE.MeshLambertMaterial({ color: 0x51a0d8 });
         // gate = new THREE.Mesh(geometry, material);
-        gate.position.z = -1000;
+        gate.position.z = -2000;
         gate.rotation.y = 1.5;
         gate.position.x = randomInteger(-12, 12);
         gate.position.y = 1.9;
-        portal.position.z = -1000;
+        portal.position.z = -2000;
         portal.rotation.y = -0.08;
         portal.position.y = 2.1;
         portal.position.x =  gate.position.x;
@@ -309,7 +410,6 @@ window.onload = function () {
                 meshes.push(child);
             }
         });
-        var texture = texturLoader.load('portal.png')
         var  material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.4,  transparent: true} ),
             geometry = new THREE.CircleGeometry( 8.7, 20 );
         portal = new THREE.Mesh(geometry,material);
@@ -328,8 +428,8 @@ window.onload = function () {
                 meshes.push(child);
             }
         });
-        new1 = texturLoader.load('news1.jpg')
-        new2 = texturLoader.load('news2.jpg')
+        new1 = texturLoader.load('pic/news1.jpg')
+        new2 = texturLoader.load('pic/news2.jpg')
         var  material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: new1} ),
             geometry = new THREE.PlaneGeometry( 17, 15.4 );
         news = new THREE.Mesh(geometry,material);
@@ -461,7 +561,7 @@ window.onload = function () {
         ship.position.y = 1.9;
         ship.rotation.order = 'YXZ';
         ship.rotation.y = 1.57;
-        ship.material = new THREE.MeshLambertMaterial( { color: 0xaaaaaa } )
+        ship.material = new THREE.MeshPhongMaterial( { color: 0xaaaaaa, ambient: 0xff0000 } )
 
         // ship.castShadow = true;
         // plane.receiveShadow = true;
@@ -484,7 +584,6 @@ window.onload = function () {
         // var a = alpha, b = beta, c = gamma;
         // alert( "a: "+ alpha + " b:" + beta + " g:" + gamma)
         var orientGamma = Math.abs(gamma);
-        alert(beta)
         if (30 < orientGamma && orientGamma < 90)  { orientMob = beta; useAlpha = false}
         else  { useAlpha = true; orientMob = alpha}
         checkOrientation = false;
@@ -492,10 +591,37 @@ window.onload = function () {
 
     renderer.render(scene,camera);
 
+    if (!useGiroSensor && document.querySelector(".controls")) {
+        document.querySelector('.controls__left').addEventListener("touchstart", function () {
+            this.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+            this.style.opacity = '1'
+            left();
+        }, false);
+        document.querySelector('.controls__left').addEventListener("touchend", function () {stopMove = true;
+            this.style.backgroundColor = 'transparent';
+            this.style.opacity = '0.5';
+            setTimeout(function () {
+                stopMove = false;
+            }, 100)
+        }, false);
+        document.querySelector('.controls__right').addEventListener("touchstart", function () {
+            this.style.backgroundColor = 'white';
+            this.style.opacity = '1'
+            right();
+        }, false);
+        document.querySelector('.controls__right').addEventListener("touchend", function () {stopMove = true;
+            this.style.backgroundColor = 'transparent';
+            this.style.opacity = '0.5';
+            setTimeout(function () {
+                stopMove = false;
+            }, 100)
+        }, false);
+    }
+
     window.addEventListener("keydown", check);
 
     window.addEventListener('deviceorientation', function(event) {
-        if (event.absolute) {
+        if (event.absolute && useGiroSensor) {
             if (checkOrientation) setDiviceOrient(event.alpha, event.beta, event.gamma);
             speed = 0.15;
             aim.scale.set(1,1,1);
@@ -577,11 +703,12 @@ window.onload = function () {
         return rand;
     }
     function check(e) {
+        if (e.keyCode == 27) pauseGame();
         if (e.keyCode == 65) left()
         if (e.keyCode == 68) right()
     }
     function left() {
-        if (ship.position.x > -12) {
+        if (ship.position.x > -12 && !pause) {
             ship.rotation.x -= Math.PI/ 80;
             // ship.rotation.x -= Math.PI/ 500;
             ship.position.x -= Math.PI/ (speed*40);
@@ -606,7 +733,7 @@ window.onload = function () {
 
     }
     function right() {
-        if (ship.position.x < 12) {
+        if (ship.position.x < 12 && ! pause) {
             ship.rotation.x += Math.PI/ 80;
             ship.position.x += Math.PI/ (speed*40);
             shipShadow.position.x += Math.PI/ (speed*40);
@@ -624,6 +751,29 @@ window.onload = function () {
             aim.position.x += Math.PI/ (speed*500);
             if (!stopMove) requestAnimationFrame(function (number) { rightMob() })
         }
+    }
+
+    function moveClouds() {
+        for (var i =0; i< cloudArray.length; i++) {
+            if(cloudArray[i].position.x > 2000) cloudArray[i].position.x = -1700;
+        }
+
+        derij.position.x -= Math.PI/ 10;
+
+        cloud1.position.x += Math.PI/ 170;
+        cloud4.position.x += Math.PI/ 150;
+        cloud3.position.x += Math.PI/ 120;
+        cloud5.position.x += Math.PI/ 70;
+        cloud2.position.x += Math.PI/ 60;
+        cloud6.position.x += Math.PI/ 50;
+
+        // cloud1.position.x += Math.PI/ 50;
+        // cloud4.position.x += Math.PI/ 60;
+        // cloud3.position.x += Math.PI/ 70;
+        // cloud5.position.x += Math.PI/ 120;
+        // cloud2.position.x += Math.PI/ 150;
+        // cloud6.position.x += Math.PI/ 170;
+
     }
 
     function moveRoad() {
@@ -655,12 +805,16 @@ window.onload = function () {
         }
     }
     function restartMesh(mesh, hitBoxSize, pos) {
-        if( score == scoreCheck && speed > 0.02) {
+        if( score == scoreCheck && speed > 0.07) {
             speed = speed - 0.015;
-            scoreCheck +=5;
+            scoreCheck +=7;
+        }
+        if (mesh.position.z > 800 && mesh == gate) {
+            gateSound.play();
+            gateSound.playbackRate = 1/(speed * 5);
         }
         if (mesh.position.z < 1000) {
-            if (mesh == gate) { mesh.position.z += Math.PI * boost / speed; portal.position.z += Math.PI / speed;}
+            if (mesh == gate) {  mesh.position.z += Math.PI * boost / speed; portal.position.z += Math.PI / speed;}
             else if (mesh == charge) (mesh.position.z += Math.PI / (speed+1))
             // else if (mesh == nitro) (mesh.position.z += Math.PI / (speed+1))
             rightHitBox = parseFloat(ship.position.x) + hitBoxSize;
@@ -689,7 +843,8 @@ window.onload = function () {
                 object.material = new THREE.MeshLambertMaterial({color: 0xff5555})
                 batary.removeChild(batary.childNodes[1]);
                 energy -= 1;
-                if (speed < 0.12) speed += 0.015;
+                missSound.play()
+                if (speed < 0.12) speed += 0.005;
             }
             else {
                 ship.material = new THREE.MeshLambertMaterial({color: 0xff5555})
@@ -702,6 +857,7 @@ window.onload = function () {
     }
 
     function restartGame() {
+        song.currentTime = 0;
         checkOrientation = true;
         ship.rotation.x = 0;
         ship.position.x = 0;
@@ -718,7 +874,7 @@ window.onload = function () {
     }
     function checkCharge(object, target) {
         if (target.position.z.toFixed(0) > 1000) {
-            if (leftHitBox < target.position.x && target.position.x < rightHitBox && energy <= 3 && charge) {
+            if (leftHitBox < target.position.x && target.position.x < rightHitBox && energy <= 3 && a) {
                 // alert("a=" + leftHitBox + " b=" + rightHitBox + " mesh=" + object.position.x + ' pos=' + target.position.x)
                 energy++;
                 a = 0;
@@ -778,6 +934,9 @@ window.onload = function () {
         if (ship.position.y > 2.000 && x == 1 && speed < 0.1)
             ship.position.y -= Math.PI/50;
         else x =0;
+        // if (-1< ship.position.x < 1 && speed < 0.1) {
+        //     ship.rotation.x = 0
+        // }
     }
 
     restartMesh(charge, 7, -1500);
@@ -787,6 +946,7 @@ window.onload = function () {
         fon.position.z += Math.PI/30;
         var leftHitbox, rightHitBox;
         shake();
+        moveClouds()
         moveRoad();
         showCharge();
         _hit();
@@ -796,8 +956,8 @@ window.onload = function () {
 
 
         renderer.render(scene,camera);
-        controls.update();
-        requestAnimationFrame(function (number) { loop() })
+        // controls.update();
+        if (!pause) requestAnimationFrame(function (number) { loop() })
     }
 
     // loop();
