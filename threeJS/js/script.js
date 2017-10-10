@@ -1144,7 +1144,7 @@ window.onload = function () {
             for (var i = 0; i < bullets.length; i++) {
                 if (bullets[i].position.z > 0) {
                     bullets[i].position.z -= Math.PI;
-                    if( b == 1 && bullets[i].position.z < barier.position.z) {
+                    if( b == 1 && bullets[i].position.z < barier.position.z+200) {
                         scene.remove(barier);
                         b = 0 ;
                     }
