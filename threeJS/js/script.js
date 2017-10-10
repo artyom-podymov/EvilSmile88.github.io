@@ -665,6 +665,7 @@ window.onload = function () {
         scene.add(ship);
         createLigth();
         loop();
+        alert(11);
     }, onProgress, onError )
 
     function setDiviceOrient(alpha, beta, gamma) {
