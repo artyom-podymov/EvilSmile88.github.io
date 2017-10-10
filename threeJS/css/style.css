@@ -26,27 +26,50 @@ html, body {
 }
 .count span {
     color: #b00932;
-    display: inline-block;
+    display: flex;
     font-weight: bolder;
     font-family: Metro;
     font-size: 25px;
 }
+    .interface {
+        display: flex;
+        position: fixed;
+        right: 20px;
+    }
+
 .batary {
-    border-radius: 10px;
-    padding: 0px;
-    border: 5px solid #b00932;
-    overflow: hidden;
-    display: flex;
-    width: 15vw;
-    height: 25px;
-}
+     border-radius: 10px;
+     padding: 0px;
+     border: 5px solid #b00932;
+     overflow: hidden;
+     display: flex;
+    justify-content: flex-end;
+     width: 15vw;
+     height: 25px;
+ }
 .batary li {
     list-style: none;
     background-color: #eb1c3d;
     width: 30%;
     height: 100%;
-    transform: skew(-35deg);
+    transform: skew(35deg);
     margin-right: 5px;
+}
+.armo {
+    padding-left: 0px;
+    padding-top: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+.armo li{
+    list-style: none;
+    background-color: #26b7eb;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
 }
 
 .screen {
@@ -188,7 +211,36 @@ html, body {
     opacity: 1;
 }
 
+.interference {
+    z-index: 9;
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+
+}
+.interference div {
+    opacity: 0;
+    position: absolute;
+    animation: interference 0.3s linear;
+    background-color: black;
+
+}
+.red-screen {
+    z-index: 9;
+    opacity: 0.5;
+    height: 100vh;
+    width: 100vw;
+}
+@keyframes interference {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
 @media (max-width: 980px) {
+    .interface {
+        right: 20vh;
+    }
     .laser {
         display: block;
     }

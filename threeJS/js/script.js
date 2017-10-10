@@ -5,10 +5,15 @@ window.onload = function () {
     var width = window.innerWidth;
     var canvas = document.getElementById('canvas');
     var score = 0;
+    var  rightHitBox, leftHitBox;
     var orientMob, checkOrientation = true, useAlpha;
+    changeOrientaion = false;
+    if(window.orientation == -90) changeOrientaion = true;
     var scoreCheck = 5;
+    var armoView = document.getElementById('armo');
     var acceleration;
-    var ship, gate, fon, charge, aim, roadLine, shipShadow, portal, billboard, billboardShadow, news, bridge, reds, nitro;
+    var bust, currentBust;
+    var ship, gate, fon, charge, aim, roadLine, shipShadow, portal, billboard, billboardShadow, news, bridge, barier, reds, nitro;
     var cloud1, cloud2, cloud3, cloud4, cloud5, derij;
     var laser, laser1, laser2, laser3;
     var bullets = [];
@@ -37,9 +42,9 @@ window.onload = function () {
     var boost = 1;
     var energy = 3;
     var batary = document.getElementById('batary');
-    var a = 0, x =0;
+    var a = 0, b = 0, x =0;
     var stopMove = false;
-    changeEnergy(3)
+    restartList(3, batary)
     canvas.setAttribute('width', width);
     canvas.setAttribute('height', height);
     var ball = {
@@ -62,10 +67,18 @@ window.onload = function () {
     controls.zoomSpeed = 0.05;
     controls.panSpeed = 0.05;
 
-    function changeEnergy(count) {
+    function restartList(count, list) {
         for (var i = 0; i< count; i++) {
             var cell = document.createElement("li");
-            batary.appendChild(cell)
+            list.appendChild(cell)
+        }
+    }
+    function restartArmo() {
+        var lenght = 3 - armo.length;
+        console.log(lenght);
+        for (var i = 0; i< lenght; i++) {
+            var cell = document.createElement("li");
+            armoView.appendChild(cell)
         }
     }
     document.querySelector('.pause-button').addEventListener("click", pauseGame)
@@ -356,11 +369,21 @@ window.onload = function () {
     }
 
     function createBridge() {
-                reds.position.z = bridge.position.z = 950;
+        reds.position.z = bridge.position.z = -1500;
         reds.position.x = bridge.position.x = 35;
         reds.scale.set(5,5,5)
         bridge.scale.set(5,5,5)
         reds.position.y = bridge.position.y = -19;
+
+        var texture = texturLoader.load('pic/stop2.png')
+        var planeGeometry = new THREE.PlaneGeometry(70,20,1,1);
+        var materialPlane = new THREE.MeshLambertMaterial( {  map: texture, transparent: true, opacity: 0.7 } );
+        barier = new THREE.Mesh(planeGeometry,materialPlane);
+        barier.position.z = bridge.position.z
+        barier.position.y = 4;
+        barier.position.x = -2;
+
+
         scene.add(bridge)
         scene.add(reds)
     }
@@ -379,10 +402,9 @@ window.onload = function () {
         scene.add(gate);
         scene.add(portal)
     }
-    function createCharge() {
-        charge.position.z = -1000;
-        charge.position.y = 1.9;
-        charge.rotation.y = 1.5;
+    function createBust() {
+        bust.position.z = -1000;
+        bust.position.y = 1.9;
         // scene.add(charge);
     }
 
@@ -396,7 +418,6 @@ window.onload = function () {
         laser1 = laser.clone();
         laser2 = laser.clone();
         laser3 = laser.clone();
-
         laser3.position.z = laser2.position.z = laser1.position.z = 990;
         laser3.position.y = laser2.position.y = laser1.position.y = 2;
 
@@ -404,12 +425,22 @@ window.onload = function () {
     }
 
     function shutLaser() {
-        blasterSound.play()
+        blasterSound.play();
+        removeChild(armoView)
         var bullet = armo.pop();
         bullet.position.x = ship.position.x;
         bullets.unshift(bullet);
         scene.add(bullet);
 
+    }
+
+    function removeChild(list) {
+        for (var i =0; i<list.childNodes.length; i++) {
+            if (list.childNodes[i].nodeType == 1) {
+                list.removeChild(list.childNodes[i]);
+                break
+            }
+        }
     }
 
 
@@ -545,6 +576,20 @@ window.onload = function () {
 
     }, onProgress, onError)
 
+    objectLoader.load('obj/blaster2.obj', function (object) {
+        var meshes = [];
+        object.traverse( function ( child )
+        {
+            if ( child instanceof THREE.Mesh )
+            {
+                meshes.push(child);
+            }
+        });
+
+        blaster = meshes[0];
+        blaster.material = new THREE.MeshLambertMaterial( { color: 0x26b7eb })
+    }, onProgress, onError)
+
     objectLoader.load('obj/red.obj', function (object) {
         var meshes = [];
         object.traverse( function ( child )
@@ -614,7 +659,6 @@ window.onload = function () {
         createFon();
         createGate();
         createNitro();
-        createCharge();
         // setTimeout(function () {
         //     createGate2()
         // }, 1000)
@@ -638,7 +682,8 @@ window.onload = function () {
         document.querySelector('.controls__left').addEventListener("touchstart", function () {
             this.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
             this.style.opacity = '1'
-            left();
+             if (!changeOrientaion) left();
+             else right()
         }, false);
         document.querySelector('.controls__left').addEventListener("touchend", function () {stopMove = true;
             this.style.backgroundColor = 'transparent';
@@ -650,7 +695,8 @@ window.onload = function () {
         document.querySelector('.controls__right').addEventListener("touchstart", function () {
             this.style.backgroundColor = 'white';
             this.style.opacity = '1'
-            right();
+            if (!changeOrientaion) right();
+            else left()
         }, false);
         document.querySelector('.controls__right').addEventListener("touchend", function () {stopMove = true;
             this.style.backgroundColor = 'transparent';
@@ -678,15 +724,15 @@ window.onload = function () {
             aim.position.y = 1;
             if (useAlpha) {
                 acceleration = Math.abs(orientMob - event.alpha)
-                if (event.alpha > (orientMob+2.5)) leftMob();
-                else if (event.alpha < (orientMob-2.5)) rightMob();
+                if (event.alpha > (orientMob+2.5)) { if(!changeOrientaion) leftMob(); else  rightMob()}
+                else if (event.alpha < (orientMob-2.5)) { if(!changeOrientaion) rightMob(); else leftMob()}
                 else { stopMove=true; setTimeout(function () {
                     stopMove = false;
                 }, 10)
                 }
             }
             else {
-                if (window.orientation == 90) {
+                if (changeOrientaion) {
                     orientMob = 0.5;
                     if (event.beta > (orientMob+2.5)) rightMob();
                     else if (event.beta < (orientMob-2.5)) leftMob();
@@ -695,7 +741,7 @@ window.onload = function () {
                     }, 10)
                     }
                 }
-                else if (window.orientation == -90) {
+                else if (!changeOrientaion) {
                     if (event.beta > (orientMob+2.5)) leftMob();
                     else if (event.beta < (orientMob-2.5)) rightMob();
                     else { stopMove=true; setTimeout(function () {
@@ -753,10 +799,20 @@ window.onload = function () {
         return rand;
     }
     function check(e) {
-        if (e.keyCode == 32 && armo.length > 0) { console.log(armo); shutLaser(); console.log(bullets);} ;
+        if (e.keyCode == 32 && armo.length > 0) {
+            // console.log(armo);
+            shutLaser();
+            // console.log(bullets);
+        }
         if (e.keyCode == 27) pauseGame();
-        if (e.keyCode == 65) left()
-        if (e.keyCode == 68) right()
+        if (!changeOrientaion) {
+            if (e.keyCode == 65) left()
+            if (e.keyCode == 68) right()
+        }
+        else {
+            if (e.keyCode == 65) right()
+            if (e.keyCode == 68) left()
+        }
     }
     function left() {
         if (ship.position.x > -12 && !pause) {
@@ -838,9 +894,20 @@ window.onload = function () {
 
         if (bridge.position.z < 1300) {
             reds.position.z = bridge.position.z += Math.PI * boost /(speed*2);
+            if  ( b == 1) barier.position.z = bridge.position.z
         }
         else {
             reds.position.z = bridge.position.z = -5000;
+            showBarier();
+        }
+
+        if (b == 1 && barier.position.z > 1000) {
+            changeOrientaion = true;
+            setTimeout( function () {
+                changeOrientaion = false;
+            },5000)
+            scene.remove(barier);
+            b = 0;
         }
 
         if (billboard.position.z < 1300) {
@@ -866,14 +933,10 @@ window.onload = function () {
         }
         if (mesh.position.z < 1000) {
             if (mesh == gate) {  mesh.position.z += Math.PI * boost / speed; portal.position.z += Math.PI / speed;}
-            else if (mesh == charge) (mesh.position.z += Math.PI / (speed+1))
-            // else if (mesh == nitro) (mesh.position.z += Math.PI / (speed+1))
-            rightHitBox = parseFloat(ship.position.x) + hitBoxSize;
-            leftHitBox = ship.position.x - hitBoxSize;
+            else if (mesh == bust) (mesh.position.z += Math.PI / (speed+1))
+            // else if (mesh == nitro) (mesh.position.z += Math.PI / (speed+1));
         }
         else {
-            rightHitBox = 0;
-            leftHitBox = 0;
             mesh.position.z = pos;
             mesh.position.x = randomInteger(-12, 12);
             portal.position.z = pos;
@@ -887,13 +950,17 @@ window.onload = function () {
                 score++;
                 console.log(speed)
                 // alert("a=" + leftHitBox + " b=" + rightHitBox + " mesh=" + object.position.x + ' pos=' + target.position.x)
-                object.material = new THREE.MeshLambertMaterial({color: 0xaaaaaa})
                 document.getElementById('score').innerHTML = score;
             }
             else if (energy != 0 && donotHit == false) {
-                object.material = new THREE.MeshLambertMaterial({color: 0xff5555})
-                batary.removeChild(batary.childNodes[1]);
+                interference();
+                document.querySelector('.interference').style.display = "block";
+                setTimeout(function () {
+                    document.querySelector('.interference').style.display = "none"
+                },600)
+                removeChild(batary)
                 energy -= 1;
+                changeColorShip();
                 missSound.play()
                 if (speed < 0.12) speed += 0.005;
             }
@@ -907,8 +974,36 @@ window.onload = function () {
         }
     }
 
+    function changeColorShip() {
+        switch(energy) {
+            case 0:
+                ship.material = new THREE.MeshLambertMaterial({color: 0xff5555})
+                break;
+            case 1:
+                ship.material = new THREE.MeshLambertMaterial({color: 0xff7777})
+                break;
+            case 2:
+                ship.material = new THREE.MeshLambertMaterial({color: 0xbb9999})
+                break;
+            case 3:
+                ship.material = new THREE.MeshLambertMaterial({color: 0xaaaaaa})
+                break;
+        }
+    }
+    function interference() {
+        var arr = document.querySelectorAll('.interference div');
+        for (var i =0 ; i< arr.length-1; i++) {
+            arr[i].style.width = randomInteger(1, 20) + "vw";
+            arr[i].style.animationDelay = randomInteger(0.1, 0.3) + "s";
+            arr[i].style.height = randomInteger(1, 10) + "vh";
+            arr[i].style.top = randomInteger(1, 100) + "vh";
+            arr[i].style.left = randomInteger(1, 100) + "vw"
+            arr[i].style.backgroundColor = "rgba(0,0,0," + randomInteger(1, 1) + ")";
+        }
+    }
+
     function restartGame() {
-        createArmo();
+        ship.material = new THREE.MeshLambertMaterial({color: 0xaaaaaa});
         song.currentTime = 0;
         checkOrientation = true;
         ship.rotation.x = 0;
@@ -918,23 +1013,44 @@ window.onload = function () {
         score = 0;
         document.getElementById('score').innerHTML = score;
         fon.position.z = -2000;
-        changeEnergy(3)
+        restartList(3, batary);
+        restartArmo();
+        createArmo();
         speed = 0.15;
         scoreCheck = 5;
         energy = 3;
         restartMesh(gate, 6)
     }
-    function checkCharge(object, target) {
-        if (target.position.z.toFixed(0) > 1000) {
-            if (leftHitBox < target.position.x && target.position.x < rightHitBox && energy <= 3 && a) {
+    function checkBust(object, target) {
+        if (target.position.z.toFixed(0) > 1000 && leftHitBox < target.position.x && target.position.x < rightHitBox ) {
+            if (energy <= 3 && a && currentBust == "charge") {
                 // alert("a=" + leftHitBox + " b=" + rightHitBox + " mesh=" + object.position.x + ' pos=' + target.position.x)
                 energy++;
+                changeColorShip();
                 achivment.play();
                 a = 0;
                 scene.remove(target);
                 target.position.z = -1000;
-                object.material = new THREE.MeshLambertMaterial({color: 0xee9930})
-                changeEnergy(1);
+                restartList(1, batary);
+            }
+            else  if(armo.length<3 && a && currentBust == "blaster") {
+                var cell = document.createElement("li");
+                armoView.appendChild(cell);
+                switch(armo.length) {
+                    case 0:
+                        armo.unshift(laser1);
+                        break;
+                    case 1:
+                        armo.unshift(laser2);
+                        break;
+                    case 2:
+                        armo.unshift(laser3);
+                        break;
+                }
+                achivment.play();
+                a = 0;
+                scene.remove(target);
+                target.position.z = -1000;
             }
             // else if (leftHitBox < target.position.x && target.position.x < rightHitBox && target == nitro)
             // {
@@ -952,33 +1068,59 @@ window.onload = function () {
             //         ship.position.z = posit;
             //     }, 5000)
             // }
-            else { scene.remove(target); target.position.z = -1000; a =0;}
+            else { scene.remove(target); target.position.z = -1000; a = 0;}
         }
     }
 
     function _hit() {
-        if(charge) restartMesh(charge, 6, -1500);
-        if (charge) checkCharge(ship, charge);
+        if(bust) restartMesh(bust, 6, -1500);
+        if (bust) checkBust(ship, bust);
         // if(nitro) restartMesh(nitro, 6, -1500);
         // if (nitro) checkCharge(ship, nitro);
         restartMesh(gate, 6, -1000);
         checkHit(ship, gate)
     }
-    function showCharge() {
+    function showBust() {
         var rand = randomInteger(-20, 20);
-        if (rand == 9  && a == 0) {
-            charge.position.z = -1500;
-            scene.add(charge);
-            console.log("charge");
-            a = 1;
+        if (a == 0) {
+            if (rand == 9 || rand == 10) {
+                bust = charge.clone();
+                createBust();
+                bust.position.z = -1500;
+                scene.add(bust);
+                currentBust = 'charge'
+                console.log("charge");
+                a = 1;
+            }
+            else if (rand == 8) {
+                bust = blaster.clone();
+                createBust();
+                bust.position.z = -1500;
+                scene.add(bust);
+                currentBust = 'blaster';
+                console.log("blaster");
+                a = 1;
+            }
         }
+    }
+
+        function showBarier() {
+            var rand = randomInteger(1.0, 1.1);
+            console.log(rand)
+            if (rand == 1) {
+                barier.position.z = bridge.position.z;
+                scene.add(barier);
+                // console.log("barier");
+                b = 1;
+            }
+        }
+
         // else if (rand == 10 && a==0) {
         //     nitro.position.z = -1500;
         //     scene.add(nitro);
         //     console.log("nitro");
         //     a = 1;
         // }
-    }
 
     function emitationGForce() {
         if (ship.position.z > 985) {
@@ -996,26 +1138,31 @@ window.onload = function () {
         // }
     }
 
-    restartMesh(charge, 7, -1500);
-    // restartMesh(nitro, 7, -1500)
-
-    function loop() {
-        fon.position.z += Math.PI/30;
+    function checkBullets() {
         if (bullets.length > 0) {
             for (var i = 0; i < bullets.length; i++) {
-                console.log(i)
-                if (bullets[i].position.z > 700) {
+                if (bullets[i].position.z > 0) {
                     bullets[i].position.z -= Math.PI;
+                    if( b == 1 && bullets[i].position.z < barier.position.z) {
+                        scene.remove(barier);
+                        b = 0 ;
+                    }
                 }
                 else {scene.remove(bullets[i]); bullets.splice(i,1)}
             }
         }
+    }
 
-        var leftHitbox, rightHitBox;
+    restartMesh(bust, 7, -1500);
+    function loop() {
+        fon.position.z += Math.PI/30;
+        checkBullets();
+        rightHitBox = parseFloat(ship.position.x) + 6;
+        leftHitBox = ship.position.x - 6;
         shake();
         moveClouds()
         moveRoad();
-        showCharge();
+        showBust();
         _hit();
         if (speed < 0.1) emitationGForce()
 
