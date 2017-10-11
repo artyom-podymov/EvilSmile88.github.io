@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/OBJLoader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="pause-button pause-button--hidden">
+        <div class="pause-button__pause-figure">
+            <div></div>
+            <div></div>
+        </div>
+
+        <div class="pause-button__play-figure">
+            <div></div>
+        </div>
+    </div>
+    <div class="count">
+        <span class="score">Score: <span id="score">0</span></span>
+    </div>
+    <span class="interface">
+            <ul class="armo" id="armo">
+                 <li></li>
+                 <li></li>
+                 <li></li>
+            </ul>
+            <ul class="batary" id="batary">
+            </ul>
+        </span>
+    <div class="controls">
+        <div id="as" class="controls__left">
+            <div class="arrow"></div>
+        </div>
+        <div class="controls__right">
+            <div class="arrow"></div>
+        </div>
+    </div>
+    <div class="laser">
+    </div>
+
+    <div class="interference">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="black-screen"></div>
+    </div>
+
+    <div class="screen">
+        <div class="pause">PAUSE</div>
+        <div class="game-over">
+            <div>Game Over</div>
+            <div>Your Score: <span id="your-score"></span></div>
+            <input type="button" id="restart" value="RESTART">
+        </div>
+    </div>
+    <div class="loading-container">
+        <div class="loading-container__icon">
+        </div>
+        <div class="loading-container__icon">
+        </div>
+        <span class="loading-container__text">Environment Loading...</span>
+    </div>
+
+    <div class="start-back">
+    </div>
+    <div class="start-container">
+        <div class="tutorial">
+            <div class="start-container__icon">
+            </div>
+            <div class="start-container__icon">
+            </div>
+            <span class="tutorial__text" id="tutorial">Tutorial</span>
+        </div>
+        <div class="start-container__icon">
+        </div>
+        <div class="start-container__icon">
+        </div>
+        <span class="start-container__text" id="start">Start</span>
+    </div>
+    <img style="z-index: 0; position: fixed; visibility: hidden" src="pic/asphalt.jpg">
+    <img style="z-index: 0; position: fixed; visibility: hidden" src="pic/road2.jpg">
+    <audio src="sounds/gate.mp3" id="gate-audio" preload="auto">
+    </audio>
+    <audio src="sounds/stun.wav" id="gate-miss" preload="auto">
+    </audio>
+    <audio src="sounds/confirm.wav" id="pause-sound" preload="auto">
+    </audio>
+    <audio src="sounds/Trap.mp3" id="song" loop preload="auto">
+    </audio>
+    <audio src="sounds/achievement.mp3" id="achivment" preload="auto">
+    </audio>
+    <audio src="sounds/blaster-02.mp3" id="blaster" preload="auto">
+    </audio>
+    <audio src="sounds/red-alert.wav" id="red-alert" preload="auto">
+    </audio>
+    <audio src="sounds/system-going-off-line.mp3" id="off-line" preload="auto">
+    </audio>
+    <canvas id="canvas"></canvas>
+</body>
+</html>

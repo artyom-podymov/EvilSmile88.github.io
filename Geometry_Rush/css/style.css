@@ -1,0 +1,418 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+@font-face {
+    font-family: Metro; /* Имя шрифта */
+    src: url(Metro.otf); /* Путь к файлу со шрифтом */
+}
+.count {
+    display: flex !important;
+    align-items: center;
+    position: fixed;
+    color: #eb1c3d;
+    top: 1vh;
+    left: 1vw;
+}
+.score {
+    padding: 10px;
+    min-width: 150px;
+    height: 100%;
+    display: flex !important;;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.count span {
+    color: #b00932;
+    display: flex;
+    font-weight: bolder;
+    font-family: Metro;
+    font-size: 25px;
+}
+    .interface {
+        display: flex;
+        position: fixed;
+        right: 20px;
+    }
+
+.batary {
+     border-radius: 10px;
+     padding: 0px;
+     border: 5px solid #b00932;
+     overflow: hidden;
+     display: flex;
+    justify-content: flex-end;
+     width: 15vw;
+     height: 25px;
+ }
+.batary li {
+    list-style: none;
+    background-color: #eb1c3d;
+    width: 30%;
+    height: 100%;
+    transform: skew(35deg);
+    margin-right: 5px;
+}
+.armo {
+    padding-left: 0px;
+    padding-top: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+.armo li{
+    list-style: none;
+    background-color: #26b7eb;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+
+.screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba( 0, 0, 0, 0.5);
+}
+.loading-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Metro;
+    z-index: 15;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    color: #eb1c3d;
+}
+.loading-container__icon, .start-container__icon {
+    position: fixed;
+    transform-origin: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    animation: loading 2s ease infinite;
+    border: 7px solid #eb1c3d;
+    border-left-color: transparent;
+}
+.loading-container__icon:last-of-type, .start-container__icon:last-of-type {
+    border-color: #f27b86;
+    width: 320px;
+    height: 320px;
+    border-left-color: transparent;
+    transform: scale(1.5) rotate(-180deg);
+}
+.start-container__icon , .start-container__icon:last-of-type {
+    border-color: white;
+    box-shadow: 3px 3px 20px -5px;
+    border-left-color: transparent;
+}
+.loading-container__text, .start-container__text {
+    width: 250px;
+    text-align: center;
+    position: fixed;
+}
+.pause {
+    display: none;
+    font-weight: bolder;
+    font-size: 10vh;
+    color: #eb1c3d;
+    font-family: Metro;
+}
+.pause-button {
+    z-index: 15;
+    transition: all 0.3s ease;
+    width: 6vw;
+    height: 6vw;
+    position: fixed;
+    padding: 10px;
+    display: none;
+    justify-content: flex-end;
+    top: 0px;
+    right: 0px;
+    border-left: 10px solid #b00932;
+    background-color: #eaeaea;
+    border-radius: 0 0 0 100%;
+}
+.pause-button--active {
+    width: 7vw;
+    height: 7vw;
+}
+.pause-button--active .pause-button__play-figure {
+    display: flex;
+}
+.pause-button--active .pause-button__pause-figure {
+    display: none;
+}
+.pause-button__pause-figure {
+    margin-top: 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    height: 60%;
+}
+.pause-button__pause-figure div {
+    height: 100%;
+    width: 40%;
+    background-color: black ;
+}
+.pause-button__play-figure {
+    margin-top: 7%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 60%;
+}
+
+.pause-button__play-figure div {
+    border: 2.3vw solid black;
+    border-right-width: 0px;
+    border-left-width: 4vw;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    width: 0px;
+    height: 0px;
+}
+.game-over {
+    border-radius: 10px;
+    display: none;
+    font-family: Metro;
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 50vw;
+    height: 50vh;
+    max-height: 500px;
+    max-width: 700px;
+    background-color: black;
+}
+.game-over div:first-of-type {
+    color: #eb1c3d;
+    font-size: 40px;
+}
+#restart {
+    background-color: transparent;
+    color: white;
+    border: 3px solid white;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    width: 300px;
+    height: 50px;
+}
+
+
+.controls {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: none;
+    width: 96vw;
+    height: 80vh;
+    padding: 20px;
+    background-color: transparent;
+    justify-content: space-between;
+    align-items: center;
+}
+.controls > div{
+    opacity: 0.5;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: rgba(190, 10, 50, 1);
+}
+
+.arrow {
+    margin-top: 27%;
+    width: 40%;
+    height: 40%;
+    border: 10px solid;
+    border-color: rgba(190, 10, 50, 1);
+    border-left-width: 0px;
+    border-bottom-width: 0px;
+    transform: rotate(45deg);
+}
+.controls__left .arrow {
+    margin-left: 20%;
+    transform: rotate(-135deg);
+}
+
+.controls__right .arrow {
+    margin-right: 20%;
+}
+
+.laser {
+    display: none;
+    opacity: 0.5;
+    position: fixed;
+    bottom: 5vh;
+    right: 3vw;
+    width: 8vw;
+    background-color: white;
+    height: 8vw;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: rgba(190, 10, 50, 1);
+    background-image: url("../pic/laser.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.laser--active {
+    opacity: 1;
+}
+
+.interference {
+    z-index: 8;
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+
+}
+.pause-button--hidden {
+    visibility: hidden;
+}
+.interference div {
+    position: absolute;
+    animation-name: interference;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    background-color: black;
+
+}
+/*.red-alert {*/
+    /*z-index: 9;*/
+    /*display: none;*/
+    /*position: fixed;*/
+    /*left: 0px;*/
+    /*top: 0px;*/
+
+/*}*/
+/*.red-alert div {*/
+    /*opacity: 0;*/
+    /*position: absolute;*/
+    /*animation-name: red-alert-start;*/
+    /*animation-duration: 0.3s;*/
+    /*animation-fill-mode: forwards;;*/
+    /*animation-timing-function: linear;*/
+/*}*/
+.black-screen {
+    z-index: 9;
+    opacity: 0.5;
+    height: 100vh;
+    width: 100vw;
+}
+.start-back{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+}
+.start-container{
+    font-family: Metro;
+    font-size: 25px;
+    position: fixed;
+    display: flex;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+.start-container__icon--hover {
+    background-color: rgba(0,0,0, 0.2);
+}
+.start-container__text {
+    cursor: pointer;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 5px 5px 10px black;
+}
+.tutorial {
+    transform: scale(0.7);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 10vh;
+    left: 70vw
+}
+.tutorial__text {
+    z-index: 10;
+    cursor: pointer;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 5px 5px 10px black;
+}
+.tutorial .start-container__icon {
+    animation-delay: 0.5s;
+}
+
+
+@keyframes interference {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes red-alert-start {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes loading {
+    to { transform: rotate(360deg)}
+}
+
+
+@media (max-width: 980px) {
+    .interface {
+        right: 20vh;
+    }
+    .laser {
+        display: block;
+    }
+    .controls {
+        display: flex;
+    }
+    .pause {
+        margin-top: -100px;
+    }
+    .pause-button {
+        display: flex;
+    }
+}
