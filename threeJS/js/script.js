@@ -1,5 +1,5 @@
 window.onload = function () {
-    var pause = false;
+    var pause = true;
     var screen = document.querySelector('.screen')
     var height = window.innerHeight;
     var width = window.innerWidth;
@@ -7,7 +7,9 @@ window.onload = function () {
     var score = 0;
     var  rightHitBox, leftHitBox;
     var orientMob, checkOrientation = true, useAlpha;
-    changeOrientaion = false;
+    var changeOrientaion = false;
+    var cityTexture, cloudTexture1, cloudTexture2, cloudTexture3, cloudTexture4, cloudTexture5, cloudTexture6,
+        derijabTexture, roadTexture, barierTexture, newsTexture1, newsTetxture2;
     if(window.orientation == -90) changeOrientaion = true;
     var scoreCheck = 5;
     var armoView = document.getElementById('armo');
@@ -19,7 +21,7 @@ window.onload = function () {
     var laser, laser1, laser2, laser3;
     var bullets = [];
     var armo;
-
+    var setGameOver = false;
     var cloudArray;
     var new1, new2;
     var speed = 0.15;
@@ -48,7 +50,7 @@ window.onload = function () {
     var boost = 1;
     var energy = 3;
     var batary = document.getElementById('batary');
-    var a = 0, b = 0, x =0;
+    var a = 0, b = 0, x =0 , z =0;
     var stopMove = false;
     restartList(3, batary)
     canvas.setAttribute('width', width);
@@ -73,6 +75,9 @@ window.onload = function () {
     controls.zoomSpeed = 0.05;
     controls.panSpeed = 0.05;
 
+    // setGameOver = true;
+    // gameOver()
+
     function restartList(count, list) {
         for (var i = 0; i< count; i++) {
             var cell = document.createElement("li");
@@ -88,19 +93,35 @@ window.onload = function () {
         }
     }
     document.querySelector('.pause-button').addEventListener("click", pauseGame)
+    document.querySelector('#restart').addEventListener("click", restartGame)
     function pauseGame() {
         if(this == document.querySelector('.pause-button') ) this.classList.toggle("pause-button--active")
-        if (pause) {
+        if (pause && !setGameOver) {
+            document.querySelector('.pause').style.display = "none"
             pauseSound.play()
             screen.style.display = 'none';
             pause  = !pause;
             song.play();
             loop();
         }
-        else {
-            pauseSound.play()
+        else if (!pause && !setGameOver) {
+            pauseSound.play();
+            document.querySelector('.pause').style.display = "block"
             screen.style.display = 'flex';
             pause = !pause;
+            song.pause()
+        }
+        if (setGameOver) {
+            document.querySelector('.interference').style.display = "block";
+            document.querySelector('.pause-button').classList.toggle("pause-button--hidden");
+            redAlert()
+            setTimeout(function () {
+                $(".game-over").slideToggle("slow");
+                $(".game-over").css('display', "flex")
+            },400)
+            pauseSound.play();
+            document.querySelector('#your-score').innerHTML = score;
+            screen.style.display = 'flex';
             song.pause()
         }
     }
@@ -133,71 +154,83 @@ window.onload = function () {
         //     // scene.add(light);
     }
     function createFon() {
-        var texture = texturLoader.load('pic/road2.jpg')
+        Promise.all([
+            cityTexture = texturLoader.load('pic/road2.jpg'),
+            cloudTexture1 = texturLoader.load('pic/cloud1.png'),
+            cloudTexture2 = texturLoader.load('pic/cloud2.png'),
+            cloudTexture3 = texturLoader.load('pic/cloud3.png'),
+            cloudTexture4 = texturLoader.load('pic/cloud4.png'),
+            cloudTexture5 = texturLoader.load('pic/cloud5.png'),
+            cloudTexture6 = texturLoader.load('pic/cloud6.png'),
+            derijabTexture =  texturLoader.load('pic/derijab2.png')
+        ]).then(
+            function (result) {
+                $(".loading-container__text").text("Road Loading...")
+                // song.play();
+                // document.querySelector('.loading').style.display = 'none';
+            },
+            function (error) {
+                alert("Ошибка: " + error.message)
+            }
+        )
+
         var planeGeometry = new THREE.PlaneGeometry(2000,2000,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( { color: 0xffffff, map: texture } );
+        var materialPlane = new THREE.MeshBasicMaterial( { color: 0xffffff, map: cityTexture } );
         fon = new THREE.Mesh(planeGeometry,materialPlane);
         fon.position.z = -2000;
         fon.position.y = 60;
         scene.add(fon);
 
-        var texture = texturLoader.load('pic/cloud1.png')
         var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: cloudTexture1, transparent: true } );
         cloud1 = new THREE.Mesh(planeGeometry,materialPlane);
         cloud1.position.z = -500;
         cloud1.position.y = 400;
         cloud1.position.x = -700;
         scene.add(cloud1);
 
-        var texture = texturLoader.load('pic/cloud2.png')
         var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.9 } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: cloudTexture2, transparent: true, opacity: 0.9 } );
         cloud2 = new THREE.Mesh(planeGeometry,materialPlane);
         cloud2.position.z = 0;
         cloud2.position.y = 400;
         cloud2.position.x = -200;
         scene.add(cloud2);
 
-        var texture = texturLoader.load('pic/cloud3.png')
         var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.5 } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: cloudTexture3, transparent: true, opacity: 0.5 } );
         cloud3 = new THREE.Mesh(planeGeometry,materialPlane);
         cloud3.position.z = -200;
         cloud3.position.y = 300;
         cloud3.position.x = 200;
         scene.add(cloud3);
 
-        var texture = texturLoader.load('pic/cloud6.png')
         var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.7 } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: cloudTexture4, transparent: true, opacity: 0.7 } );
         cloud4 = new THREE.Mesh(planeGeometry,materialPlane);
         cloud4.position.z = -300;
         cloud4.position.y = 200;
         cloud4.position.x = -1200;
         scene.add(cloud4);
 
-        var texture = texturLoader.load('pic/cloud5.png')
         var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.9 } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: cloudTexture5, transparent: true, opacity: 0.9 } );
         cloud5 = new THREE.Mesh(planeGeometry,materialPlane);
         cloud5.position.z = 200;
         cloud5.position.y = 250;
         cloud5.position.x = 500;
         scene.add(cloud5);
 
-        var texture = texturLoader.load('pic/cloud4.png')
         var planeGeometry = new THREE.PlaneGeometry(600,300,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true, opacity: 0.9 } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: cloudTexture6, transparent: true, opacity: 0.9 } );
         cloud6 = new THREE.Mesh(planeGeometry,materialPlane);
         cloud6.position.z = 300;
         cloud6.position.y = 300;
         cloud6.position.x = -1400;
         scene.add(cloud6);
 
-        var texture = texturLoader.load('pic/derijab2.png')
         var planeGeometry = new THREE.PlaneGeometry(1000,400,1,1);
-        var materialPlane = new THREE.MeshBasicMaterial( {map: texture, transparent: true } );
+        var materialPlane = new THREE.MeshBasicMaterial( {map: derijabTexture, transparent: true } );
         derij = new THREE.Mesh(planeGeometry,materialPlane);
         derij.scale.set(0.2, 0.2, 0.2)
         derij.position.z = -1000;
@@ -232,9 +265,23 @@ window.onload = function () {
         // scene.add(plane);
     }
     function createRoad() {
-        var texture = texturLoader.load('pic/asphalt.jpg')
+        Promise.all([
+            roadTexture = texturLoader.load('pic/asphalt.jpg'),
+            barierTexture = texturLoader.load('pic/stop2.png'),
+            newsTexture1 = texturLoader.load('pic/news1.jpg'),
+            newsTexture2 = texturLoader.load('pic/news2.jpg')
+        ]).then(
+            function (result) {
+                $(".loading-container__text").text("Objects Loading...")
+                // song.play();
+                // document.querySelector('.loading').style.display = 'none';
+            },
+            function (error) {
+                alert("Ошибка: " + error.message)
+            }
+        )
         var planeGeometry = new THREE.PlaneGeometry(80,2000,1,1);
-        var materialPlane = new THREE.MeshLambertMaterial( { color: 0x555555, transparent: true,  opacity: 0.4, map: texture} );
+        var materialPlane = new THREE.MeshLambertMaterial( { color: 0x555555, transparent: true,  opacity: 0.4, map: roadTexture} );
         var plane = new THREE.Mesh(planeGeometry,materialPlane);
         plane.position.z = 0;
         plane.position.y = -8;
@@ -381,9 +428,8 @@ window.onload = function () {
         bridge.scale.set(5,5,5)
         reds.position.y = bridge.position.y = -19;
 
-        var texture = texturLoader.load('pic/stop2.png')
         var planeGeometry = new THREE.PlaneGeometry(70,20,1,1);
-        var materialPlane = new THREE.MeshLambertMaterial( {  map: texture, transparent: true, opacity: 0.4 } );
+        var materialPlane = new THREE.MeshLambertMaterial( {  map: barierTexture, transparent: true, opacity: 0.4 } );
         barier = new THREE.Mesh(planeGeometry,materialPlane);
         barier.position.z = bridge.position.z
         barier.position.y = 4;
@@ -434,6 +480,8 @@ window.onload = function () {
         blasterSound.play();
         removeChild(armoView)
         var bullet = armo.pop();
+        bullet.position.z = 990;
+        bullet.position.y = 2;
         bullet.position.x = ship.position.x;
         bullets.unshift(bullet);
         scene.add(bullet);
@@ -493,9 +541,7 @@ window.onload = function () {
                 meshes.push(child);
             }
         });
-        new1 = texturLoader.load('pic/news1.jpg')
-        new2 = texturLoader.load('pic/news2.jpg')
-        var  material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: new1} ),
+        var  material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: newsTexture1} ),
             geometry = new THREE.PlaneGeometry( 17, 15.4 );
         news = new THREE.Mesh(geometry,material);
         billboard = meshes[0];
@@ -672,6 +718,9 @@ window.onload = function () {
         //     createGate2()
         // }, 1000)
         scene.add(ship);
+        $('.loading-container').css("display","none");
+        pause = false;
+        song.play();
         createLigth();
         loop();
     }, onProgress, onError )
@@ -808,7 +857,7 @@ window.onload = function () {
         return rand;
     }
     function check(e) {
-        if (e.keyCode == 32 && armo.length > 0) {
+        if (e.keyCode == 32 && armo.length > 0 && !pause) {
             // console.log(armo);
             shutLaser();
             // console.log(bullets);
@@ -940,8 +989,8 @@ window.onload = function () {
             billboard.position.z = -2000;
             if (randomInteger(0.1, 0.2) == 0.1) billboardShadow.position.x = news.position.x = billboard.position.x = -30;
             else billboardShadow.position.x = news.position.x = billboard.position.x = 30;
-            if ( articleNumber == 0.1) news.material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: new1} );
-            else  if( articleNumber == 0.2) news.material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: new2} );
+            if ( articleNumber == 0.1) news.material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: newsTexture1} );
+            else  if( articleNumber == 0.2) news.material = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 0.8,  transparent: true, map: newsTexture2} );
         }
     }
     function restartMesh(mesh, hitBoxSize, pos) {
@@ -991,13 +1040,19 @@ window.onload = function () {
             else {
                 ship.material = new THREE.MeshLambertMaterial({color: 0xff5555})
                 // alert("a=" + a + " b=" + b + " mesh=" + mesh.position.x + ' pos=' + ship.position.x)
-                alert("Game Over");
-                restartGame()
+                // alert("Game Over");
+                gameOver()
+                // restartGame()
 
             }
         }
     }
 
+    function gameOver() {
+        setGameOver = true;
+        pause = true;
+        pauseGame()
+    }
     function changeColorShip() {
         switch(energy) {
             case 0:
@@ -1044,23 +1099,43 @@ window.onload = function () {
     }
 
     function restartGame() {
-        ship.material = new THREE.MeshLambertMaterial({color: 0xaaaaaa});
-        song.currentTime = 0;
-        checkOrientation = true;
-        ship.rotation.x = 0;
-        ship.position.x = 0;
-        aim.position.x = 0;
-        shipShadow.position.x = 0;
-        score = 0;
-        document.getElementById('score').innerHTML = score;
-        fon.position.z = -2000;
-        restartList(3, batary);
-        restartArmo();
-        createArmo();
-        speed = 0.15;
-        scoreCheck = 5;
-        energy = 3;
-        restartMesh(gate, 6)
+        setGameOver = false;
+        $(".game-over").slideToggle("slow");
+        var arr = document.querySelectorAll('.interference div');
+        setTimeout( function () {
+            pauseGame();
+            for (var i =0 ; i< arr.length; i++) {
+                arr[i].style.animationName = 'interference';
+            }
+        },500)
+        setTimeout( function () {
+            $(".pause-button").toggleClass("pause-button--hidden")
+            $('.interference').css("display","none");
+            $('.game-over').css("display","none");
+            $('.screen').css("display","none");
+            // document.querySelector('.pause-button').classList.toggle("pause-button--hidden");
+            // document.querySelector('.interference').style.display = "none"
+            // document.querySelector('.game-over').style.display = "none"
+            // document.querySelector('.screen').style.display = "none"
+            ship.material = new THREE.MeshLambertMaterial({color: 0xaaaaaa});
+            song.currentTime = 0;
+            checkOrientation = true;
+            ship.rotation.x = 0;
+            ship.position.x = 0;
+            aim.position.x = 0;
+            shipShadow.position.x = 0;
+            score = 0;
+            document.getElementById('score').innerHTML = score;
+            fon.position.z = -2000;
+            restartList(3, batary);
+            restartArmo();
+            createArmo();
+            speed = 0.15;
+            scoreCheck = 5;
+            energy = 3;
+            restartMesh(gate, 6)
+        },1000)
+
     }
     function checkBust(object, target) {
         if (target.position.z.toFixed(0) > 1000 && leftHitBox < target.position.x && target.position.x < rightHitBox ) {
@@ -1077,18 +1152,20 @@ window.onload = function () {
             else  if(armo.length<3 && a && currentBust == "blaster") {
                 var cell = document.createElement("li");
                 armoView.appendChild(cell);
+                console.log(armo);
                 switch(armo.length) {
                     case 0:
-                        armo.unshift(laser1);
+                        armo.push(laser.clone());
                         break;
                     case 1:
-                        armo.unshift(laser2);
+                        armo.push(laser2);
                         break;
                     case 2:
-                        armo.unshift(laser3);
+                        armo.push(laser3);
                         break;
                 }
                 achivment.play();
+                console.log(armo)
                 a = 0;
                 scene.remove(target);
                 target.position.z = -1000;
@@ -1124,7 +1201,7 @@ window.onload = function () {
     function showBust() {
         var rand = randomInteger(-20, 20);
         if (a == 0) {
-            if (rand == 9 || rand == 10) {
+            if (rand == 9) {
                 bust = charge.clone();
                 createBust();
                 bust.position.z = -1500;
@@ -1133,7 +1210,7 @@ window.onload = function () {
                 console.log("charge");
                 a = 1;
             }
-            else if (rand == 8) {
+            else if (rand == 8  || rand == 10) {
                 bust = blaster.clone();
                 createBust();
                 bust.position.z = -1500;
@@ -1146,11 +1223,12 @@ window.onload = function () {
     }
 
         function showBarier() {
-            var rand = randomInteger(1, 2);
+            var rand = randomInteger(1, 1.1);
             console.log(rand)
             if (rand == 1) {
                 redAlertSound.play();
                 barier.position.z = bridge.position.z;
+                barier.scale.y = 1
                 scene.add(barier);
 
                 // console.log("barier");
@@ -1177,6 +1255,9 @@ window.onload = function () {
         // }
 
     function emitationGForce() {
+        if (-1< ship.position.x <1) {
+            ship.rotation.x = 0;
+        }
         if (ship.position.z > 985) {
             ship.position.z -= Math.PI/20
             shipShadow.position.z = ship.position.z -5;
@@ -1198,18 +1279,25 @@ window.onload = function () {
                 if (bullets[i].position.z > 300) {
                     bullets[i].position.z -= Math.PI;
                     if( b == 1 && bullets[i].position.z < barier.position.z + 300) {
-                        scene.remove(barier);
+                        // scene.remove(barier);
                         b = 0 ;
+                        z = 1;
+                        scene.remove(bullets[i]); bullets.splice(i,1)
                     }
                 }
                 else {scene.remove(bullets[i]); bullets.splice(i,1)}
             }
         }
     }
-    
+
+    function destroybarier() {
+        if (barier.scale.y > 0 ) { barier.scale.y -= Math.PI/100; barier.position.z = bridge.position.z }
+        else {scene.remove(barier); z = 0; }
+    }
     
     restartMesh(bust, 7, -1500);
     function loop() {
+        if (z==1) destroybarier()
         fon.position.z += Math.PI/30;
         checkBullets();
         rightHitBox = parseFloat(ship.position.x) + 6;
@@ -1231,7 +1319,7 @@ window.onload = function () {
 
 
         renderer.render(scene,camera);
-        // controls.update();
+        controls.update();
         if (!pause) requestAnimationFrame(function (number) { loop() })
     }
 

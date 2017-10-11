@@ -6,6 +6,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/lib/three.min.js"></script>
     <script src="js/lib/OBJLoader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/lib/TrackballControls.js"></script>
     <script src="js/script.js"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -72,6 +73,18 @@
 
     <div class="screen">
         <div class="pause">PAUSE</div>
+        <div class="game-over">
+            <div>Game Over</div>
+            <div>Your Score: <span id="your-score"></span></div>
+            <input type="button" id="restart" value="RESTART">
+        </div>
+    </div>
+    <div class="loading-container">
+        <div class="loading-container__icon">
+        </div>
+        <div class="loading-container__icon">
+        </div>
+        <span class="loading-container__text">Environment Loading...</span>
     </div>
     <audio src="sounds/gate.mp3" id="gate-audio" preload="auto">
     </audio>
@@ -79,7 +92,7 @@
     </audio>
     <audio src="sounds/confirm.wav" id="pause-sound" preload="auto">
     </audio>
-    <audio src="sounds/Trap.mp3" id="song" autoplay loop preload="auto">
+    <audio src="sounds/Trap.mp3" id="song" loop preload="auto">
     </audio>
     <audio src="sounds/achievement.mp3" id="achivment" preload="auto">
     </audio>

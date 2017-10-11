@@ -84,7 +84,47 @@ html, body {
     align-items: center;
     background-color: rgba( 0, 0, 0, 0.5);
 }
+.loading-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Metro;
+    z-index: 15;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    color: #eb1c3d;
+}
+.loading-container__icon {
+    position: fixed;
+    transform-origin: center center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    animation: loading 2s ease infinite;
+    border: 7px solid #eb1c3d;
+    border-left-color: transparent;
+}
+.loading-container__icon:last-of-type {
+    border-color: #f27b86;
+    width: 320px;
+    height: 320px;
+    border-left-color: transparent;
+    transform: scale(1.5) rotate(-180deg);
+}
+.loading-container__text {
+    width: 250px;
+    text-align: center;
+    position: fixed;
+}
 .pause {
+    display: none;
     font-weight: bolder;
     font-size: 10vh;
     color: #eb1c3d;
@@ -146,7 +186,35 @@ html, body {
     width: 0px;
     height: 0px;
 }
-
+.game-over {
+    border-radius: 10px;
+    display: none;
+    font-family: Metro;
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 50vw;
+    height: 50vh;
+    max-height: 500px;
+    max-width: 700px;
+    background-color: black;
+}
+.game-over div:first-of-type {
+    color: #eb1c3d;
+    font-size: 40px;
+}
+#restart {
+    background-color: transparent;
+    color: white;
+    border: 3px solid white;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    width: 300px;
+    height: 50px;
+}
 .controls {
     position: fixed;
     top: 0px;
@@ -219,6 +287,9 @@ html, body {
     top: 0px;
 
 }
+.pause-button--hidden {
+    visibility: hidden;
+}
 .interference div {
     position: absolute;
     animation-name: interference;
@@ -256,6 +327,9 @@ html, body {
 @keyframes red-alert-start {
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+@keyframes loading {
+    to { transform: rotate(360deg)}
 }
 
 
