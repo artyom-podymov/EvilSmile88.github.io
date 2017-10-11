@@ -15,6 +15,7 @@ window.onload = function () {
     var bust, currentBust;
     var ship, gate, fon, charge, aim, roadLine, shipShadow, portal, billboard, billboardShadow, news, bridge, barier, reds, nitro;
     var cloud1, cloud2, cloud3, cloud4, cloud5, derij;
+    var firstAimMaterial, secondAimMaterial, thierdAimMaterial;
     var laser, laser1, laser2, laser3;
     var bullets = [];
     var armo;
@@ -37,6 +38,11 @@ window.onload = function () {
     blasterSound.volume = 1;
     var achivment = document.getElementById("achivment");
     achivment.volume = 0.3;
+
+    var redAlertSound = document.getElementById("red-alert");
+    redAlertSound.volume = 0.7;
+    var offLine = document.getElementById("off-line");
+    offLine.volume = 1;
 
     var donotHit = false;
     var boost = 1;
@@ -377,7 +383,7 @@ window.onload = function () {
 
         var texture = texturLoader.load('pic/stop2.png')
         var planeGeometry = new THREE.PlaneGeometry(70,20,1,1);
-        var materialPlane = new THREE.MeshLambertMaterial( {  map: texture, transparent: true, opacity: 0.7 } );
+        var materialPlane = new THREE.MeshLambertMaterial( {  map: texture, transparent: true, opacity: 0.4 } );
         barier = new THREE.Mesh(planeGeometry,materialPlane);
         barier.position.z = bridge.position.z
         barier.position.y = 4;
@@ -616,7 +622,10 @@ window.onload = function () {
         });
 
         aim = meshes[0];
-        aim.material = new THREE.MeshLambertMaterial( { color: 0xffffff, opacity: 0.5, transparent: true } )
+        firstAimMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, opacity: 0.5, transparent: true } )
+        secondAimMaterial = new THREE.MeshLambertMaterial( { color: 0xff5555, opacity: 1, transparent: true } )
+        thierdAimMaterial = new THREE.MeshLambertMaterial( { color: 0x26b7eb, opacity: 1, transparent: true } )
+        aim.material = firstAimMaterial
         aim.position.z = 900;
         aim.scale.set(3,3,3);
         aim.position.y = -2;
@@ -665,7 +674,6 @@ window.onload = function () {
         scene.add(ship);
         createLigth();
         loop();
-        alert(11);
     }, onProgress, onError )
 
     function setDiviceOrient(alpha, beta, gamma) {
@@ -904,8 +912,21 @@ window.onload = function () {
 
         if (b == 1 && barier.position.z > 1000) {
             changeOrientaion = true;
+            document.querySelector('.interference').style.display = "block";
+            redAlert();
+            song.volume = 0.05;
+            offLine.play();
+            setTimeout(function () {
+                var arr = document.querySelectorAll('.interference div');
+                for (var i =0 ; i< arr.length; i++) {
+                    arr[i].style.animationName = 'interference';
+                }
+
+            }, 4600)
             setTimeout( function () {
                 changeOrientaion = false;
+                song.volume = 0.2;
+                document.querySelector('.interference').style.display = "none"
             },5000)
             scene.remove(barier);
             b = 0;
@@ -954,11 +975,13 @@ window.onload = function () {
                 document.getElementById('score').innerHTML = score;
             }
             else if (energy != 0 && donotHit == false) {
-                interference();
-                document.querySelector('.interference').style.display = "block";
-                setTimeout(function () {
-                    document.querySelector('.interference').style.display = "none"
-                },600)
+                if (!changeOrientaion) {
+                    interference();
+                    document.querySelector('.interference').style.display = "block";
+                    setTimeout(function () {
+                        document.querySelector('.interference').style.display = "none"
+                    }, 600)
+                }
                 removeChild(batary)
                 energy -= 1;
                 changeColorShip();
@@ -993,13 +1016,30 @@ window.onload = function () {
     }
     function interference() {
         var arr = document.querySelectorAll('.interference div');
+        document.querySelector('.black-screen').style.backgroundColor = "black";
         for (var i =0 ; i< arr.length-1; i++) {
             arr[i].style.width = randomInteger(1, 20) + "vw";
             arr[i].style.animationDelay = randomInteger(0.1, 0.3) + "s";
             arr[i].style.height = randomInteger(1, 10) + "vh";
             arr[i].style.top = randomInteger(1, 100) + "vh";
+            arr[i].style.animationName = 'interference';
             arr[i].style.left = randomInteger(1, 100) + "vw"
             arr[i].style.backgroundColor = "rgba(0,0,0," + randomInteger(1, 1) + ")";
+        }
+    }
+
+    function redAlert() {
+        var arr = document.querySelectorAll('.interference div');
+        document.querySelector('.black-screen').style.backgroundColor = "rgba(255,0,0, 0.4)";
+        for (var i =0 ; i< arr.length-1; i++) {
+            arr[i].style.width = randomInteger(1, 20) + "vw";
+            arr[i].style.animationDelay = randomInteger(0.1, 0.3) + "s";
+            arr[i].style.animationFillMode = "forwards"
+            arr[i].style.height = randomInteger(1, 10) + "vh";
+            arr[i].style.top = randomInteger(1, 100) + "vh";
+            arr[i].style.animationName = 'red-alert-start';
+            arr[i].style.left = randomInteger(1, 100) + "vw"
+            arr[i].style.backgroundColor = "rgba(255,0,0," + randomInteger(1, 1) + ")";
         }
     }
 
@@ -1106,16 +1146,29 @@ window.onload = function () {
     }
 
         function showBarier() {
-            var rand = randomInteger(1.0, 1.1);
+            var rand = randomInteger(1, 1.1);
             console.log(rand)
             if (rand == 1) {
+                redAlertSound.play();
                 barier.position.z = bridge.position.z;
                 scene.add(barier);
+
                 // console.log("barier");
                 b = 1;
             }
         }
 
+        function takeAim() {
+            if (b==1 && !changeOrientaion) {
+                if (barier.position.z<-700) {
+                    aim.material = secondAimMaterial;
+                }
+                else  aim.material = thierdAimMaterial;
+            }
+            else {
+                aim.material = firstAimMaterial;
+            }
+        }
         // else if (rand == 10 && a==0) {
         //     nitro.position.z = -1500;
         //     scene.add(nitro);
@@ -1142,9 +1195,9 @@ window.onload = function () {
     function checkBullets() {
         if (bullets.length > 0) {
             for (var i = 0; i < bullets.length; i++) {
-                if (bullets[i].position.z > 0) {
+                if (bullets[i].position.z > 300) {
                     bullets[i].position.z -= Math.PI;
-                    if( b == 1 && bullets[i].position.z < barier.position.z+200) {
+                    if( b == 1 && bullets[i].position.z < barier.position.z + 300) {
                         scene.remove(barier);
                         b = 0 ;
                     }
@@ -1153,7 +1206,8 @@ window.onload = function () {
             }
         }
     }
-
+    
+    
     restartMesh(bust, 7, -1500);
     function loop() {
         fon.position.z += Math.PI/30;
@@ -1161,6 +1215,7 @@ window.onload = function () {
         rightHitBox = parseFloat(ship.position.x) + 6;
         leftHitBox = ship.position.x - 6;
         shake();
+        takeAim();
         moveClouds()
         moveRoad();
         showBust();

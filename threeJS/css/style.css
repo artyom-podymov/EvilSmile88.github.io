@@ -212,7 +212,7 @@ html, body {
 }
 
 .interference {
-    z-index: 9;
+    z-index: 8;
     display: none;
     position: fixed;
     left: 0px;
@@ -220,13 +220,30 @@ html, body {
 
 }
 .interference div {
-    opacity: 0;
     position: absolute;
-    animation: interference 0.3s linear;
+    animation-name: interference;
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
     background-color: black;
 
 }
-.red-screen {
+/*.red-alert {*/
+    /*z-index: 9;*/
+    /*display: none;*/
+    /*position: fixed;*/
+    /*left: 0px;*/
+    /*top: 0px;*/
+
+/*}*/
+/*.red-alert div {*/
+    /*opacity: 0;*/
+    /*position: absolute;*/
+    /*animation-name: red-alert-start;*/
+    /*animation-duration: 0.3s;*/
+    /*animation-fill-mode: forwards;;*/
+    /*animation-timing-function: linear;*/
+/*}*/
+.black-screen {
     z-index: 9;
     opacity: 0.5;
     height: 100vh;
@@ -236,6 +253,11 @@ html, body {
     0% {opacity: 1;}
     100% {opacity: 0;}
 }
+@keyframes red-alert-start {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
 
 @media (max-width: 980px) {
     .interface {
