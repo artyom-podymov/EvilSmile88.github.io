@@ -946,7 +946,7 @@ window.onload = function () {
     }
     function restartMesh(mesh, hitBoxSize, pos) {
         if( score == scoreCheck && speed > 0.07) {
-            speed = speed - 0.015;
+            speed = speed - 0.01;
             scoreCheck +=7;
         }
         if (mesh.position.z > 800 && mesh == gate) {
@@ -1146,7 +1146,7 @@ window.onload = function () {
     }
 
         function showBarier() {
-            var rand = randomInteger(1, 1.1);
+            var rand = randomInteger(1, 2);
             console.log(rand)
             if (rand == 1) {
                 redAlertSound.play();
