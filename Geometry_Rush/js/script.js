@@ -1175,7 +1175,7 @@ window.onload = function () {
     }
 
         function showBarier() {
-            var rand = randomInteger(1, 3);
+            var rand = randomInteger(1, 2);
             if (rand == 1) {
                 redAlertSound.play();
                 barier.position.z = bridge.position.z;
