@@ -1060,6 +1060,7 @@ window.onload = function () {
             name: this.elements.user.value,
             score: score
         })
+
         fetch("https://aqueous-hollows-48230.herokuapp.com/",
             {
                 headers: {
@@ -1072,6 +1073,7 @@ window.onload = function () {
         // var jqxhr = $.post("", postScore)
         //     .done(function(data) { console.log("second success"); })
         //     .fail(function() { console.log("error"); })
+
     })
 
     function restartGame() {
