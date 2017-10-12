@@ -1059,11 +1059,11 @@ window.onload = function () {
         postScore = JSON.stringify({
             name: this.elements.user.value,
             score: score
-        })
+        });
 
-        var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
-
-        var xhr = new XHR();
+        // var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+        //
+        // var xhr = new XHR();
 
 
         // xhr.open('POST', 'https://aqueous-hollows-48230.herokuapp.com', true);
@@ -1085,8 +1085,11 @@ window.onload = function () {
                     'Content-Type': 'application/json'
                 },
                 mode: 'no-cors',
-                method: "post",
-                body: postScore
+                method: "POST",
+                body: JSON.stringify({
+                    name: this.elements.user.value,
+                    score: score
+                })
             })
             .then(function (resp) {
                 console.log(resp)
