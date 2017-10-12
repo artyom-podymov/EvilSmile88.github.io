@@ -1251,7 +1251,7 @@ window.onload = function () {
 
 
         renderer.render(scene,camera);
-        controls.update();
+//         controls.update();
         if (!pause) requestAnimationFrame(function (number) { loop() })
     }
 };
