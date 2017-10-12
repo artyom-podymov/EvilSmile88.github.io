@@ -260,7 +260,7 @@ window.onload = function () {
             $('.interference').css("display","none");
             $('.start-back').css("display","none");
             $('.start-container').css("display","none");
-            $('.start-count').css("display","block");
+//             $('.start-count').css("display","block");
             // setTimeout(function () {
             //     $(".start-count").text("Steady")
             // },1500);
