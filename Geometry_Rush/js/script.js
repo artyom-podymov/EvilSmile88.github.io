@@ -1087,12 +1087,10 @@ window.onload = function () {
                 method: "POST",
                 body: postScore
             })
-            .then(fetch("https://aqueous-hollows-48230.herokuapp.com/")
-                .then(function (response) {
-                    console.log(response);
-                }));
-
-    });
+        })
+        .then(function (res) {
+            console.log(JSON.parse(res));
+        });
 
     function restartGame() {
         setGameOver = false;
