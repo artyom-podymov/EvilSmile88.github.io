@@ -1049,7 +1049,7 @@ window.onload = function () {
             name: this.elements.user.value,
             score: score
         })
-        var jqxhr = $.post("", postScore)
+        var jqxhr = $.post("https://aqueous-hollows-48230.herokuapp.com/", postScore)
             .done(function(data) { console.log("second success"); })
             .fail(function() { console.log("error"); })
     })
