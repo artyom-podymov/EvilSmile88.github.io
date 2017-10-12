@@ -1061,18 +1061,30 @@ window.onload = function () {
             score: score
         })
 
+        var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+
+        var xhr = new XHR();
+
+
+        // xhr.open('POST', 'https://aqueous-hollows-48230.herokuapp.com', true);
+        //
+        // xhr.onload = function() {
+        //     alert( this.responseText );
+        // }
+        //
+        // xhr.onerror = function() {
+        //     alert( 'Ошибка ' + this.status );
+        // }
+        //
+        // xhr.send();
+
         fetch("https://aqueous-hollows-48230.herokuapp.com/",
             {
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'permissions': [
-                        "https://aqueous-hollows-48230.herokuapp.com/"
-                    ]
                 },
-                permissions: [
-                    "https://aqueous-hollows-48230.herokuapp.com/"
-                ],
                 method: "post",
                 body: postScore
             })
