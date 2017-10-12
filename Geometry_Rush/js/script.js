@@ -5,6 +5,7 @@ window.onload = function () {
     var width = window.innerWidth;
     var canvas = document.getElementById('canvas');
     var score = 0;
+    var postScore;
     var  rightHitBox, leftHitBox;
     var orientMob, checkOrientation = true, useAlpha;
     var changeOrientaion = false;
@@ -1042,6 +1043,16 @@ window.onload = function () {
             arr[i].style.backgroundColor = "rgba(255,0,0," + randomInteger(1, 1) + ")";
         }
     }
+    $(document.forms.score_list).submit(function (event) {
+        event.preventDefault();
+        postScore = JSON.stringify({
+            name: this.elements.user.value,
+            score: score
+        })
+        var jqxhr = $.post("", postScore)
+            .done(function(data) { console.log("second success"); })
+            .fail(function() { console.log("error"); })
+    })
 
     function restartGame() {
         setGameOver = false;
