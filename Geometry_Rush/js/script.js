@@ -1086,10 +1086,10 @@ window.onload = function () {
                 },
                 mode: 'no-cors',
                 method: "POST",
-                body: JSON.stringify({
+                body: {
                     name: this.elements.user.value,
                     score: score
-                })
+                }
             })
             .then(function (resp) {
                 console.log(resp)
