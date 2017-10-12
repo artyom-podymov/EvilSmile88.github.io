@@ -816,7 +816,7 @@ window.onload = function () {
             shutLaser();
             // console.log(bullets);
         }
-        if (e.keyCode == 27) pauseGame();
+        if (e.keyCode == 27 && !setGameOver) pauseGame();
         if (!changeOrientaion) {
             if (e.keyCode == 65) left()
             if (e.keyCode == 68) right()
