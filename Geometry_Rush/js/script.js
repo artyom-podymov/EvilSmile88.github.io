@@ -1084,7 +1084,7 @@ window.onload = function () {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                mode: 'cors',
+                mode: 'no-cors',
                 method: "post",
                 body: postScore
             })
