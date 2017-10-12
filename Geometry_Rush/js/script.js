@@ -1078,7 +1078,7 @@ window.onload = function () {
         //
         // xhr.send();
 
-        fetch("https://aqueous-hollows-48230.herokuapp.com",
+        fetch("https://aqueous-hollows-48230.herokuapp.com/",
             {
                 headers: {
                     'Accept': 'application/json',
