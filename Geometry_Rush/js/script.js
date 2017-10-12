@@ -1060,7 +1060,7 @@ window.onload = function () {
             name: this.elements.user.value,
             score: score
         });
-
+        console.log(postScore)
         // var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
         //
         // var xhr = new XHR();
@@ -1086,10 +1086,7 @@ window.onload = function () {
                 },
                 mode: 'no-cors',
                 method: "POST",
-                body: {
-                    name: this.elements.user.value,
-                    score: score
-                }
+                body: postScore
             })
             .then(function (resp) {
                 console.log(resp)
