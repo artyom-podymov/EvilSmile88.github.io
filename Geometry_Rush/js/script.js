@@ -791,7 +791,7 @@ window.onload = function () {
         }
     });
     window.addEventListener("keyup", function (e) {
-        if (e.keyCode == 65 || e.keyCode == 68) { stopMove = true;
+        if (e.keyCode == 65 || e.keyCode == 68 || e.keyCode == 37 || e.keyCode == 39) { stopMove = true;
             setTimeout(function () {
                 stopMove = false;
             }, 100)
