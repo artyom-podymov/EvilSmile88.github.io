@@ -1065,8 +1065,14 @@ window.onload = function () {
             {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'permissions': [
+                        "https://aqueous-hollows-48230.herokuapp.com/"
+                    ]
                 },
+                permissions: [
+                    "https://aqueous-hollows-48230.herokuapp.com/"
+                ],
                 method: "post",
                 body: postScore
             })
