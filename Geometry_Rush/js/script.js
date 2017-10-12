@@ -260,6 +260,17 @@ window.onload = function () {
             $('.interference').css("display","none");
             $('.start-back').css("display","none");
             $('.start-container').css("display","none");
+            $('.start-count').css("display","block");
+            // setTimeout(function () {
+            //     $(".start-count").text("Steady")
+            // },1500);
+            // setTimeout(function () {
+            //     $(".start-count").text("Go")
+            // },3000)
+            // setTimeout(function () {
+            //     $(".start-count").css("display","none")
+            //
+            // },4500)
             pauseGame();
             window.addEventListener("keydown", check);
         })
@@ -1049,9 +1060,18 @@ window.onload = function () {
             name: this.elements.user.value,
             score: score
         })
-        var jqxhr = $.post("", postScore)
-            .done(function(data) { console.log("second success"); })
-            .fail(function() { console.log("error"); })
+        fetch("https://aqueous-hollows-48230.herokuapp.com/",
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "post",
+                body: postScore
+            })
+        // var jqxhr = $.post("", postScore)
+        //     .done(function(data) { console.log("second success"); })
+        //     .fail(function() { console.log("error"); })
     })
 
     function restartGame() {

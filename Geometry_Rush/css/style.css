@@ -390,7 +390,19 @@ html, body {
 .tutorial .start-container__icon {
     animation-delay: 0.5s;
 }
-
+.start-count {
+    display: none;
+    position: fixed;
+    left: 35vw;
+    top: 40vh;
+    animation: ready 1.5s ease infinite ;
+    color: #eb1c3d;
+    font-family: Metro;
+    font-size: 70px;
+}
+@keyframes ready {
+    to {transform: scale(1.5);}
+}
 
 @keyframes interference {
     0% {opacity: 1;}
@@ -406,6 +418,9 @@ html, body {
 
 
 @media (max-width: 980px) {
+    .start-count{
+        font-size: 50px;
+    }
     .interface {
         right: 20vh;
     }
