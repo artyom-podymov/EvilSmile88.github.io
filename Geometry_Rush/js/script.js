@@ -1081,10 +1081,10 @@ window.onload = function () {
         fetch("https://aqueous-hollows-48230.herokuapp.com/",
             {
                 headers: {
-                    'Access-Control-Allow-Origin' : '*',
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                mode: 'cors',
                 method: "post",
                 body: postScore
             })
