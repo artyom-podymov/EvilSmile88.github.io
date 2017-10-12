@@ -348,11 +348,16 @@ html, body {
     width: 100vw;
     height: 100vh;
 }
-.start-container__icon--hover {
+#start, #tutorial{
+    cursor: pointer;
+    z-index: 10;
+}
+#start:hover, #tutorial:hover {
     background-color: rgba(0,0,0, 0.2);
 }
 .start-container__text {
-    cursor: pointer;
+    z-index: 11;
+    pointer-events: none;
     width: 300px;
     height: 300px;
     display: flex;
@@ -371,8 +376,8 @@ html, body {
     left: 70vw
 }
 .tutorial__text {
-    z-index: 10;
-    cursor: pointer;
+    z-index: 11;
+    pointer-events: none;
     width: 300px;
     height: 300px;
     display: flex;

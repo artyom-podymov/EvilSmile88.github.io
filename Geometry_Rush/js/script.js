@@ -233,17 +233,17 @@ window.onload = function () {
         $('.loading-container').css("display","none");
         $('.interference').css("display","block");
         redAlert()
-        $("#start").mouseenter(function () {
-            $(".start-container >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
-        }).mouseleave(function () {
-            $(".start-container >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
-        })
+        // $("#start").mouseenter(function () {
+        //     $(".start-container >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
+        // }).mouseleave(function () {
+        //     $(".start-container >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
+        // })
 
-        $("#tutorial").mouseenter(function () {
-            $(".tutorial >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
-        }).mouseleave(function () {
-            $(".tutorial >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
-        })
+        // $("#tutorial").mouseenter(function () {
+        //     $(".tutorial >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
+        // }).mouseleave(function () {
+        //     $(".tutorial >.start-container__icon").eq(0).toggleClass("start-container__icon--hover");
+        // })
         $("#start").click(function () {
             arraySound.forEach(function (elem) {
                 elem.play();
@@ -267,7 +267,7 @@ window.onload = function () {
     // onloadeddata="myOnLoadedData()"
     function createRoad() {
         Promise.all([
-            roadTexture = texturLoader.load('pic/asphalt.jpg'),
+            // roadTexture = texturLoader.load('pic/asphalt.jpg'),
             barierTexture = texturLoader.load('pic/stop2.png'),
             newsTexture1 = texturLoader.load('pic/news1.jpg'),
             newsTexture2 = texturLoader.load('pic/news2.jpg'),
@@ -285,7 +285,7 @@ window.onload = function () {
             }
         )
         var planeGeometry = new THREE.PlaneGeometry(80,2000,1,1);
-        var materialPlane = new THREE.MeshLambertMaterial( { color: 0x555555, transparent: true,  opacity: 0.4, map: roadTexture} );
+        var materialPlane = new THREE.MeshLambertMaterial( { color: 0x333333, transparent: true,  opacity: 0.7,} );
         var plane = new THREE.Mesh(planeGeometry,materialPlane);
         plane.position.z = 0;
         plane.position.y = -8;
