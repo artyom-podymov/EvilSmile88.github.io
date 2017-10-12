@@ -137,7 +137,7 @@ window.onload = function () {
     }
     function createFon() {
         Promise.all([
-            cityTexture = texturLoader.load('pic/road2.jpg'),
+            cityTexture = texturLoader.load('pic/road2-min.jpg'),
             cloudTexture1 = texturLoader.load('pic/cloud1.png'),
             cloudTexture2 = texturLoader.load('pic/cloud2.png'),
             cloudTexture3 = texturLoader.load('pic/cloud3.png'),
@@ -1262,7 +1262,7 @@ window.onload = function () {
 
 
         renderer.render(scene,camera);
-        controls.update();
+//         controls.update();
         if (!pause) requestAnimationFrame(function (number) { loop() })
     }
 };
