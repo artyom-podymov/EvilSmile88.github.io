@@ -829,12 +829,12 @@ window.onload = function () {
         }
         if (e.keyCode == 27 && !setGameOver) pauseGame();
         if (!changeOrientaion) {
-            if (e.keyCode == 65) left()
-            if (e.keyCode == 68) right()
+            if (e.keyCode == 65 || e.keyCode == 37) left()
+            if (e.keyCode == 68 || e.keyCode == 39) right()
         }
         else {
-            if (e.keyCode == 65) right()
-            if (e.keyCode == 68) left()
+            if (e.keyCode == 65 || e.keyCode == 37) right()
+            if (e.keyCode == 68 || e.keyCode == 39) left()
         }
     }
     function left() {
