@@ -1078,7 +1078,7 @@ window.onload = function () {
         //
         // xhr.send();
 
-        fetch("https://aqueous-hollows-48230.herokuapp.com:39233",
+        fetch("https://aqueous-hollows-48230.herokuapp.com",
             {
                 headers: {
                     'Accept': 'application/json',
@@ -1087,6 +1087,9 @@ window.onload = function () {
                 mode: 'no-cors',
                 method: "post",
                 body: postScore
+            })
+            .then(function (resp) {
+                console.log(resp)
             })
         // var jqxhr = $.post("", postScore)
         //     .done(function(data) { console.log("second success"); })
