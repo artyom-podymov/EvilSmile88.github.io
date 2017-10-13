@@ -260,7 +260,7 @@ window.onload = function () {
             $('.interference').css("display","none");
             $('.start-back').css("display","none");
             $('.start-container').css("display","none");
-            $('.start-count').css("display","block");
+//             $('.start-count').css("display","block");
             // setTimeout(function () {
             //     $(".start-count").text("Steady")
             // },1500);
@@ -791,7 +791,7 @@ window.onload = function () {
         }
     });
     window.addEventListener("keyup", function (e) {
-        if (e.keyCode == 65 || e.keyCode == 68) { stopMove = true;
+        if (e.keyCode == 65 || e.keyCode == 68 || e.keyCode == 37 || e.keyCode == 39) { stopMove = true;
             setTimeout(function () {
                 stopMove = false;
             }, 100)
@@ -829,12 +829,12 @@ window.onload = function () {
         }
         if (e.keyCode == 27 && !setGameOver) pauseGame();
         if (!changeOrientaion) {
-            if (e.keyCode == 65) left()
-            if (e.keyCode == 68) right()
+            if (e.keyCode == 65 || e.keyCode == 37) left()
+            if (e.keyCode == 68 || e.keyCode == 39) right()
         }
         else {
-            if (e.keyCode == 65) right()
-            if (e.keyCode == 68) left()
+            if (e.keyCode == 65 || e.keyCode == 37) right()
+            if (e.keyCode == 68 || e.keyCode == 39) left()
         }
     }
     function left() {
