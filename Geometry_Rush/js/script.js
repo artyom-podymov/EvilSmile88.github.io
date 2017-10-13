@@ -1088,7 +1088,10 @@ window.onload = function () {
                 body: postScore
             }).then(fetch("https://aqueous-hollows-48230.herokuapp.com/")
             .then(function (res) {
-                console.log(res.json());
+                return res.json();
+            })
+            .then(function (res) {
+                console.log(res);
             }));
         });
 
