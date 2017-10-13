@@ -1092,14 +1092,7 @@ window.onload = function () {
             })
             .then(function (res) {
                 console.log(res);
-            })
-            .then(fetch("https://aqueous-hollows-48230.herokuapp.com/")
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function (res) {
-                console.log(res);
-            }));
+            });
         });
 
 
