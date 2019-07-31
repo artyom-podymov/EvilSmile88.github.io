@@ -12,6 +12,7 @@
                     console.log(2222, "test2")
                     window.localStorage.setItem(key, JSON.stringify(value))
                 } else if (action == 'get') {
+                    console.log(3333, "test3")
                     const parsedResponse = JSON.parse(window.localStorage.getItem(key));
                     event.source.postMessage({action: 'returnData', key, parsedResponse},'*')
                 }
