@@ -13,7 +13,7 @@
                 } else if (action === 'get') {
                     console.log(3333, "get", event, event.source);
                     const parsedResponse = JSON.parse(window.localStorage.getItem(key));
-                    event.source.postMessage({action: 'returnData', key, parsedResponse}, `${event.origin}`)
+                    event.source.postMessage({action: 'returnData', key, parsedResponse}, "*")
                 }
             }
     </script>
