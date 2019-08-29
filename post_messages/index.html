@@ -7,7 +7,7 @@
             window.addEventListener("message", messageHandler, false);
             function messageHandler(event) {
                 const {action, key, value} = event.data;
-                if (action === 'save') 
+                if (action === 'save') {
                     window.localStorage.setItem(key, JSON.stringify(value))
                 } else if (action === 'get') {
                     const parsedResponse = JSON.parse(window.localStorage.getItem(key));
